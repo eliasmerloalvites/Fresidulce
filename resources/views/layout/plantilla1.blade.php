@@ -361,6 +361,31 @@
                                 </li>
                             @endcan
 
+
+                           
+                                <li class="nav-item has-treeview" >
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-lock"></i>
+                                        <p>
+                                            MODULO
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        
+                                            <li class="nav-item">
+                                                <a href="{{route('categoria.index')}}" >
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Categorias</p>
+                                                </a>
+                                            </li>
+
+                                    </ul>
+                                </li>
+                            
+
+
+
                             <li class="nav-item has-treeview">
                                 <a href="http://kamilmotors.com/" target="_blank" class="nav-link ">                                    
                                     <i class="nav-icon fas fa-link"></i>

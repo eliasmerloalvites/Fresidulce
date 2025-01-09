@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PermisoControl;
 use App\Http\Controllers\PermisoController;
@@ -33,14 +34,13 @@ Route::post('/salir', [UserController::class,'salir'])->name('logout');
 
 
 Route::middleware(['auth'])->group(function(){ 
-  Route::get('/Home', [HomeController::class,'index'])->name('home');
+  Route::get('/home', [HomeController::class,'index'])->name('home');
   Route::post('/perfil/foto', 'ProfileController@updatePhoto');
   Route::get('personal/getimagen', [ProfileController::class,'getimagen'])->name('personal.getimagen');
   Route::resource('usuario', UserController::class);
   Route::resource('role', RoleController::class);  
   Route::resource('permiso', PermisoController::class);
-
-
 });
 
+Route::resource('categoria', CategoriaController::class);
 
