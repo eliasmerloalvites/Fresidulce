@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Categoria;
+use App\Models\Clase;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoriaController extends Controller
 {
@@ -12,7 +15,12 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        return view('categoria.index');
+        $categoria= DB::table('categoria as ct')
+            ->join('clase as cl','ct.CLA_Id','=','cl.CLA_Id')
+            ->select('ct.*','cl.CLA_Nombre')
+            ->get();
+        $clase=Clase::all();
+        return view('categoria.index',['Categoria'=>$categoria,'Clase'=>$clase]);
     }
 
     /**
@@ -28,7 +36,13 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
+        $categoria=new Categoria();
+        $categoria->CAT_Nombre=$request->CAT_Nombre;
+        $categoria->CLA_Id=$request->CLA_Id;
+        $categoria->save();
+        return redirect()->route('categoria.index')
+        ;
     }
 
     /**

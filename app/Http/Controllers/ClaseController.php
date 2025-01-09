@@ -11,7 +11,7 @@ class ClaseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
         $Clase=Clase::all();
         return view('clase.index',['Clase'=>$Clase]);

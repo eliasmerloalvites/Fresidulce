@@ -10,29 +10,29 @@
                 <div class="card-body">
                     <h5 class="card-title">CREAR CATEGORIAS</h5>
                     <p class="card-text"></p>
-                    <form  id="PermisoForm" name="PermisoForm" action="" >
+                    <form  method="POST" action="{{route('categoria.store')}}" >
                         @csrf
-                
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <input type="text" id="permiso_id_edit" hidden>
                                     <label class="control-label">Nombre:</label>
-                                    <input type="text" id="nombre" name="nombre" class="form-control input_user @error('nombre') is-invalid @enderror"  placeholder="Nombre" required>
-                                   
+                                    <input type="text" id="CAT_Nombre" name="CAT_Nombre"  placeholder="Nombre" required>
                                 </div>
-                              
-                                
                             </div>
-                        
-                            <p></p>
-                            
-                            
-                            <button id="" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
-                            
-                           
-                            <button id="" name="updateBtn" class="btn btn-info" disabled><i class="fas fa-save"></i>Actualizar</button>
-                           
-                            <button type="reset" id="" class="btn btn-danger"> <i class="fas fa-ban"></i>Cancelar </button>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label class="control-label">Clase:</label>
+                                    <select class="form-control select2 select2-info" id="CLA_Id" name="CLA_Id"
+                                    data-dropdown-css-class="select2-info" onchange="verName()" style="width: 100%;">
+                                    <option value="">Seleccionar ...</option>
+                                    @foreach ($Clase as $itemClase)
+                                        <option value="{{ $itemClase->CLA_Id }}"> {{ $itemClase->CLA_Nombre }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                </div>
+                            </div>
+                            <p></p>                           
+                            <button class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>                           
                     </form>
                 </div>
             </div>
@@ -48,12 +48,19 @@
                         <tr>
                           <th scope="col">Id</th>
                           <th scope="col">Nombre</th>
-                          <th scope="col">Link</th>
+                          <th scope="col">Clase</th>
                           <th scope="col">Opciones</th>
                         </tr>
                         </thead>
-                       
-                    
+                       <tbody>
+                        @foreach($Categoria as $itemCategoria)
+                        <tr>
+                            <td>{{$itemCategoria->CAT_Id}}</td>
+                            <td>{{$itemCategoria->CAT_Nombre}}</td>
+                            <td>{{$itemCategoria->CLA_Nombre}}</td>
+                        </tr>
+                        @endforeach
+                       </tbody>
                     </table>
                 
                 </div>

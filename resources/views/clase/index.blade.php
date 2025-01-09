@@ -20,7 +20,7 @@
                             </div>
                             <p></p>
                             <button class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
-                            <a href="{{route('cancelar')}}"><button type="reset" id="" class="btn btn-danger"> <i class="fas fa-ban"></i>Cancelar
+                            <a href="{{route('cancelarClase')}}"><button type="reset" id="" class="btn btn-danger"> <i class="fas fa-ban"></i>Cancelar
                             </button></a>
                         </form>
                     </div>
