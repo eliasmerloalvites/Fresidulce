@@ -3,7 +3,7 @@
 @section('title', 'RRHH')
 @section('content')
 
-   <body class="sidebar-mini layout-navbar-fixed text-sm" style="height: auto; min-height: 100%;">
+    <body class="sidebar-mini layout-navbar-fixed text-sm" style="height: auto; min-height: 100%;">
         <div class="wrapper">
             <nav class="main-header navbar navbar-expand navbar-dark">
                 <ul class="navbar-nav">
@@ -44,7 +44,8 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" id="idSession" style=" display: none;  "
                             aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
                                 {{ __('Cerrar Session') }}
                             </a>
@@ -66,9 +67,9 @@
             <aside class="main-sidebar elevation-4 sidebar-light-black sidebar-dark-navy">
                 <!-- Brand Logo -->
                 <a href="/rrhh" class="brand-link navbar-light">
-                   <img id="avatarImageHeader" class="brand-image img-circle elevation-3" alt="User Image">
-                        <span class="brand-text font-weight-light">
-                    <img src="{{ asset('dist/img/logo.png') }}" alt="AdminLTE Logo" style="height:30px"> </span>
+                    <img id="avatarImageHeader" class="brand-image img-circle elevation-3" alt="User Image">
+                    <span class="brand-text font-weight-light">
+                        <img src="{{ asset('dist/img/logo.png') }}" alt="AdminLTE Logo" style="height:30px"> </span>
 
                 </a>
 
@@ -77,8 +78,7 @@
                     <!-- Sidebar user (optional) -->
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="image">
-                            <img id="avatarImageMenu" class="img-circle elevation-2"
-                                alt="User Image">
+                            <img id="avatarImageMenu" class="img-circle elevation-2" alt="User Image">
 
                         </div>
                         <div class="info">
@@ -94,14 +94,15 @@
                                     <i class="nav-icon fas fa-user"></i>
                                     <p>
                                         ASISTENCIA
-                                    <i class="fas fa-angle-left right"></i>
+                                        <i class="fas fa-angle-left right"></i>
                                     </p>
                                 </a>
 
                                 <ul class="nav nav-treeview">
                                     @can('rrhh.asistencias.create')
                                         <li class="nav-item">
-                                            <a href="{{ route('rrhh.asistencias.index') }}" class="nav-link " id="idCabAsistenciaLista">
+                                            <a href="{{ route('rrhh.asistencias.index') }}" class="nav-link "
+                                                id="idCabAsistenciaLista">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Lista</p>
                                             </a>
@@ -113,8 +114,8 @@
                                 <a href="#" class="nav-link" id="idVentas">
                                     <i class="nav-icon fas fa-cash-register"></i>
                                     <p>
-                                    VENTAS
-                                    <i class="fas fa-angle-left right"></i>
+                                        VENTAS
+                                        <i class="fas fa-angle-left right"></i>
                                     </p>
                                 </a>
 
@@ -139,109 +140,114 @@
                             </li>
 
                             @can('rrhh.personal.index')
-                            <li class="nav-item has-treeview" id="idCabGestion">
-                                <a href="#" class="nav-link" id="idGestion">
-                                    <i class="nav-icon fas fa-edit"></i>
-                                    <p>
-                                    GESTIÓN ADMINISTRATIVA
-                                    <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    @can('rrhh.personal.index')
-                                    <li class="nav-item has-treeview">
-                                        <a href="{{ route('rrhh.personal.create') }}" class="nav-link " id="idGesPersonalN">
-                                            <i class="nav-icon far fa-circle"></i>
-                                            <p>
-                                                Personal Nuevo
-                                            </p>
-                                        </a>
-                                    </li>
-                                    @endcan
-                                    @can('rrhh.personal.index')
-                                        <li class="nav-item has-treeview">
-                                            <a href="{{ route('rrhh.personal.index') }}" class="nav-link" id="idGesFicha">
-                                                <i class="nav-icon far fa-circle"></i>
-                                                <p>
-                                                    Ficha Personal
-                                                </p>
-                                            </a>
-                                        </li>
-                                    @endcan
-                                    @can('rrhh.personal.index')
-                                    <li class="nav-item has-treeview" id="idCabGesActas" style="display: none">
-                                        <a href="#" class="nav-link" id="idGesActas">
-                                            <i class="nav-icon fas fa-circle"></i>
-                                            <p>
-                                                Actas de Bioseguridad
-                                                <i class="right fas fa-angle-left"></i>
-                                            </p>
-                                        </a>
-                                        <ul class="nav nav-treeview">
-                                            @can('rrhh.actaspersonal.create')
-                                                <li class="nav-item">
-                                                    <a href="{{ route('rrhh.actaspersonal.create') }}" class="nav-link" id="idGesActasRegistrar">
-                                                        <i class="far fa-circle nav-icon"></i>
-                                                        <p>Registrar</p>
-                                                    </a>
-                                                </li>
-                                            @endcan
-                                            @can('rrhh.actaspersonal.index')
-                                                <li class="nav-item">
-                                                    <a href="{{ route('rrhh.actaspersonal.index') }}" class="nav-link" id="idGesActasLista">
-                                                        <i class="far fa-circle nav-icon"></i>
-                                                        <p>Lista</p>
-                                                    </a>
-                                                </li>
-                                            @endcan
-                                        </ul>
-                                    </li>
-                                    @endcan
-                                    @can('rrhh.contratopersonal.index')
-                                    <li class="nav-item has-treeview" id="idCabGesPersonal">
-                                        <a href="#" class="nav-link"  id="idGesPersonal">
-                                            <i class="nav-icon fas fa-circle"></i>
-                                            <p>
-                                                Contrato
-                                                <i class="right fas fa-angle-left"></i>
-                                            </p>
-                                        </a>
-                                        <ul class="nav nav-treeview">
-                                            @can('rrhh.contratopersonal.create')
-                                                <li class="nav-item">
-                                                    <a href="{{ route('rrhh.contratopersonal.create') }}" class="nav-link" id="idGesPersonalRegistrar">
-                                                        <i class="far fa-circle nav-icon"></i>
-                                                        <p>Registrar</p>
-                                                    </a>
-                                                </li>
-                                            @endcan
-                                            @can('rrhh.contratopersonal.index')
-                                                <li class="nav-item">
-                                                    <a href="{{ route('rrhh.contratopersonal.index') }}" class="nav-link" id="idGesPersonalLista">
-                                                        <i class="far fa-circle nav-icon"></i>
-                                                        <p>Lista</p>
-                                                    </a>
-                                                </li>
-                                            @endcan
-                                        </ul>
-                                    </li>
-                                    @endcan
-                                    @can('rrhh.contratopersonal.index')
-                                        <li class="nav-item has-treeview" style="display: none">
-                                            <a href="{{ route('rrhh.personal.filtro') }}" class="nav-link" id="idGesFiltro">
-                                                <i class="nav-icon far fa-circle"></i>
-                                                <p>
-                                                    Filtros
-                                                </p>
-                                            </a>
-                                        </li>
-                                    @endcan
-                                </ul>
-                            </li>
+                                <li class="nav-item has-treeview" id="idCabGestion">
+                                    <a href="#" class="nav-link" id="idGestion">
+                                        <i class="nav-icon fas fa-edit"></i>
+                                        <p>
+                                            GESTIÓN ADMINISTRATIVA
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        @can('rrhh.personal.index')
+                                            <li class="nav-item has-treeview">
+                                                <a href="{{ route('rrhh.personal.create') }}" class="nav-link "
+                                                    id="idGesPersonalN">
+                                                    <i class="nav-icon far fa-circle"></i>
+                                                    <p>
+                                                        Personal Nuevo
+                                                    </p>
+                                                </a>
+                                            </li>
+                                        @endcan
+                                        @can('rrhh.personal.index')
+                                            <li class="nav-item has-treeview">
+                                                <a href="{{ route('rrhh.personal.index') }}" class="nav-link" id="idGesFicha">
+                                                    <i class="nav-icon far fa-circle"></i>
+                                                    <p>
+                                                        Ficha Personal
+                                                    </p>
+                                                </a>
+                                            </li>
+                                        @endcan
+                                        @can('rrhh.personal.index')
+                                            <li class="nav-item has-treeview" id="idCabGesActas" style="display: none">
+                                                <a href="#" class="nav-link" id="idGesActas">
+                                                    <i class="nav-icon fas fa-circle"></i>
+                                                    <p>
+                                                        Actas de Bioseguridad
+                                                        <i class="right fas fa-angle-left"></i>
+                                                    </p>
+                                                </a>
+                                                <ul class="nav nav-treeview">
+                                                    @can('rrhh.actaspersonal.create')
+                                                        <li class="nav-item">
+                                                            <a href="{{ route('rrhh.actaspersonal.create') }}" class="nav-link"
+                                                                id="idGesActasRegistrar">
+                                                                <i class="far fa-circle nav-icon"></i>
+                                                                <p>Registrar</p>
+                                                            </a>
+                                                        </li>
+                                                    @endcan
+                                                    @can('rrhh.actaspersonal.index')
+                                                        <li class="nav-item">
+                                                            <a href="{{ route('rrhh.actaspersonal.index') }}" class="nav-link"
+                                                                id="idGesActasLista">
+                                                                <i class="far fa-circle nav-icon"></i>
+                                                                <p>Lista</p>
+                                                            </a>
+                                                        </li>
+                                                    @endcan
+                                                </ul>
+                                            </li>
+                                        @endcan
+                                        @can('rrhh.contratopersonal.index')
+                                            <li class="nav-item has-treeview" id="idCabGesPersonal">
+                                                <a href="#" class="nav-link" id="idGesPersonal">
+                                                    <i class="nav-icon fas fa-circle"></i>
+                                                    <p>
+                                                        Contrato
+                                                        <i class="right fas fa-angle-left"></i>
+                                                    </p>
+                                                </a>
+                                                <ul class="nav nav-treeview">
+                                                    @can('rrhh.contratopersonal.create')
+                                                        <li class="nav-item">
+                                                            <a href="{{ route('rrhh.contratopersonal.create') }}" class="nav-link"
+                                                                id="idGesPersonalRegistrar">
+                                                                <i class="far fa-circle nav-icon"></i>
+                                                                <p>Registrar</p>
+                                                            </a>
+                                                        </li>
+                                                    @endcan
+                                                    @can('rrhh.contratopersonal.index')
+                                                        <li class="nav-item">
+                                                            <a href="{{ route('rrhh.contratopersonal.index') }}" class="nav-link"
+                                                                id="idGesPersonalLista">
+                                                                <i class="far fa-circle nav-icon"></i>
+                                                                <p>Lista</p>
+                                                            </a>
+                                                        </li>
+                                                    @endcan
+                                                </ul>
+                                            </li>
+                                        @endcan
+                                        @can('rrhh.contratopersonal.index')
+                                            <li class="nav-item has-treeview" style="display: none">
+                                                <a href="{{ route('rrhh.personal.filtro') }}" class="nav-link" id="idGesFiltro">
+                                                    <i class="nav-icon far fa-circle"></i>
+                                                    <p>
+                                                        Filtros
+                                                    </p>
+                                                </a>
+                                            </li>
+                                        @endcan
+                                    </ul>
+                                </li>
                             @endcan
 
                             @can('rrhh.venta.create')
-                                <li class="nav-item has-treeview"  id="idCabReporte1">
+                                <li class="nav-item has-treeview" id="idCabReporte1">
                                     <a href="#" class="nav-link" id="idReporte1">
                                         <i class="nav-icon fas fa-chart-bar"></i>
                                         <p>
@@ -252,7 +258,8 @@
 
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('rrhh.reporte.ventas') }}" class="nav-link " id="idReporteVentas">
+                                            <a href="{{ route('rrhh.reporte.ventas') }}" class="nav-link "
+                                                id="idReporteVentas">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Ventas</p>
                                             </a>
@@ -273,7 +280,8 @@
                                     <ul class="nav nav-treeview">
                                         @can('rrhh.tipolinea.index')
                                             <li class="nav-item">
-                                                <a href="{{ route('rrhh.tipolinea.index') }}" class="nav-link " id="idAjuTipoLinea">
+                                                <a href="{{ route('rrhh.tipolinea.index') }}" class="nav-link "
+                                                    id="idAjuTipoLinea">
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>Tipo Línea</p>
                                                 </a>
@@ -281,7 +289,8 @@
                                         @endcan
                                         @can('rrhh.operador.index')
                                             <li class="nav-item">
-                                                <a href="{{ route('rrhh.operador.index') }}" class="nav-link " id="idAjuOperador">
+                                                <a href="{{ route('rrhh.operador.index') }}" class="nav-link "
+                                                    id="idAjuOperador">
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>Operador</p>
                                                 </a>
@@ -289,7 +298,8 @@
                                         @endcan
                                         @can('rrhh.estadolinea.index')
                                             <li class="nav-item">
-                                                <a href="{{ route('rrhh.estadolinea.index') }}" class="nav-link " id="idAjuEstadoLinea">
+                                                <a href="{{ route('rrhh.estadolinea.index') }}" class="nav-link "
+                                                    id="idAjuEstadoLinea">
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>Estado Línea</p>
                                                 </a>
@@ -297,7 +307,8 @@
                                         @endcan
                                         @can('rrhh.producto.index')
                                             <li class="nav-item">
-                                                <a href="{{ route('rrhh.producto.index') }}" class="nav-link " id="idAjuProducto">
+                                                <a href="{{ route('rrhh.producto.index') }}" class="nav-link "
+                                                    id="idAjuProducto">
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>Producto</p>
                                                 </a>
@@ -305,7 +316,8 @@
                                         @endcan
                                         @can('mantenimiento.cliente.index')
                                             <li class="nav-item">
-                                                <a href="{{ route('mantenimiento.cliente.index') }}" class="nav-link" id="idAjuCliente">
+                                                <a href="{{ route('mantenimiento.cliente.index') }}" class="nav-link"
+                                                    id="idAjuCliente">
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>Cliente</p>
                                                 </a>
@@ -314,10 +326,13 @@
                                     </ul>
                                 </li>
                             @endcan
-                            
+
                             @can('users.index')
-                                <li class="nav-item has-treeview {{ request()->is('usuario*') || request()->is('permiso*') || request()->is('rol*') ? 'menu-open' : '' }}" id="idCabSeguridad" >
-                                    <a href="#" class="nav-link {{ request()->is('usuario*') || request()->is('permisos*') || request()->is('roles*') ? 'active' : '' }}" id="idSeguridad" >
+                                <li class="nav-item has-treeview {{ request()->is('usuario*') || request()->is('permiso*') || request()->is('rol*') ? 'menu-open' : '' }}"
+                                    id="idCabSeguridad">
+                                    <a href="#"
+                                        class="nav-link {{ request()->is('usuario*') || request()->is('permisos*') || request()->is('roles*') ? 'active' : '' }}"
+                                        id="idSeguridad">
                                         <i class="nav-icon fas fa-lock"></i>
                                         <p>
                                             SEGURIDAD
@@ -327,7 +342,9 @@
                                     <ul class="nav nav-treeview">
                                         @can('permiso.index')
                                             <li class="nav-item">
-                                                <a href="{{ route('permiso.index') }}" class="nav-link {{ request()->is('permiso*') ? 'active' : '' }}" id="idSegPermiso">
+                                                <a href="{{ route('permiso.index') }}"
+                                                    class="nav-link {{ request()->is('permiso*') ? 'active' : '' }}"
+                                                    id="idSegPermiso">
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>Permiso</p>
                                                 </a>
@@ -335,7 +352,9 @@
                                         @endcan
                                         @can('role.index')
                                             <li class="nav-item">
-                                                <a href="{{ route('role.index') }}" class="nav-link  {{ request()->is('rol*') ? 'active' : '' }}" id="idSegRoles">
+                                                <a href="{{ route('role.index') }}"
+                                                    class="nav-link  {{ request()->is('rol*') ? 'active' : '' }}"
+                                                    id="idSegRoles">
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>Roles</p>
                                                 </a>
@@ -343,7 +362,9 @@
                                         @endcan
                                         @can('users.index')
                                             <li class="nav-item">
-                                                <a href="{{ route('usuario.index') }}" class="nav-link {{request()->is('usuario*') ? 'active' : ''}}" id="idSegUsuario">
+                                                <a href="{{ route('usuario.index') }}"
+                                                    class="nav-link {{ request()->is('usuario*') ? 'active' : '' }}"
+                                                    id="idSegUsuario">
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>Usuario</p>
                                                 </a>
@@ -362,40 +383,46 @@
                             @endcan
 
 
-                           
-                                <li class="nav-item has-treeview" >
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-lock"></i>
-                                        <p>
-                                            MODULO
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        
-                                            <li class="nav-item">
-                                                <a href="{{route('categoria.index')}}" class="nav-link">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>Categorias</p>
-                                                </a>
-                                            </li>
-                                    </ul>
-                                    <ul class="nav nav-treeview">
-                                        
-                                        <li class="nav-item">
-                                            <a href="{{route('clase.index')}}" class="nav-link" >
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Clases</p>
-                                            </a>
-                                        </li>
+
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-lock"></i>
+                                    <p>
+                                        MODULO
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('clase.index') }}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Clases</p>
+                                        </a>
+                                    </li>
                                 </ul>
-                                </li>
-                            
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('categoria.index') }}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Categorias</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('producto.index') }}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Productos</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
 
 
 
                             <li class="nav-item has-treeview">
-                                <a href="http://kamilmotors.com/" target="_blank" class="nav-link ">                                    
+                                <a href="http://kamilmotors.com/" target="_blank" class="nav-link ">
                                     <i class="nav-icon fas fa-link"></i>
                                     <p>
                                         Archivo
@@ -426,14 +453,14 @@
         <script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script> --}}
 
 
-        <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
-        <link href="{{asset('css/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
-        <link href="{{asset('plugins/font-awesome/css/fontawesome-all.min.css')}}" rel="stylesheet">
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('plugins/font-awesome/css/fontawesome-all.min.css') }}" rel="stylesheet">
 
-        <script src="{{asset('js/jquery.js')}}"></script>
-        <script src="{{asset('js/jquery.dataTables.min.js')}}"></script>
-        <script src="{{asset('plugins/bootstrap/js/bootstrap.min.js')}}"></script>
-        <script src="{{asset('js/dataTables.bootstrap4.min.js')}}"></script>
+        <script src="{{ asset('js/jquery.js') }}"></script>
+        <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
 
         <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
         <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet">
@@ -443,17 +470,23 @@
 
         <script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.js"></script>
         <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"></script>
-        <script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-        <script type="text/javascript" language="javascript"src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
-        <script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
-        <script type="text/javascript" language="javascript" src="//cdn.datatables.net/buttons/1.2.1/js/buttons.html5.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css">
+        <script type="text/javascript" language="javascript"
+            src="https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"></script>
+        <script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js">
+        </script>
+        <script type="text/javascript" language="javascript"
+            src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+        <script type="text/javascript" language="javascript" src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js">
+        </script>
+        <script type="text/javascript" language="javascript" src="//cdn.datatables.net/buttons/1.2.1/js/buttons.html5.min.js">
+        </script>
+        <link rel="stylesheet" type="text/css"
+            href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css">
 
 
         <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-        <link rel="stylesheet" href="{{asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
-        <script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+        <link rel="stylesheet" href="{{ asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+        <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link rel="stylesheet" href="{{ asset('ijaboCropTool/ijaboCropTool.min.css') }}">
         <script src="{{ asset('ijaboCropTool/ijaboCropTool.min.js') }}"></script>
@@ -476,10 +509,10 @@
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
         <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-        <script src="{{asset('Highcharts/code/highcharts.js')}}"></script>
-        <script src="{{asset('Highcharts/code/modules/pareto.js')}}"></script>
-        <script src="{{asset('Highcharts/code/modules/data.js')}}"></script>
-        <script src="{{asset('Highcharts/code/modules/drilldown.js')}}"></script>
+        <script src="{{ asset('Highcharts/code/highcharts.js') }}"></script>
+        <script src="{{ asset('Highcharts/code/modules/pareto.js') }}"></script>
+        <script src="{{ asset('Highcharts/code/modules/data.js') }}"></script>
+        <script src="{{ asset('Highcharts/code/modules/drilldown.js') }}"></script>
         @stack('scripts')
         <script type="text/javascript">
             if (window.location.hash && window.location.hash == '#_=_') {
@@ -507,7 +540,6 @@
                     $('#avatarImageMenu').attr('src', data.ruta);
                 })
             }
-
         </script>
 
 

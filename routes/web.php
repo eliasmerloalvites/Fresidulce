@@ -5,6 +5,7 @@ use App\Http\Controllers\ClaseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PermisoControl;
 use App\Http\Controllers\PermisoController;
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -45,3 +46,4 @@ Route::middleware(['auth'])->group(function(){
 
 Route::resource('categoria', CategoriaController::class);
 Route::resource('clase',ClaseController::class);
+Route::resource('producto',ProductoController::class);
