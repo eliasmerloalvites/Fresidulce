@@ -374,13 +374,21 @@
                                     <ul class="nav nav-treeview">
                                         
                                             <li class="nav-item">
-                                                <a href="{{route('categoria.index')}}" >
+                                                <a href="{{route('categoria.index')}}" class="nav-link">
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>Categorias</p>
                                                 </a>
                                             </li>
-
                                     </ul>
+                                    <ul class="nav nav-treeview">
+                                        
+                                        <li class="nav-item">
+                                            <a href="{{route('clase.index')}}" class="nav-link" >
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Clases</p>
+                                            </a>
+                                        </li>
+                                </ul>
                                 </li>
                             
 

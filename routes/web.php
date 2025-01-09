@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ClaseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PermisoControl;
 use App\Http\Controllers\PermisoController;
@@ -43,4 +44,4 @@ Route::middleware(['auth'])->group(function(){
 });
 
 Route::resource('categoria', CategoriaController::class);
-
+Route::resource('clase',ClaseController::class);
