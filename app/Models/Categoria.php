@@ -7,8 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categoria extends Model
 {
+    protected $table='categoria';
+    protected $primaryKey='CAT_Id';
     public $timestamps=false;
     protected $fillable=[
-        'CAT_Nombre'
+        'CAT_Nombre',
+        'CLA_Id'
     ]  ;
+    protected $guarded;
 }

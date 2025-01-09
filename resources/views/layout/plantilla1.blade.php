@@ -383,41 +383,46 @@
                             @endcan
 
 
+                            @can('clase.index')
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fas fa-lock"></i>
+                                        <p>
+                                            MODULO
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        @can('clase.index')
+                                            <li class="nav-item">
+                                                <a href="{{ route('clase.index') }}" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Clases</p>
+                                                </a>
+                                            </li>
+                                        @endcan
 
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-lock"></i>
-                                    <p>
-                                        MODULO
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="{{ route('clase.index') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Clases</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="{{ route('categoria.index') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Categorias</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="{{ route('producto.index') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Productos</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                                        @can('categoria.index')
+                                            <li class="nav-item">
+                                                <a href="{{ route('categoria.index') }}" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Categorias</p>
+                                                </a>
+                                            </li>
+                                        @endcan
 
+
+                                        @can('producto.index')
+                                            <li class="nav-item">
+                                                <a href="{{ route('producto.index') }}" class="nav-link">
+                                                    <i class="far fa-circle nav-icon"></i>
+                                                    <p>Productos</p>
+                                                </a>
+                                            </li>
+                                        @endcan
+                                    </ul>
+                                </li>
+                            @endcan
 
 
 
