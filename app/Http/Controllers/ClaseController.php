@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Clase;
 use Illuminate\Http\Request;
 
 class ClaseController extends Controller
@@ -10,9 +11,10 @@ class ClaseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('clase.index');
+        $Clase=Clase::all();
+        return view('clase.index',['Clase'=>$Clase]);
     }
 
     /**
@@ -28,7 +30,10 @@ class ClaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Clase= new Clase();
+        $Clase->CLA_Nombre=$request->CLA_Nombre;
+        $Clase->save();
+        return redirect()->route('clase.index');
     }
 
     /**

@@ -44,6 +44,9 @@ Route::middleware(['auth'])->group(function(){
   Route::resource('permiso', PermisoController::class);
 });
 
-Route::resource('categoria', CategoriaController::class);
 Route::resource('clase',ClaseController::class);
+Route::get('cancelar', function(){
+  return redirect()->route('clase.index');
+})->name('cancelar');
+Route::resource('categoria', CategoriaController::class);
 Route::resource('producto',ProductoController::class);
