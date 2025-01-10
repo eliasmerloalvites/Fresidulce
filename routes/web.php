@@ -45,9 +45,7 @@ Route::middleware(['auth'])->group(function(){
 });
 
 Route::resource('clase',ClaseController::class);
-Route::get('cancelar', function(){
-  return redirect()->route('clase.index');
-})->name('cancelarClase');
+
 Route::resource('categoria', CategoriaController::class);
 
 Route::resource('producto',ProductoController::class);

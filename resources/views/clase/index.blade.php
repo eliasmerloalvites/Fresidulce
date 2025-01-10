@@ -13,9 +13,9 @@
                             <p class="card-text"></p>
                             <form method="POST" id="class_form" action="{{ route('clase.store') }}">
                                 @csrf
+                                <input type="text" id="clase_id_edit" hidden>
                                 <div class="form-group row">
                                     <div class="col-12">
-                                        <input type="text" id="permiso_id_edit" hidden>
                                         <label class="control-label">Nombre:</label>
                                         <input type="text" id="CLA_Nombre" name="CLA_Nombre" class="form-control "
                                             placeholder="Nombre" required>
@@ -24,9 +24,8 @@
                                 </div>
                                 <p></p>
                                 <button id="saveBtn" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
-                                <a href="{{ route('cancelarClase') }}"><button type="reset" id=""
-                                        class="btn btn-danger"> <i class="fas fa-ban"></i>Cancelar
-                                    </button></a>
+                                <button id="updateBtn" class="btn btn-info" style="display: none;" ><i class="fas fa-save"></i>Actualizar</button>
+                                <button type="reset" id="btncancelar" class="btn btn-danger"> <i class="fas fa-ban"></i>Cancelar </button>
                             </form>
                         </div>
                     </div>
@@ -116,7 +115,6 @@
                 e.preventDefault();
                 nombre = $("#CLA_Nombre").val();
 
-
                 if (nombre == '') {
                     Toast.fire({
                         type: 'error',
@@ -135,7 +133,7 @@
                             type: 'success',
                             title: data.success
                         })
-                        $('#class_form').trigger("reset");
+                        cancelarUpdate();
                         table.draw();
                     },
                     error: function(data) {
@@ -148,6 +146,71 @@
                 });
             });
 
-        })
+            $('body').on('click', '.editClase', function() {
+                var Clase_id_edit = $(this).data('identificador');
+                $.get('{{ route('clase.edit', ['clase' => ':clase']) }}'.replace(':clase', Clase_id_edit),
+                    function(result) {
+                        console.log(result);
+                        $('#clase_id_edit').val(result.data.CLA_Id);
+                        $('#CLA_Nombre').val(result.data.CLA_Nombre);
+
+
+                        // Mostrar botón Actualizar y ocultar botón Guardar
+                        $("#saveBtn").hide();
+                        $("#updateBtn").show();
+                    })
+            });
+
+            $('#updateBtn').click(function(e) {
+                e.preventDefault();
+                Clase_id_update = $('#clase_id_edit').val();
+                $.ajax({
+                    data: $('#class_form').serialize(),
+                    url: '{{ route('clase.update', ['clase' => ':clase']) }}'.replace(
+                        ':clase', Clase_id_update),
+                    type: "PUT",
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log('Success:', data);
+                        Toast.fire({
+                            type: 'success',
+                            title: data.success
+                        });
+                        cancelarUpdate();
+                        table.draw();
+                    },
+                    error: function(data) {
+                        console.log('Error:', data);
+                        Toast.fire({
+                            type: 'error',
+                            title: 'Clase fallo al actualizarse.'
+                        })
+                    }
+                });
+            });
+
+            $('#btncancelar').click(function(e) {
+                cancelarUpdate();
+                Swal.fire({
+                icon: 'info',
+                title: 'Registro cancelado',
+                text: 'El formulario se ha reiniciado correctamente.',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+                });
+            });
+
+            function cancelarUpdate(){
+                $('#class_form').trigger("reset");
+                $("#clase_id_edit").val('');
+                $("#saveBtn").show();  // Mostrar botón Guardar
+                $("#updateBtn").hide();
+            }
+
+           
+
+        });
     </script>
 @endsection

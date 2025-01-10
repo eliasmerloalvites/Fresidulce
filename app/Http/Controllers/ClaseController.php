@@ -21,7 +21,7 @@ class ClaseController extends Controller
             return datatables()::of($data)
                 ->addIndexColumn()
                 ->addColumn('action1', function ($row) {
-                    $btn = '<a data-toggle="tooltip"  data-id="' . $row->CLA_Id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editPermiso" ><i class="fa fa-edit"></i></a>';
+                    $btn = '<a data-toggle="tooltip"  data-identificador="' . $row->CLA_Id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editClase" ><i class="fa fa-edit"></i></a>';
                     return $btn;
                 })
                 ->addColumn('action2', function ($row) {
@@ -76,7 +76,8 @@ class ClaseController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $clase = Clase::find($id);
+        return response()->json(['data' => $clase]);
     }
 
     /**
@@ -84,7 +85,11 @@ class ClaseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $clase = Clase::find($id);
+        $clase->CLA_Nombre = $request->CLA_Nombre;
+		$clase->update();
+
+        return response()->json(['success' => 'Clase Editado Exitosamente.',compact('clase')]);
     }
 
     /**
