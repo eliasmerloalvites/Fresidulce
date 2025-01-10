@@ -5,16 +5,35 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Clase;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClaseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $Clase=Clase::all();
-        return view('clase.index',['Clase'=>$Clase]);
+        if ($request->ajax()) {
+			$data = DB::table('clase as cl')
+			->select('cl.*')
+			->get();
+            return datatables()::of($data)
+                ->addIndexColumn()
+                ->addColumn('action1', function ($row) {
+                    $btn = '<a data-toggle="tooltip"  data-id="' . $row->CLA_Id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editPermiso" ><i class="fa fa-edit"></i></a>';
+                    return $btn;
+                })
+                ->addColumn('action2', function ($row) {
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->CLA_Id . '" data-original-title="Delete" class="btn btn-danger btn-sm deletePermiso"><i class="fa fa-trash"></i></a>';
+
+                    return $btn;
+                })
+               
+                ->rawColumns(['action1','action2'])
+                ->make(true);
+        }
+        return view('clase.index');
     }
 
     /**

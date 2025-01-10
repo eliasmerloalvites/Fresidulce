@@ -13,14 +13,31 @@ class CategoriaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categoria= DB::table('categoria as ct')
-            ->join('clase as cl','ct.CLA_Id','=','cl.CLA_Id')
+        if ($request->ajax()) {
+			$data = DB::table('categoria as ct')
+			->join('clase as cl','ct.CLA_Id','=','cl.CLA_Id')
             ->select('ct.*','cl.CLA_Nombre')
             ->get();
-        $clase=Clase::all();
-        return view('categoria.index',['Categoria'=>$categoria,'Clase'=>$clase]);
+            return datatables()::of($data)
+                ->addIndexColumn()
+                ->addColumn('action1', function ($row) {
+                    $btn = '<a data-toggle="tooltip"  data-id="' . $row->CAT_Id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editPermiso" ><i class="fa fa-edit"></i></a>';
+                    return $btn;
+                })
+                ->addColumn('action2', function ($row) {
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->CAT_Id . '" data-original-title="Delete" class="btn btn-danger btn-sm deletePermiso"><i class="fa fa-trash"></i></a>';
+
+                    return $btn;
+                })
+               
+                ->rawColumns(['action1','action2'])
+                ->make(true);
+        }
+
+        $clases = DB::table('clase')->get();
+        return view('categoria.index', compact('clases'));
     }
 
     /**
