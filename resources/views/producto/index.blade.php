@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <h5 class="card-title">CREAR PRODUCTO</h5>
                         <p class="card-text"></p>
-                        <form method="POST"  action="{{route('producto.store')}}">
+                        <form method="POST" id="product_form" action="{{route('producto.store')}}">
                             @csrf
                             <div class="form-group row">
                                 <div class="col-12">
@@ -59,15 +59,6 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <input type="text" id="permiso_id_edit" hidden>
-                                    <label class="control-label">Estado:</label>
-                                    <input type="text" id="PRO_Status" name="PRO_Status"
-                                        class="form-control input_user "
-                                        placeholder="Estado" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-12">
                                     <label class="control-label">Categoria:</label>
                                     <select class="form-control select2 select2-info" id="CAT_Id" name="CAT_Id"
                                         data-dropdown-css-class="select2-info" onchange="verName()" style="width: 100%;">
@@ -81,7 +72,7 @@
                                 </div>
                             </div>
                             <p></p>
-                            <button class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
+                            <button id="productosave" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
                             
                         </form>
                     </div>
@@ -101,7 +92,6 @@
                                     <th scope="col">Precio de Compra</th>
                                     <th scope="col">Precio de Venta</th>
                                     <th scope="col">Marca</th>
-                                    <th scope="col">Estado</th>
                                     <th scope="col">Categoria</th>
                                     <th scope="col">Opciones</th>
                                 </tr>
@@ -116,6 +106,13 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            
             var table = $('#lista_productos').DataTable({
                 responsive: true, // Habilitar la opción responsive
                 autoWidth: false,
@@ -164,10 +161,6 @@
                         name: 'PRO_Marca'
                     },
                     {
-                        data: 'PRO_Status',
-                        name: 'PRO_Status'
-                    },
-                    {
                         data: 'CAT_Id',
                         name: 'CAT_Id'
                     },
@@ -185,6 +178,46 @@
                         }
                     }
                 ]
+            });
+
+            $('#productosave').click(function(e) {
+                e.preventDefault();
+                nombre = $("#PRO_Nombre").val();
+                descripcion = $("#PRO_Descripcion").val();
+                precioCompra = $("#PRO_PrecioCompra").val();
+                precioVenta = $("#PRO_PrecioVenta").val();
+                marca = $("#PRO_Marca").val();
+                catId = $("#CAT_Id").val();
+
+                if (nombre == ''||descripcion == ''||precioCompra == ''||precioVenta == ''||marca == ''||catId == '') {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Complete todos los campos por favor'
+                    })
+                    return false;
+                }
+                $.ajax({
+                    data: $('#product_form').serialize(),
+                    url: "{{ route('producto.store') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log('Success:', data);
+                        Toast.fire({
+                            type: 'success',
+                            title: data.success
+                        })
+                        $('#product_form').trigger("reset");
+                        table.draw();
+                    },
+                    error: function(data) {
+                        console.log('Error:', data);
+                        Toast.fire({
+                            type: 'error',
+                            title: 'producto fallo al Registrarse.'
+                        })
+                    }
+                });
             });
         })
     </script>

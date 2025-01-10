@@ -11,7 +11,7 @@
                         <div class="card-body">
                             <h5 class="card-title">CREAR CLASE</h5>
                             <p class="card-text"></p>
-                            <form method="POST" action="{{ route('clase.store') }}">
+                            <form method="POST" id="class_form" action="{{ route('clase.store') }}">
                                 @csrf
                                 <div class="form-group row">
                                     <div class="col-12">
@@ -58,6 +58,13 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
             var table = $('#tabla_clase').DataTable({
                 responsive: true, // Habilitar la opción responsive
                 autoWidth: false,
@@ -104,6 +111,43 @@
                     }
                 ]
             });
+
+            $('#saveBtn').click(function(e) {
+                e.preventDefault();
+                nombre = $("#CLA_Nombre").val();
+
+
+                if (nombre == '') {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Complete todos los campos por favor'
+                    })
+                    return false;
+                }
+                $.ajax({
+                    data: $('#class_form').serialize(),
+                    url: "{{ route('clase.store') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log('Success:', data);
+                        Toast.fire({
+                            type: 'success',
+                            title: data.success
+                        })
+                        $('#class_form').trigger("reset");
+                        table.draw();
+                    },
+                    error: function(data) {
+                        console.log('Error:', data);
+                        Toast.fire({
+                            type: 'error',
+                            title: 'clase fallo al Registrarse.'
+                        })
+                    }
+                });
+            });
+
         })
     </script>
 @endsection

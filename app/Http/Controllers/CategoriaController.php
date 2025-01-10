@@ -53,13 +53,19 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-       
-        $categoria=new Categoria();
-        $categoria->CAT_Nombre=$request->CAT_Nombre;
-        $categoria->CLA_Id=$request->CLA_Id;
-        $categoria->save();
-        return redirect()->route('categoria.index')
-        ;
+        $query=Categoria::where('CAT_Nombre','=',$request->get('CAT_Nombre'))->get();
+        if($query->count()!=0) //si lo encuentra, osea si no esta vacia
+        {
+            
+            return response()->json(['error' => 'Categoria ya registrado'], 401);                   
+        }
+        else{
+            $categoria=new Categoria();
+            $categoria->CAT_Nombre=$request->CAT_Nombre;
+            $categoria->CLA_Id=$request->CLA_Id;
+            $categoria->save();
+            return response()->json(['success' => 'Categoria Registrado Exitosamente!',compact('categoria')]);    
+        }
     }
 
     /**

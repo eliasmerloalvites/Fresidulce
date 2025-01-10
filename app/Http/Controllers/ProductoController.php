@@ -15,10 +15,10 @@ class ProductoController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-			$data = DB::table('producto as pd')
-			->join('categoria as ct','pd.CAT_Id','=','ct.CAT_Id')
-            ->select('pd.*','ct.CAT_Nombre')
-            ->get();
+            $data = DB::table('producto as pd')
+                ->join('categoria as ct', 'pd.CAT_Id', '=', 'ct.CAT_Id')
+                ->select('pd.*', 'ct.CAT_Nombre')
+                ->get();
             return datatables()::of($data)
                 ->addIndexColumn()
                 ->addColumn('action1', function ($row) {
@@ -30,13 +30,13 @@ class ProductoController extends Controller
 
                     return $btn;
                 })
-               
-                ->rawColumns(['action1','action2'])
+
+                ->rawColumns(['action1', 'action2'])
                 ->make(true);
         }
 
         $categorias = DB::table('categoria')->get();
-        return view('producto.index',compact('categorias'));
+        return view('producto.index', compact('categorias'));
     }
 
     /**
@@ -52,16 +52,22 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        $producto=new Producto();
-        $producto->PRO_Nombre=$request->PRO_Nombre;
-        $producto->PRO_Descripcion=$request->PRO_Descripcion;
-        $producto->PRO_PrecioCompra=$request->PRO_PrecioCompra;
-        $producto->PRO_PrecioVenta=$request->PRO_PrecioVenta;
-        $producto->PRO_Marca=$request->PRO_Marca;
-        $producto->PRO_Status=$request->PRO_Status;
-        $producto->CAT_Id=$request->CAT_Id;
-        $producto->save();
-        return redirect()->route('producto.index');
+        $query = Producto::where('PRO_Nombre', '=', $request->get('PRO_Nombre'))->get();
+        if ($query->count() != 0) //si lo encuentra, osea si no esta vacia
+        {
+            return response()->json(['error' => 'Producto ya registrado'], 401);
+        } else {
+            $producto = new Producto();
+            $producto->PRO_Nombre = $request->PRO_Nombre;
+            $producto->PRO_Descripcion = $request->PRO_Descripcion;
+            $producto->PRO_PrecioCompra = $request->PRO_PrecioCompra;
+            $producto->PRO_PrecioVenta = $request->PRO_PrecioVenta;
+            $producto->PRO_Marca = $request->PRO_Marca;
+            $producto->PRO_Status = $request->PRO_Status ?? 1;
+            $producto->CAT_Id = $request->CAT_Id;
+            $producto->save();
+            return response()->json(['success' => 'Producto Registrado Exitosamente!', compact('producto')]);
+        }
     }
 
     /**

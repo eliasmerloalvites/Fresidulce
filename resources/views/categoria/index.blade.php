@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <h5 class="card-title">CREAR CATEGORIAS</h5>
                         <p class="card-text"></p>
-                        <form method="POST" action="{{ route('categoria.store') }}">
+                        <form method="POST" id="cat_form" action="{{ route('categoria.store') }}">
                             @csrf
                             <div class="form-group row">
                                 <div class="col-12">
@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                             <p></p>
-                            <button class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
+                            <button id="saveCategoria" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
                         </form>
                     </div>
                 </div>
@@ -66,6 +66,13 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+
             var table = $('#lista_categorias').DataTable({
                 responsive: true, // Habilitar la opción responsive
                 autoWidth: false,
@@ -115,6 +122,42 @@
                         }
                     }
                 ]
+            });
+
+            $('#saveCategoria').click(function(e) {
+                e.preventDefault();
+                nombreCategoria = $("#CAT_Nombre").val();
+                nombreClase = $("#CLA_Nombre").val();
+
+                if (nombreCategoria == '' || nombreClase == '') {
+                    Toast.fire({
+                        type: 'error',
+                        title: 'Complete todos los campos por favor'
+                    })
+                    return false;
+                }
+                $.ajax({
+                    data: $('#cat_form').serialize(),
+                    url: "{{ route('categoria.store') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log('Success:', data);
+                        Toast.fire({
+                            type: 'success',
+                            title: data.success
+                        })
+                        $('#cat_form').trigger("reset");
+                        table.draw();
+                    },
+                    error: function(data) {
+                        console.log('Error:', data);
+                        Toast.fire({
+                            type: 'error',
+                            title: 'Categoria fallo al Registrarse.'
+                        })
+                    }
+                });
             });
         })
     </script>

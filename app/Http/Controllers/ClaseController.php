@@ -49,10 +49,18 @@ class ClaseController extends Controller
      */
     public function store(Request $request)
     {
-        $Clase= new Clase();
-        $Clase->CLA_Nombre=$request->CLA_Nombre;
-        $Clase->save();
-        return redirect()->route('clase.index');
+        $query=Clase::where('CLA_Nombre','=',$request->get('CLA_Nombre'))->get();
+        if($query->count()!=0) //si lo encuentra, osea si no esta vacia
+        {
+            
+            return response()->json(['error' => 'Clase ya registrado'], 401);                   
+        }
+        else{
+            $Clase= new Clase();
+            $Clase->CLA_Nombre=$request->CLA_Nombre;
+            $Clase->save();
+            return response()->json(['success' => 'Clase Registrado Exitosamente!',compact('Clase')]);    
+        }
     }
 
     /**
