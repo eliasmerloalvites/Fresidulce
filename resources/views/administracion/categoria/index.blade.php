@@ -22,7 +22,7 @@
                             <input type="text" id="categoria_id_edit" hidden>
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <label class="control-label">Clase:</label>
+                                    <label class="control-label"  style=" text-align: left; display: block;">Clase:</label>
                                     <select class="form-control select2 select2-info" id="CLA_Id" name="CLA_Id"
                                         data-dropdown-css-class="select2-info" style="width: 100%;">
                                         <option value="">Seleccionar ...</option>
@@ -35,7 +35,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <label class="control-label">Nombre:</label>
+                                    <label class="control-label"  style=" text-align: left; display: block;">Nombre:</label>
                                     <input type="text" id="CAT_Nombre" name="CAT_Nombre" class="form-control "
                                         placeholder="Nombre" required>
                                 </div>

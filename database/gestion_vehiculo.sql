@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-01-2025 a las 19:11:47
+-- Tiempo de generación: 11-01-2025 a las 23:10:38
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -28,11 +28,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `actas_personal` (
-  `ACP_Item` int UNSIGNED NOT NULL,
+  `ACP_Item` int(10) UNSIGNED NOT NULL,
   `ACP_FechaInicio` date NOT NULL,
   `ACP_FechaFin` date NOT NULL,
   `ACP_Documento` varchar(20) DEFAULT NULL,
-  `PER_Id` int NOT NULL
+  `PER_Id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -42,14 +42,14 @@ CREATE TABLE `actas_personal` (
 --
 
 CREATE TABLE `almacen` (
-  `ALM_Id` int UNSIGNED NOT NULL,
+  `ALM_Id` int(10) UNSIGNED NOT NULL,
   `ALM_Nombre` varchar(50) NOT NULL,
   `ALM_Direccion` varchar(50) NOT NULL,
   `ALM_Ruc` varchar(12) DEFAULT NULL,
   `ALM_Celular` varchar(9) DEFAULT NULL,
   `ALM_Status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL  DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -57,8 +57,9 @@ CREATE TABLE `almacen` (
 --
 -- Estructura de tabla para la tabla `area`
 --
+
 CREATE TABLE `area` (
-  `ARE_Id` int UNSIGNED NOT NULL,
+  `ARE_Id` int(10) UNSIGNED NOT NULL,
   `ARE_Nombre` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -86,12 +87,12 @@ INSERT INTO `area` (`ARE_Id`, `ARE_Nombre`) VALUES
 --
 
 CREATE TABLE `asistencia` (
-  `ASI_Id` int UNSIGNED NOT NULL,
+  `ASI_Id` int(10) UNSIGNED NOT NULL,
   `ASI_MarcacionEntrada` datetime NOT NULL,
   `ASI_MarcacionSalidaIntermedia` datetime DEFAULT NULL,
   `ASI_MarcacionEntradaIntermedia` datetime DEFAULT NULL,
   `ASI_MarcacionSalida` datetime DEFAULT NULL,
-  `PER_Id` int UNSIGNED NOT NULL,
+  `PER_Id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -103,9 +104,9 @@ CREATE TABLE `asistencia` (
 --
 
 CREATE TABLE `categoria` (
-  `CAT_Id` int UNSIGNED NOT NULL,
+  `CAT_Id` int(10) UNSIGNED NOT NULL,
   `CAT_Nombre` varchar(20) DEFAULT NULL,
-  `CLA_Id` int UNSIGNED NOT NULL,
+  `CLA_Id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -116,7 +117,8 @@ CREATE TABLE `categoria` (
 
 INSERT INTO `categoria` (`CAT_Id`, `CAT_Nombre`, `CLA_Id`, `created_at`, `updated_at`) VALUES
 (1, 'DONAS', 1, NULL, NULL),
-(2, 'FRESI DULCE', 1, NULL, NULL);
+(2, 'FRESI DULCE', 1, NULL, NULL),
+(3, 'WAFFLES', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -125,7 +127,7 @@ INSERT INTO `categoria` (`CAT_Id`, `CAT_Nombre`, `CLA_Id`, `created_at`, `update
 --
 
 CREATE TABLE `clase` (
-  `CLA_Id` int UNSIGNED NOT NULL,
+  `CLA_Id` int(10) UNSIGNED NOT NULL,
   `CLA_Nombre` varchar(20) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -142,19 +144,37 @@ INSERT INTO `clase` (`CLA_Id`, `CLA_Nombre`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `compra`
+--
+
+CREATE TABLE `compra` (
+  `COM_Id` int(10) UNSIGNED NOT NULL,
+  `COM_TipoDocumento` varchar(50) NOT NULL,
+  `COM_NumDocumento` varchar(12) NOT NULL,
+  `COM_TipoPago` varchar(50) NOT NULL,
+  `MEP_Id` int(10) UNSIGNED NOT NULL,
+  `PROV_Id` int(10) UNSIGNED NOT NULL,
+  `COM_Status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `contrato_personal`
 --
 
 CREATE TABLE `contrato_personal` (
-  `COP_Item` int UNSIGNED NOT NULL,
-  `ARE_Id` int DEFAULT NULL,
-  `PUE_Id` int DEFAULT NULL,
+  `COP_Item` int(10) UNSIGNED NOT NULL,
+  `ARE_Id` int(11) DEFAULT NULL,
+  `PUE_Id` int(11) DEFAULT NULL,
   `COP_FechaInicio` date NOT NULL,
   `COP_FechaFin` date DEFAULT NULL,
   `COP_Sueldo` decimal(10,2) DEFAULT NULL,
   `COP_FechaFinEjecutada` date DEFAULT NULL,
   `COP_MotivoSalida` varchar(255) DEFAULT NULL,
-  `PER_Id` int NOT NULL,
+  `PER_Id` int(11) NOT NULL,
   `COP_TipoContrato` varchar(20) DEFAULT NULL,
   `COP_Pension` varchar(20) DEFAULT NULL,
   `COP_TipoFondo` varchar(20) DEFAULT NULL,
@@ -167,33 +187,17 @@ CREATE TABLE `contrato_personal` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `compra`
+-- Estructura de tabla para la tabla `detalle_compra`
 --
-CREATE TABLE `compra` (
-  `COM_Id` int UNSIGNED NOT NULL,
-  `COM_TipoDocumento` varchar(50) NOT NULL,
-  `COM_NumDocumento` varchar(12) NOT NULL,
-  `COM_TipoPago` varchar(50)  NOT NULL,
-  `MEP_Id` int UNSIGNED NOT NULL,
-  `PROV_Id` int UNSIGNED NOT NULL,
-  `COM_Status` tinyint(1) NOT NULL DEFAULT 1,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Detalle_Compra`
---
-CREATE TABLE `Detalle_Compra` (
-  `DCOM_Id` int UNSIGNED NOT NULL,
-  `COM_Id` int UNSIGNED NOT NULL,
-  `ALM_Id` int UNSIGNED NOT NULL,
-  `PRO_Id` int UNSIGNED NOT NULL,
-  `DCOM_Cantidad` int NOT NULL,
-  `DCOM_PrecioCompra`  decimal(10,2) NOT NULL,
-  `DCOM_PrecioVenta`  decimal(10,2) NOT NULL,
+CREATE TABLE `detalle_compra` (
+  `DCOM_Id` int(10) UNSIGNED NOT NULL,
+  `COM_Id` int(10) UNSIGNED NOT NULL,
+  `ALM_Id` int(10) UNSIGNED NOT NULL,
+  `PRO_Id` int(10) UNSIGNED NOT NULL,
+  `DCOM_Cantidad` int(11) NOT NULL,
+  `DCOM_PrecioCompra` decimal(10,2) NOT NULL,
+  `DCOM_PrecioVenta` decimal(10,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -203,8 +207,9 @@ CREATE TABLE `Detalle_Compra` (
 --
 -- Estructura de tabla para la tabla `failed_jobs`
 --
+
 CREATE TABLE `failed_jobs` (
-  `id` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `uuid` varchar(191) NOT NULL,
   `connection` text NOT NULL,
   `queue` text NOT NULL,
@@ -220,7 +225,7 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `familiar_personal` (
-  `FAP_Item` int UNSIGNED NOT NULL,
+  `FAP_Item` int(10) UNSIGNED NOT NULL,
   `FAP_Parentesco` varchar(100) NOT NULL,
   `FAP_Nombre` varchar(100) NOT NULL,
   `FAP_Apellidos` varchar(20) NOT NULL,
@@ -229,7 +234,7 @@ CREATE TABLE `familiar_personal` (
   `FAP_FechaNacimiento` varchar(20) NOT NULL,
   `FAP_Direccion` varchar(250) NOT NULL,
   `FAP_Documento` varchar(20) DEFAULT NULL,
-  `PER_Id` int NOT NULL,
+  `PER_Id` int(11) NOT NULL,
   `FAP_Ocupacion` varchar(80) DEFAULT NULL,
   `FAP_Sexo` varchar(20) DEFAULT NULL,
   `FAP_EstadoCivil` varchar(20) DEFAULT NULL,
@@ -242,16 +247,17 @@ CREATE TABLE `familiar_personal` (
 --
 -- Estructura de tabla para la tabla `lote`
 --
+
 CREATE TABLE `lote` (
-  `LOT_Id` int UNSIGNED NOT NULL,
-  `ALM_Id` int UNSIGNED NOT NULL,
-  `PRO_Id` int UNSIGNED NOT NULL,
+  `LOT_Id` int(10) UNSIGNED NOT NULL,
+  `ALM_Id` int(10) UNSIGNED NOT NULL,
+  `PRO_Id` int(10) UNSIGNED NOT NULL,
   `LOT_TipoIngreso` varchar(20) NOT NULL,
-  `LOT_IdIngreso` int UNSIGNED NOT NULL,
-  `LOT_CantidadReal` int UNSIGNED NOT NULL,
-  `LOT_CantidadIngreso` int UNSIGNED NOT NULL,
-  `LOT_PrecioCompra`  decimal(10,2)NOT NULL,
-  `LOT_PrecioVenta`  decimal(10,2) NOT NULL,
+  `LOT_IdIngreso` int(10) UNSIGNED NOT NULL,
+  `LOT_CantidadReal` decimal(10,2) UNSIGNED NOT NULL,
+  `LOT_CantidadIngreso` decimal(10,0) UNSIGNED NOT NULL,
+  `LOT_PrecioCompra` decimal(10,2) NOT NULL,
+  `LOT_PrecioVenta` decimal(10,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -259,10 +265,11 @@ CREATE TABLE `lote` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Metodo_Pago`
+-- Estructura de tabla para la tabla `metodo_pago`
 --
-CREATE TABLE `Metodo_Pago` (
-  `MEP_Id` int UNSIGNED NOT NULL,
+
+CREATE TABLE `metodo_pago` (
+  `MEP_Id` int(10) UNSIGNED NOT NULL,
   `MEP_Pago` varchar(50) NOT NULL,
   `MEP_Status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -274,10 +281,11 @@ CREATE TABLE `Metodo_Pago` (
 --
 -- Estructura de tabla para la tabla `migrations`
 --
+
 CREATE TABLE `migrations` (
-  `id` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(191) NOT NULL,
-  `batch` int NOT NULL
+  `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -298,9 +306,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `model_has_permissions` (
-  `permission_id` int UNSIGNED NOT NULL,
+  `permission_id` int(10) UNSIGNED NOT NULL,
   `model_type` varchar(191) NOT NULL,
-  `model_id` int UNSIGNED NOT NULL
+  `model_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -310,9 +318,9 @@ CREATE TABLE `model_has_permissions` (
 --
 
 CREATE TABLE `model_has_roles` (
-  `role_id` int UNSIGNED NOT NULL,
+  `role_id` int(10) UNSIGNED NOT NULL,
   `model_type` varchar(191) NOT NULL,
-  `model_id` int UNSIGNED NOT NULL
+  `model_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -343,12 +351,12 @@ CREATE TABLE `password_reset_tokens` (
 --
 
 CREATE TABLE `permissions` (
-  `id` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) NOT NULL,
   `guard_name` varchar(191) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `estadopermiso` tinyint(1) DEFAULT NULL  ,
+  `estadopermiso` tinyint(1) DEFAULT NULL,
   `descripcion` varchar(500) DEFAULT NULL,
   `nombre` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -358,36 +366,36 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`, `estadopermiso`, `descripcion`, `nombre`) VALUES
-(1, 'users.index', 'web', '2024-03-17 19:20:57', '2024-03-17 19:20:57', b'1', 'Lista y navega todos los usuarios del sistema', 'USUARIO'),
-(2, 'users.show', 'web', '2024-03-17 19:20:57', '2024-04-06 07:19:07', b'1', 'Ver cualquier dato de un usuario', 'Visualización de detalles de usuario'),
-(3, 'users.create', 'web', '2024-03-17 22:00:57', '2024-03-17 22:00:57', b'1', 'Crear registro de usuario', 'Creación de usuarios'),
-(4, 'users.edit', 'web', '2024-03-17 22:00:57', '2024-04-06 07:19:28', b'1', 'Editar cualquier dato de un usuario', 'Edición de usuarios'),
-(5, 'users.destroy', 'web', '2024-04-04 07:48:51', '2024-04-04 07:48:51', b'1', 'Eliminar cualquier usuario', 'Eliminación de usuarios'),
-(6, 'role.index', 'web', '2024-04-04 08:45:11', '2024-04-04 08:45:11', b'1', 'Lista y navega todos los roles del sistema', 'ROLES'),
-(7, 'role.show', 'web', '2024-04-05 00:48:07', '2024-04-06 05:58:31', b'1', 'Ver cualquier dato de un rol', 'Ver Detalles de roles'),
-(8, 'role.create', 'web', '2024-04-05 23:00:57', '2024-04-06 07:42:24', b'1', 'Crear registro de rol', 'Creación de roles'),
-(9, 'role.edit', 'web', '2024-04-06 08:20:38', '2024-04-06 08:20:38', b'1', 'Editar algún dato de un rol', 'Edición de roles'),
-(10, 'role.destroy', 'web', '2024-04-06 08:21:26', '2024-04-06 08:21:26', b'1', 'Elimina un registro de rol', 'Eliminación de roles'),
-(11, 'permiso.index', 'web', '2024-04-06 20:50:15', '2024-04-06 20:50:15', b'1', 'Lista y navega todos los permisos del sistema', 'PERMISOS'),
-(12, 'permiso.show', 'web', '2024-04-06 20:51:11', '2024-04-06 20:51:11', b'1', 'Ver cualquier dato de un permiso', 'Visualización de detalles de permiso'),
-(13, 'permiso.create', 'web', '2024-04-06 20:52:28', '2024-04-06 20:52:28', b'1', 'Crear registro de permiso', 'Creación de permisos'),
-(14, 'permiso.edit', 'web', '2024-04-06 20:53:45', '2024-04-06 20:53:45', b'1', 'Editar algún dato de un permiso', 'Edición de permisos'),
-(15, 'permiso.destroy', 'web', '2024-04-06 20:58:28', '2024-04-06 20:58:28', b'1', 'Eliminar algun registro de permiso', 'Eliminación de permisos'),
-(16, 'clase.index', 'web', '2025-01-10 02:14:24', '2025-01-10 02:14:24', b'1', '-', 'CLASE'),
-(17, 'clase.show', 'web', '2025-01-10 02:16:09', '2025-01-10 02:16:09', b'1', '-', 'VER DETALLES'),
-(18, 'clase.create', 'web', '2025-01-10 02:18:11', '2025-01-10 02:18:11', b'1', '-', 'Creacion de clases'),
-(19, 'clase.edit', 'web', '2025-01-10 02:18:33', '2025-01-10 02:18:33', b'1', '-', 'Edicion de clases'),
-(20, 'clase.destroy', 'web', '2025-01-10 02:19:05', '2025-01-10 02:19:05', b'1', '-', 'Eliminacion de clases'),
-(21, 'categoria.index', 'web', '2025-01-10 02:25:59', '2025-01-10 02:25:59', b'1', '-', 'CATEGORIA'),
-(22, 'categoria.show', 'web', '2025-01-10 02:26:43', '2025-01-10 02:26:43', b'1', '-', 'Visualizacion de detalles de categoria'),
-(23, 'categoria.create', 'web', '2025-01-10 02:27:11', '2025-01-10 02:27:11', b'1', '-', 'Creacion de categoria'),
-(24, 'categoria.edit', 'web', '2025-01-10 02:27:31', '2025-01-10 02:27:31', b'1', '-', 'Edicion de categoria'),
-(25, 'categoria.destroy', 'web', '2025-01-10 02:28:24', '2025-01-10 02:28:24', b'1', '-', 'Eliminacion de categoria'),
-(26, 'producto.index', 'web', '2025-01-10 02:28:41', '2025-01-10 15:48:37', b'1', '-', 'PRODUCTO 3'),
-(27, 'producto.show', 'web', '2025-01-10 02:29:25', '2025-01-10 02:29:25', b'1', '-', 'Visualizacion de detalles de producto'),
-(28, 'producto.create', 'web', '2025-01-10 02:29:43', '2025-01-10 02:29:43', b'1', '-', 'Creacion de producto'),
-(29, 'producto.edit', 'web', '2025-01-10 02:30:11', '2025-01-10 02:30:11', b'1', '-', 'Edicion de producto'),
-(30, 'producto.destroy', 'web', '2025-01-10 02:30:42', '2025-01-10 02:30:42', b'1', '-', 'Eliminacion de producto');
+(1, 'users.index', 'web', '2024-03-17 19:20:57', '2024-03-17 19:20:57', 1, 'Lista y navega todos los usuarios del sistema', 'USUARIO'),
+(2, 'users.show', 'web', '2024-03-17 19:20:57', '2024-04-06 07:19:07', 1, 'Ver cualquier dato de un usuario', 'Visualización de detalles de usuario'),
+(3, 'users.create', 'web', '2024-03-17 22:00:57', '2024-03-17 22:00:57', 1, 'Crear registro de usuario', 'Creación de usuarios'),
+(4, 'users.edit', 'web', '2024-03-17 22:00:57', '2024-04-06 07:19:28', 1, 'Editar cualquier dato de un usuario', 'Edición de usuarios'),
+(5, 'users.destroy', 'web', '2024-04-04 07:48:51', '2024-04-04 07:48:51', 1, 'Eliminar cualquier usuario', 'Eliminación de usuarios'),
+(6, 'role.index', 'web', '2024-04-04 08:45:11', '2024-04-04 08:45:11', 1, 'Lista y navega todos los roles del sistema', 'ROLES'),
+(7, 'role.show', 'web', '2024-04-05 00:48:07', '2024-04-06 05:58:31', 1, 'Ver cualquier dato de un rol', 'Ver Detalles de roles'),
+(8, 'role.create', 'web', '2024-04-05 23:00:57', '2024-04-06 07:42:24', 1, 'Crear registro de rol', 'Creación de roles'),
+(9, 'role.edit', 'web', '2024-04-06 08:20:38', '2024-04-06 08:20:38', 1, 'Editar algún dato de un rol', 'Edición de roles'),
+(10, 'role.destroy', 'web', '2024-04-06 08:21:26', '2024-04-06 08:21:26', 1, 'Elimina un registro de rol', 'Eliminación de roles'),
+(11, 'permiso.index', 'web', '2024-04-06 20:50:15', '2024-04-06 20:50:15', 1, 'Lista y navega todos los permisos del sistema', 'PERMISOS'),
+(12, 'permiso.show', 'web', '2024-04-06 20:51:11', '2024-04-06 20:51:11', 1, 'Ver cualquier dato de un permiso', 'Visualización de detalles de permiso'),
+(13, 'permiso.create', 'web', '2024-04-06 20:52:28', '2024-04-06 20:52:28', 1, 'Crear registro de permiso', 'Creación de permisos'),
+(14, 'permiso.edit', 'web', '2024-04-06 20:53:45', '2024-04-06 20:53:45', 1, 'Editar algún dato de un permiso', 'Edición de permisos'),
+(15, 'permiso.destroy', 'web', '2024-04-06 20:58:28', '2024-04-06 20:58:28', 1, 'Eliminar algun registro de permiso', 'Eliminación de permisos'),
+(16, 'clase.index', 'web', '2025-01-10 02:14:24', '2025-01-10 02:14:24', 1, '-', 'CLASE'),
+(17, 'clase.show', 'web', '2025-01-10 02:16:09', '2025-01-10 02:16:09', 1, '-', 'VER DETALLES'),
+(18, 'clase.create', 'web', '2025-01-10 02:18:11', '2025-01-10 02:18:11', 1, '-', 'Creacion de clases'),
+(19, 'clase.edit', 'web', '2025-01-10 02:18:33', '2025-01-10 02:18:33', 1, '-', 'Edicion de clases'),
+(20, 'clase.destroy', 'web', '2025-01-10 02:19:05', '2025-01-10 02:19:05', 1, '-', 'Eliminacion de clases'),
+(21, 'categoria.index', 'web', '2025-01-10 02:25:59', '2025-01-10 02:25:59', 1, '-', 'CATEGORIA'),
+(22, 'categoria.show', 'web', '2025-01-10 02:26:43', '2025-01-10 02:26:43', 1, '-', 'Visualizacion de detalles de categoria'),
+(23, 'categoria.create', 'web', '2025-01-10 02:27:11', '2025-01-10 02:27:11', 1, '-', 'Creacion de categoria'),
+(24, 'categoria.edit', 'web', '2025-01-10 02:27:31', '2025-01-10 02:27:31', 1, '-', 'Edicion de categoria'),
+(25, 'categoria.destroy', 'web', '2025-01-10 02:28:24', '2025-01-10 02:28:24', 1, '-', 'Eliminacion de categoria'),
+(26, 'producto.index', 'web', '2025-01-10 02:28:41', '2025-01-10 15:48:37', 1, '-', 'PRODUCTO 3'),
+(27, 'producto.show', 'web', '2025-01-10 02:29:25', '2025-01-10 02:29:25', 1, '-', 'Visualizacion de detalles de producto'),
+(28, 'producto.create', 'web', '2025-01-10 02:29:43', '2025-01-10 02:29:43', 1, '-', 'Creacion de producto'),
+(29, 'producto.edit', 'web', '2025-01-10 02:30:11', '2025-01-10 02:30:11', 1, '-', 'Edicion de producto'),
+(30, 'producto.destroy', 'web', '2025-01-10 02:30:42', '2025-01-10 02:30:42', 1, '-', 'Eliminacion de producto');
 
 -- --------------------------------------------------------
 
@@ -396,16 +404,16 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 --
 
 CREATE TABLE `personal` (
-  `PER_Id` int UNSIGNED NOT NULL,
+  `PER_Id` int(10) UNSIGNED NOT NULL,
   `PER_Nombre` varchar(50) NOT NULL,
   `PER_Apellido` varchar(50) NOT NULL,
   `PER_TipoDocumento` varchar(20) NOT NULL,
   `PER_NumeroDocumento` varchar(11) NOT NULL,
   `PER_FechaNacimiento` date DEFAULT NULL,
-  `PER_Edad` int NOT NULL,
+  `PER_Edad` int(11) NOT NULL,
   `PER_Sexo` varchar(20) NOT NULL,
   `PER_EstadoCivil` varchar(20) DEFAULT NULL,
-  `PER_NumeroHijos` int DEFAULT 0,
+  `PER_NumeroHijos` int(11) DEFAULT 0,
   `PER_Procedencia` varchar(150) DEFAULT NULL,
   `PER_Direccion` varchar(250) DEFAULT NULL,
   `PER_Referencia` varchar(255) DEFAULT NULL,
@@ -419,11 +427,11 @@ CREATE TABLE `personal` (
   `PER_PNombre2` varchar(150) DEFAULT NULL,
   `PER_PCelular2` varchar(20) DEFAULT NULL,
   `PER_PDireccion2` varchar(150) DEFAULT NULL,
-  `PUE_Id` int DEFAULT NULL,
+  `PUE_Id` int(11) DEFAULT NULL,
   `PER_Carrera` varchar(40) DEFAULT NULL,
   `PER_GradoAcademico` varchar(40) DEFAULT NULL,
   `PER_EstadoLaboral` varchar(40) DEFAULT 'ACTIVO',
-  `ARE_Id` int DEFAULT NULL,
+  `ARE_Id` int(11) DEFAULT NULL,
   `PER_TPolo` varchar(6) DEFAULT NULL,
   `PER_TPantalon` varchar(6) DEFAULT NULL,
   `PER_TZapatos` varchar(6) DEFAULT NULL,
@@ -455,9 +463,9 @@ INSERT INTO `personal` (`PER_Id`, `PER_Nombre`, `PER_Apellido`, `PER_TipoDocumen
 --
 
 CREATE TABLE `personal_access_tokens` (
-  `id` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `tokenable_type` varchar(191) NOT NULL,
-  `tokenable_id` int UNSIGNED NOT NULL,
+  `tokenable_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) NOT NULL,
   `token` varchar(64) NOT NULL,
   `abilities` text DEFAULT NULL,
@@ -474,28 +482,43 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 CREATE TABLE `producto` (
-  `PRO_Id` int UNSIGNED NOT NULL,
+  `PRO_Id` int(10) UNSIGNED NOT NULL,
   `PRO_Nombre` varchar(50) NOT NULL,
   `PRO_Descripcion` varchar(250) DEFAULT NULL,
   `PRO_PrecioCompra` decimal(10,2) NOT NULL,
   `PRO_PrecioVenta` decimal(10,2) NOT NULL,
   `PRO_Marca` varchar(50) DEFAULT NULL,
-  `CAT_Id` int UNSIGNED NOT NULL,
+  `CAT_Id` int(10) UNSIGNED NOT NULL,
   `PRO_Status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`PRO_Id`, `PRO_Nombre`, `PRO_Descripcion`, `PRO_PrecioCompra`, `PRO_PrecioVenta`, `PRO_Marca`, `CAT_Id`, `PRO_Status`, `created_at`, `updated_at`) VALUES
+(1, 'GRANDE', '4 WAFFLES + 4 TOPPINGS', 10.00, 15.00, '-', 3, 1, NULL, NULL),
+(2, 'MEDIANO', '3 WAFFLES', 5.00, 10.00, '-', 3, 1, NULL, NULL),
+(3, 'MINI PLACER', 'ELECCION A TOPPINGS + 1 JALEAS', 3.00, 6.00, '-', 2, 1, NULL, NULL),
+(4, 'FRESURA MEDIA', 'ELECION A 3 TOPPINGS + 2 JALEAS', 4.00, 8.00, '-', 2, 1, NULL, NULL),
+(5, 'MEGA FRESA SUPREMA', 'ELECCION 3 TOPPINGS + 3 JALEAS', 8.00, 13.00, '-', 2, 1, NULL, NULL),
+(6, 'DUO DULCES', '-', 5.00, 7.00, '-', 1, 1, NULL, NULL),
+(7, 'TRI DONAS', '-', 7.00, 10.00, '-', 1, 1, NULL, NULL),
+(8, 'DONAS FAMILIAR', '-', 10.00, 15.00, '-', 1, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `proveedor`
 --
+
 CREATE TABLE `proveedor` (
-  `PROV_Id` int UNSIGNED NOT NULL,
+  `PROV_Id` int(10) UNSIGNED NOT NULL,
   `PROV_TipoDocumento` varchar(50) NOT NULL,
   `PROV_NumDocumento` varchar(12) NOT NULL,
-  `PROV_RazonSocial` varchar(50)  NOT NULL,
+  `PROV_RazonSocial` varchar(50) NOT NULL,
   `PROV_Direccion` varchar(50) DEFAULT NULL,
   `PROV_Descripcion` varchar(100) DEFAULT NULL,
   `PROV_Celular` varchar(9) DEFAULT NULL,
@@ -505,7 +528,6 @@ CREATE TABLE `proveedor` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
 -- --------------------------------------------------------
 
 --
@@ -513,10 +535,10 @@ CREATE TABLE `proveedor` (
 --
 
 CREATE TABLE `puesto` (
-  `PUE_Id` int UNSIGNED NOT NULL,
+  `PUE_Id` int(10) UNSIGNED NOT NULL,
   `PUE_Nombre` varchar(100) NOT NULL,
   `PUE_Roles` text DEFAULT NULL,
-  `ARE_Id` int NOT NULL
+  `ARE_Id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -568,12 +590,12 @@ INSERT INTO `puesto` (`PUE_Id`, `PUE_Nombre`, `PUE_Roles`, `ARE_Id`) VALUES
 --
 
 CREATE TABLE `roles` (
-  `id` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) NOT NULL,
   `guard_name` varchar(191) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `estadorol`  tinyint(1) DEFAULT NULL ,
+  `estadorol` tinyint(1) DEFAULT NULL,
   `descripcion` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -582,16 +604,16 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`, `estadorol`, `descripcion`) VALUES
-(1, 'ADMIN', 'web', '2023-11-02 02:23:21', '2024-04-06 04:37:22', b'1', 'administra todo'),
-(2, 'BLOGGER', 'web', '2024-03-15 23:55:57', '2024-04-05 23:16:33', b'1', 'Sin descripcion'),
-(3, 'ROLES', 'web', '2024-03-17 17:20:57', '2024-04-06 04:45:28', b'1', 'Todo el acceso a los roles'),
-(4, 'PERMISO', 'web', '2024-03-17 17:20:57', '2024-03-17 17:20:57', b'1', 'Todos los permisos'),
-(5, 'PERSONAL TECNICO', 'web', '2024-03-17 17:20:57', '2024-03-17 17:20:57', b'1', 'Roles unicamente para personal técnico'),
-(6, 'PERSONAL TECNICO 2', 'web', '2024-04-03 23:52:07', '2024-04-03 23:52:07', b'1', 'Sin descripcion'),
-(7, 'ASISTENTE ADMINISTRATIVO', 'web', '2024-04-04 01:13:32', '2024-04-04 01:13:32', b'1', 'Sin descripcion'),
-(8, 'GERENTE', 'web', '2024-04-05 01:25:40', '2024-04-05 01:25:40', b'1', 'administra el sistema'),
-(9, 'GERENTE 2', 'web', '2024-04-05 01:28:27', '2024-04-05 01:28:27', b'1', 'suplanta al gerente'),
-(10, 'SUPERVISOR', 'web', '2024-04-06 01:00:01', '2024-04-06 01:00:01', b'1', 'supervisa');
+(1, 'ADMIN', 'web', '2023-11-02 02:23:21', '2024-04-06 04:37:22', 1, 'administra todo'),
+(2, 'BLOGGER', 'web', '2024-03-15 23:55:57', '2024-04-05 23:16:33', 1, 'Sin descripcion'),
+(3, 'ROLES', 'web', '2024-03-17 17:20:57', '2024-04-06 04:45:28', 1, 'Todo el acceso a los roles'),
+(4, 'PERMISO', 'web', '2024-03-17 17:20:57', '2024-03-17 17:20:57', 1, 'Todos los permisos'),
+(5, 'PERSONAL TECNICO', 'web', '2024-03-17 17:20:57', '2024-03-17 17:20:57', 1, 'Roles unicamente para personal técnico'),
+(6, 'PERSONAL TECNICO 2', 'web', '2024-04-03 23:52:07', '2024-04-03 23:52:07', 1, 'Sin descripcion'),
+(7, 'ASISTENTE ADMINISTRATIVO', 'web', '2024-04-04 01:13:32', '2024-04-04 01:13:32', 1, 'Sin descripcion'),
+(8, 'GERENTE', 'web', '2024-04-05 01:25:40', '2024-04-05 01:25:40', 1, 'administra el sistema'),
+(9, 'GERENTE 2', 'web', '2024-04-05 01:28:27', '2024-04-05 01:28:27', 1, 'suplanta al gerente'),
+(10, 'SUPERVISOR', 'web', '2024-04-06 01:00:01', '2024-04-06 01:00:01', 1, 'supervisa');
 
 -- --------------------------------------------------------
 
@@ -600,8 +622,8 @@ INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`, `es
 --
 
 CREATE TABLE `role_has_permissions` (
-  `permission_id` int UNSIGNED NOT NULL,
-  `role_id` int UNSIGNED NOT NULL
+  `permission_id` int(10) UNSIGNED NOT NULL,
+  `role_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -676,7 +698,7 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 --
 
 CREATE TABLE `users` (
-  `id` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) NOT NULL,
   `email` varchar(191) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -689,9 +711,9 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `estadousuario` tinyint(1) NOT NULL DEFAULT 0,
   `avatar` varchar(191) DEFAULT NULL,
-  `tipousuario` int NOT NULL,
+  `tipousuario` int(11) NOT NULL,
   `numerodocumento` varchar(12) DEFAULT NULL,
-  `PER_Id` int NOT NULL
+  `PER_Id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -748,12 +770,6 @@ ALTER TABLE `clase`
   ADD PRIMARY KEY (`CLA_Id`);
 
 --
--- Indices de la tabla `contrato_personal`
---
-ALTER TABLE `contrato_personal`
-  ADD PRIMARY KEY (`COP_Item`,`PER_Id`);
-
---
 -- Indices de la tabla `compra`
 --
 ALTER TABLE `compra`
@@ -762,9 +778,15 @@ ALTER TABLE `compra`
   ADD KEY `COM_KFR2` (`PROV_Id`);
 
 --
--- Indices de la tabla `Detalle_Compra`
+-- Indices de la tabla `contrato_personal`
 --
-ALTER TABLE `Detalle_Compra`
+ALTER TABLE `contrato_personal`
+  ADD PRIMARY KEY (`COP_Item`,`PER_Id`);
+
+--
+-- Indices de la tabla `detalle_compra`
+--
+ALTER TABLE `detalle_compra`
   ADD PRIMARY KEY (`DCOM_Id`),
   ADD KEY `DCOM_KFR1` (`COM_Id`),
   ADD KEY `DCOM_KFR2` (`ALM_Id`),
@@ -792,9 +814,9 @@ ALTER TABLE `lote`
   ADD KEY `LOT_KFR2` (`ALM_Id`);
 
 --
--- Indices de la tabla `Metodo_Pago`
+-- Indices de la tabla `metodo_pago`
 --
-ALTER TABLE `Metodo_Pago`
+ALTER TABLE `metodo_pago`
   ADD PRIMARY KEY (`MEP_Id`);
 
 --
@@ -856,6 +878,7 @@ ALTER TABLE `producto`
 --
 ALTER TABLE `proveedor`
   ADD PRIMARY KEY (`PROV_Id`);
+
 --
 -- Indices de la tabla `puesto`
 --
@@ -888,118 +911,118 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT de la tabla `area`
---
-ALTER TABLE `area`
-  MODIFY `ARE_Id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
 -- AUTO_INCREMENT de la tabla `almacen`
 --
 ALTER TABLE `almacen`
-  MODIFY `ALM_Id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ALM_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `area`
+--
+ALTER TABLE `area`
+  MODIFY `ARE_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `asistencia`
 --
 ALTER TABLE `asistencia`
-  MODIFY `ASI_Id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ASI_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `CAT_Id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `CAT_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `clase`
 --
 ALTER TABLE `clase`
-  MODIFY `CLA_Id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `CLA_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `COM_Id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `COM_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `Detalle_Compra`
+-- AUTO_INCREMENT de la tabla `detalle_compra`
 --
-ALTER TABLE `Detalle_Compra`
-  MODIFY `DCOM_Id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `detalle_compra`
+  MODIFY `DCOM_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `lote`
 --
 ALTER TABLE `lote`
-  MODIFY `LOT_Id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `LOT_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `migrations`
+-- AUTO_INCREMENT de la tabla `metodo_pago`
 --
-ALTER TABLE `Metodo_Pago`
-  MODIFY `MEP_Id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `metodo_pago`
+  MODIFY `MEP_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `personal`
 --
 ALTER TABLE `personal`
-  MODIFY `PER_Id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `PER_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `PRO_Id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `PRO_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT de la tabla `producto`
+-- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `PROV_Id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `PROV_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `puesto`
 --
 ALTER TABLE `puesto`
-  MODIFY `PUE_Id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `PUE_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
@@ -1015,13 +1038,13 @@ ALTER TABLE `categoria`
 -- Filtros para la tabla `compra`
 --
 ALTER TABLE `compra`
-  ADD CONSTRAINT `COM_KFR1` FOREIGN KEY (`MEP_Id`) REFERENCES `Metodo_Pago` (`MEP_Id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `COM_KFR1` FOREIGN KEY (`MEP_Id`) REFERENCES `metodo_pago` (`MEP_Id`) ON DELETE CASCADE,
   ADD CONSTRAINT `COM_KFR2` FOREIGN KEY (`PROV_Id`) REFERENCES `proveedor` (`PROV_Id`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `Detalle_Compra`
+-- Filtros para la tabla `detalle_compra`
 --
-ALTER TABLE `Detalle_Compra`
+ALTER TABLE `detalle_compra`
   ADD CONSTRAINT `DCOM_KFR1` FOREIGN KEY (`COM_Id`) REFERENCES `compra` (`COM_Id`) ON DELETE CASCADE,
   ADD CONSTRAINT `DCOM_KFR2` FOREIGN KEY (`ALM_Id`) REFERENCES `almacen` (`ALM_Id`) ON DELETE CASCADE,
   ADD CONSTRAINT `DCOM_KFR3` FOREIGN KEY (`PRO_Id`) REFERENCES `producto` (`PRO_Id`) ON DELETE CASCADE;
