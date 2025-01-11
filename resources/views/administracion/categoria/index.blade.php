@@ -24,7 +24,7 @@
                                 <div class="col-12">
                                     <label class="control-label">Clase:</label>
                                     <select class="form-control select2 select2-info" id="CLA_Id" name="CLA_Id"
-                                        data-dropdown-css-class="select2-info" onchange="verName()" style="width: 100%;">
+                                        data-dropdown-css-class="select2-info" style="width: 100%;">
                                         <option value="">Seleccionar ...</option>
                                         @foreach ($clases as $itemClase)
                                             <option value="{{ $itemClase->CLA_Id }}"> {{ $itemClase->CLA_Nombre }}
@@ -172,6 +172,8 @@
                             type: 'success',
                             title: data.success
                         })
+                        $('#CLA_Id').val('');
+                        $('#CLA_Id').change();
                         $('#cat_form').trigger("reset");
                         table.draw();
                     },
@@ -194,6 +196,7 @@
                         $('#categoria_id_edit').val(result.data.CAT_Id);
                         $('#CAT_Nombre').val(result.data.CAT_Nombre);
                         $('#CLA_Id').val(result.data.CLA_Id);
+                        $('#CLA_Id').change();
 
                         // Mostrar botón Actualizar y ocultar botón Guardar
                         $("#saveCategoria").hide();
@@ -244,6 +247,8 @@
 
             function cancelarUpdate() {
                 $('#cat_form').trigger("reset");
+                $('#CLA_Id').val('');
+                $('#CLA_Id').change();
                 $("#categoria_id_edit").val('');
                 $("#saveCategoria").show(); // Mostrar botón Guardar
                 $("#updateBtn").hide();
