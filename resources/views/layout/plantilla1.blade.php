@@ -123,13 +123,37 @@
                                         <li class="nav-item">
                                             <a href="{{ route('gestion.venta.create') }}" class="nav-link " id="idCabVentaCrear">
                                                 <i class="far fa-circle nav-icon"></i>
-                                                <p>Crear</p>
+                                                <p>Ventas</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{ route('gestion.venta.index') }}" class="nav-link " id="idCabVentaLista">
                                                 <i class="far fa-circle nav-icon"></i>
-                                                <p>Lista</p>
+                                                <p>Cliente</p>
+                                            </a>
+                                        </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview" id="idCabVentas">
+                                <a href="#" class="nav-link" id="idVentas">
+                                    <i class="nav-icon fas fa-cash-register"></i>
+                                    <p>
+                                        COMPRAS
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+
+                                <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('gestion.venta.create') }}" class="nav-link " id="idCabVentaCrear">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Compra</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('gestion.venta.index') }}" class="nav-link " id="idCabVentaLista">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Proveedor</p>
                                             </a>
                                         </li>
                                 </ul>
