@@ -37,7 +37,7 @@ class CategoriaController extends Controller
         }
 
         $clases = DB::table('clase')->get();
-        return view('categoria.index', compact('clases'));
+        return view('administracion.categoria.index', compact('clases'));
     }
 
     /**

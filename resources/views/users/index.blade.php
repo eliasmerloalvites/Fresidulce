@@ -94,7 +94,7 @@
               <p class="card-text">
                 
                 <table class="table table-striped nowrap" id="table-users" name="table-users">
-                <thead style="background-color:#1C91EC;color: #fff;">
+                <thead style="background-color:#FF5F67;color: #fff;">
                     <tr>
                       <th scope="col">N°</th>
                       <th scope="col">Nombre</th>

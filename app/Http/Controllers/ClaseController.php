@@ -33,7 +33,7 @@ class ClaseController extends Controller
                 ->rawColumns(['action1','action2'])
                 ->make(true);
         }
-        return view('clase.index');
+        return view('administracion.clase.index');
     }
 
     /**

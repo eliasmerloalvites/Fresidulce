@@ -82,20 +82,22 @@
                     <div class="card-body">
                         <h5 class="card-title">LISTA DE PRODUCTOS</h5>
                         <p class="card-text">
-                        <table class="table" id="lista_productos">
-                            <thead style="background-color:#1C91EC;color: #fff;">
-                                <tr>
-                                    <th scope="col">Id</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Descripción</th>
-                                    <th scope="col">Precio de Compra</th>
-                                    <th scope="col">Precio de Venta</th>
-                                    <th scope="col">Marca</th>
-                                    <th scope="col">Categoria</th>
-                                    <th scope="col">Opciones</th>
-                                </tr>
-                            </thead>
-                        </table>
+                        <div class="table-responsive" style="background:#FFF;" >
+                            <table class="table" id="lista_productos">
+                                <thead style="background-color:#FF5F67;color: #fff;">
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col">Precio de Compra</th>
+                                        <th scope="col">Precio de Venta</th>
+                                        <th scope="col">Marca</th>
+                                        <th scope="col">Categoria</th>
+                                        <th scope="col">Opciones</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

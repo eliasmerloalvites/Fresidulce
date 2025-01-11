@@ -36,7 +36,7 @@ class ProductoController extends Controller
         }
 
         $categorias = DB::table('categoria')->get();
-        return view('producto.index', compact('categorias'));
+        return view('administracion.producto.index', compact('categorias'));
     }
 
     /**

@@ -5,7 +5,7 @@
 
     <body class="sidebar-mini layout-navbar-fixed text-sm" style="height: auto; min-height: 100%;">
         <div class="wrapper">
-            <nav class="main-header navbar navbar-expand" style="background: #FF5F67 ;">
+            <nav class="main-header navbar navbar-expand" style="background: #80A442 ;">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
@@ -380,9 +380,9 @@
 
 
                             @can('clase.index')
-                                <li class="nav-item has-treeview">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon fas fa-lock"></i>
+                                <li class="nav-item has-treeview {{ request()->is('clase*') || request()->is('categoria*') || request()->is('producto*') ? 'menu-open' : '' }}">
+                                    <a href="#" class="nav-link {{ request()->is('clase*') || request()->is('categoria*') || request()->is('producto*') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-layer-group"></i>
                                         <p>
                                             MODULO
                                             <i class="right fas fa-angle-left"></i>
@@ -391,7 +391,7 @@
                                     <ul class="nav nav-treeview">
                                         @can('clase.index')
                                             <li class="nav-item">
-                                                <a href="{{ route('clase.index') }}" class="nav-link">
+                                                <a href="{{ route('clase.index') }}" class="nav-link {{ request()->is('clase*') ? 'active' : '' }}">
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>Clases</p>
                                                 </a>
@@ -400,7 +400,7 @@
 
                                         @can('categoria.index')
                                             <li class="nav-item">
-                                                <a href="{{ route('categoria.index') }}" class="nav-link">
+                                                <a href="{{ route('categoria.index') }}" class="nav-link {{ request()->is('categoria*') ? 'active' : '' }}">
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>Categorias</p>
                                                 </a>
@@ -410,7 +410,7 @@
 
                                         @can('producto.index')
                                             <li class="nav-item">
-                                                <a href="{{ route('producto.index') }}" class="nav-link">
+                                                <a href="{{ route('producto.index') }}" class="nav-link {{ request()->is('producto*') ? 'active' : '' }}">
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>Productos</p>
                                                 </a>

@@ -1,69 +1,60 @@
 @extends('layout.plantilla1')
 
-@section('titulo', 'Categorias')
+@section('titulo', 'Clases')
 
 @section('contenido')
     <div class="container">
         <div class="row ">
-            <div class="col-5">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">CREAR CATEGORIAS</h5>
-                        <p class="card-text"></p>
-                        <form method="POST" id="cat_form" action="{{ route('categoria.store') }}">
-                            @csrf
-                            <input type="text" id="categoria_id_edit" hidden>
-                            <div class="form-group row">
-                                <div class="col-12">
-                                    <label class="control-label">Nombre:</label>
-                                    <input type="text" id="CAT_Nombre" name="CAT_Nombre" class="form-control "
-                                        placeholder="Nombre" required>
+            @can('clase.create')
+                <div class="col-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">CREAR CLASE</h5>
+                            <p class="card-text"></p>
+                            <form method="POST" id="class_form" action="{{ route('clase.store') }}">
+                                @csrf
+                                <input type="text" id="clase_id_edit" hidden>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <label class="control-label">Nombre:</label>
+                                        <input type="text" id="CLA_Nombre" name="CLA_Nombre" class="form-control "
+                                            placeholder="Nombre" required>
+                                    </div>
+
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-12">
-                                    <label class="control-label">Clase:</label>
-                                    <select class="form-control select2 select2-info" id="CLA_Id" name="CLA_Id"
-                                        data-dropdown-css-class="select2-info" onchange="verName()" style="width: 100%;">
-                                        <option value="">Seleccionar ...</option>
-                                        @foreach ($clases as $itemClase)
-                                            <option value="{{ $itemClase->CLA_Id }}"> {{ $itemClase->CLA_Nombre }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <p></p>
-                            <button id="saveCategoria" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
-                            <button id="updateBtn" class="btn btn-info" style="display: none;"><i
-                                    class="fas fa-save"></i>Actualizar</button>
-                            <button type="reset" id="btncancelar" class="btn btn-danger"> <i
-                                    class="fas fa-ban"></i>Cancelar </button>
-                        </form>
+                                <p></p>
+                                <button id="saveBtn" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
+                                <button id="updateBtn" class="btn btn-info" style="display: none;"><i
+                                        class="fas fa-save"></i>Actualizar</button>
+                                <button type="reset" id="btncancelar" class="btn btn-danger"> <i
+                                        class="fas fa-ban"></i>Cancelar </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-7">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">LISTA DE CATEGORIAS</h5>
-                        <p class="card-text">
+            @endcan
 
-                        <table class="table" id="lista_categorias">
-                            <thead style="background-color:#1C91EC;color: #fff;">
-                                <tr>
-                                    <th scope="col">Id</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Clase</th>
-                                    <th scope="col">Opciones</th>
-                                </tr>
-                            </thead>
-                        </table>
-
+            @can('clase.index')
+                <div class="col-7">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">LISTA DE CLASES</h5>
+                            <p class="card-text">
+                            <div class="table-responsive" style="background:#FFF;" >
+                                <table class="table" id="tabla_clase">
+                                    <thead style="background-color:#FF5F67;color: #fff;">
+                                        <tr>
+                                            <th scope="col">N°</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Opciones</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            @endcan
         </div>
     </div>
 @endsection
@@ -75,14 +66,16 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 3000
+                timer: 3000,
+                icon: 'info'
             });
 
-            var table = $('#lista_categorias').DataTable({
+            var table = $('#tabla_clase').DataTable({
                 responsive: true, // Habilitar la opción responsive
                 autoWidth: false,
                 searchDelay: 2000,
@@ -104,14 +97,10 @@
                 order: [
                     [0, "asc"]
                 ],
-                ajax: "{{ route('categoria.index') }}",
+                ajax: "{{ route('clase.index') }}",
                 columns: [{
-                        data: 'CAT_Id',
-                        name: 'CAT_Id'
-                    },
-                    {
-                        data: 'CAT_Nombre',
-                        name: 'CAT_Nombre'
+                        data: 'CLA_Id',
+                        name: 'CLA_Id'
                     },
                     {
                         data: 'CLA_Nombre',
@@ -121,11 +110,11 @@
                         data: null,
                         name: '',
                         'render': function(data, type, row) {
-                            return @can('categoria.edit')
+                            return @can('clase.edit')
                                     data.action1 + ' ' +
                                 @endcan
                             ''
-                            @can('categoria.destroy')
+                            @can('clase.destroy')
                                 +data.action2
                             @endcan ;
                         }
@@ -133,12 +122,11 @@
                 ]
             });
 
-            $('#saveCategoria').click(function(e) {
+            $('#saveBtn').click(function(e) {
                 e.preventDefault();
-                nombreCategoria = $("#CAT_Nombre").val();
-                nombreClase = $("#CLA_Nombre").val();
+                nombre = $("#CLA_Nombre").val();
 
-                if (nombreCategoria == '' || nombreClase == '') {
+                if (nombre == '') {
                     Toast.fire({
                         type: 'error',
                         title: 'Complete todos los campos por favor'
@@ -146,8 +134,8 @@
                     return false;
                 }
                 $.ajax({
-                    data: $('#cat_form').serialize(),
-                    url: "{{ route('categoria.store') }}",
+                    data: $('#class_form').serialize(),
+                    url: "{{ route('clase.store') }}",
                     type: "POST",
                     dataType: 'json',
                     success: function(data) {
@@ -156,42 +144,41 @@
                             type: 'success',
                             title: data.success
                         })
-                        $('#cat_form').trigger("reset");
+                        cancelarUpdate();
                         table.draw();
                     },
                     error: function(data) {
                         console.log('Error:', data);
                         Toast.fire({
                             type: 'error',
-                            title: 'Categoria fallo al Registrarse.'
+                            title: 'clase fallo al Registrarse.'
                         })
                     }
                 });
             });
 
-            $('body').on('click', '.editCategoria', function() {
-                var Categoria_id_edit = $(this).data('id');
-                $.get('{{ route('categoria.edit', ':categoria') }}'.replace(':categoria',
-                    Categoria_id_edit),
+            $('body').on('click', '.editClase', function() {
+                var Clase_id_edit = $(this).data('identificador');
+                $.get('{{ route('clase.edit', ['clase' => ':clase']) }}'.replace(':clase', Clase_id_edit),
                     function(result) {
                         console.log(result);
-                        $('#categoria_id_edit').val(result.data.CAT_Id);
-                        $('#CAT_Nombre').val(result.data.CAT_Nombre);
-                        $('#CLA_Id').val(result.data.CLA_Id);
+                        $('#clase_id_edit').val(result.data.CLA_Id);
+                        $('#CLA_Nombre').val(result.data.CLA_Nombre);
+
 
                         // Mostrar botón Actualizar y ocultar botón Guardar
-                        $("#saveCategoria").hide();
+                        $("#saveBtn").hide();
                         $("#updateBtn").show();
                     })
             });
 
             $('#updateBtn').click(function(e) {
                 e.preventDefault();
-                Categoria_id_update = $('#categoria_id_edit').val();
+                Clase_id_update = $('#clase_id_edit').val();
                 $.ajax({
-                    data: $('#cat_form').serialize(),
-                    url: '{{ route('categoria.update', ':categoria') }}'.replace(':categoria',
-                        Categoria_id_update),
+                    data: $('#class_form').serialize(),
+                    url: '{{ route('clase.update', ['clase' => ':clase']) }}'.replace(
+                        ':clase', Clase_id_update),
                     type: "PUT",
                     dataType: 'json',
                     success: function(data) {
@@ -207,7 +194,7 @@
                         console.log('Error:', data);
                         Toast.fire({
                             type: 'error',
-                            title: 'Categoria fallo al actualizarse.'
+                            title: 'Clase fallo al actualizarse.'
                         })
                     }
                 });
@@ -227,22 +214,22 @@
             });
 
             function cancelarUpdate() {
-                $('#cat_form').trigger("reset");
-                $("#categoria_id_edit").val('');
-                $("#saveCategoria").show(); // Mostrar botón Guardar
+                $('#class_form').trigger("reset");
+                $("#clase_id_edit").val('');
+                $("#saveBtn").show(); // Mostrar botón Guardar
                 $("#updateBtn").hide();
             }
 
-            $('body').on('click', '.deleteCategoria', function() {
+            $('body').on('click', '.deleteClase', function() {
 
-                var Categoria_id_delete = $(this).data("id");
+                var Clase_id_delete = $(this).data("id");
                 $confirm = confirm("¿Estás seguro de que quieres eliminarlo?");
                 if ($confirm == true) {
                     $.ajax({
                         type: "DELETE",
 
-                        url: '{{ route('categoria.destroy',  ':categoria') }}'.replace(
-                            ':categoria', Categoria_id_delete),
+                        url: '{{ route('clase.destroy', ['clase' => ':clase']) }}'.replace(
+                            ':clase', Clase_id_delete),
                         data: {
                             _token: '{{ csrf_token() }}'
                         },
@@ -260,19 +247,19 @@
                             console.log('Error:', data);
                             Toast.fire({
                                 type: 'error',
-                                title: 'Categoria fallo al Eliminarlo.',
+                                title: 'Clase fallo al Eliminarlo.',
                                 icon: 'info'
                             })
                         }
                     });
-                } else {
+                }else{
                     Toast.fire({
                         title: 'Acción cancelada',
-                        text: 'La categoria no ha sido eliminada.',
+                        text: 'La clase no ha sido eliminada.',
                         icon: 'info'
                     });
-                }
+                 }
             });
-        })
+        });
     </script>
 @endsection

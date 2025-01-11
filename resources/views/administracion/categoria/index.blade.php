@@ -1,58 +1,78 @@
 @extends('layout.plantilla1')
 
-@section('titulo', 'Clases')
+@section('titulo', 'Categorias')
 
 @section('contenido')
+<head>
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+</head>
+
     <div class="container">
         <div class="row ">
-            @can('clase.create')
-                <div class="col-5">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">CREAR CLASE</h5>
-                            <p class="card-text"></p>
-                            <form method="POST" id="class_form" action="{{ route('clase.store') }}">
-                                @csrf
-                                <input type="text" id="clase_id_edit" hidden>
-                                <div class="form-group row">
-                                    <div class="col-12">
-                                        <label class="control-label">Nombre:</label>
-                                        <input type="text" id="CLA_Nombre" name="CLA_Nombre" class="form-control "
-                                            placeholder="Nombre" required>
-                                    </div>
-
+            <div class="col-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">CREAR CATEGORIAS</h5>
+                        <p class="card-text"></p>
+                        <form method="POST" id="cat_form" action="{{ route('categoria.store') }}">
+                            @csrf
+                            <input type="text" id="categoria_id_edit" hidden>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label class="control-label">Clase:</label>
+                                    <select class="form-control select2 select2-info" id="CLA_Id" name="CLA_Id"
+                                        data-dropdown-css-class="select2-info" onchange="verName()" style="width: 100%;">
+                                        <option value="">Seleccionar ...</option>
+                                        @foreach ($clases as $itemClase)
+                                            <option value="{{ $itemClase->CLA_Id }}"> {{ $itemClase->CLA_Nombre }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                                <p></p>
-                                <button id="saveBtn" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
-                                <button id="updateBtn" class="btn btn-info" style="display: none;"><i
-                                        class="fas fa-save"></i>Actualizar</button>
-                                <button type="reset" id="btncancelar" class="btn btn-danger"> <i
-                                        class="fas fa-ban"></i>Cancelar </button>
-                            </form>
-                        </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label class="control-label">Nombre:</label>
+                                    <input type="text" id="CAT_Nombre" name="CAT_Nombre" class="form-control "
+                                        placeholder="Nombre" required>
+                                </div>
+                            </div>
+                            <p></p>
+                            <button id="saveCategoria" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
+                            <button id="updateBtn" class="btn btn-info" style="display: none;"><i
+                                    class="fas fa-save"></i>Actualizar</button>
+                            <button type="reset" id="btncancelar" class="btn btn-danger"> <i
+                                    class="fas fa-ban"></i>Cancelar </button>
+                        </form>
                     </div>
                 </div>
-            @endcan
+            </div>
+            <div class="col-7">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">LISTA DE CATEGORIAS</h5>
+                        <p class="card-text">
 
-            @can('clase.index')
-                <div class="col-7">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">LISTA DE CLASES</h5>
-                            <p class="card-text">
-                            <table class="table" id="tabla_clase">
-                                <thead style="background-color:#1C91EC;color: #fff;">
+                        <div class="table-responsive" style="background:#FFF;" >
+                            <table class="table" id="lista_categorias">
+                                <thead style="background-color:#FF5F67;color: #fff;">
                                     <tr>
-                                        <th scope="col">N°</th>
+                                        <th scope="col">Id</th>
                                         <th scope="col">Nombre</th>
+                                        <th scope="col">Clase</th>
                                         <th scope="col">Opciones</th>
                                     </tr>
                                 </thead>
                             </table>
                         </div>
+
                     </div>
                 </div>
-            @endcan
+            </div>
+
         </div>
     </div>
 @endsection
@@ -65,15 +85,20 @@
                 }
             });
 
+            $('.select2').select2()
+
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 3000,
-                icon: 'info'
+                timer: 3000
             });
 
-            var table = $('#tabla_clase').DataTable({
+            var table = $('#lista_categorias').DataTable({
                 responsive: true, // Habilitar la opción responsive
                 autoWidth: false,
                 searchDelay: 2000,
@@ -95,10 +120,14 @@
                 order: [
                     [0, "asc"]
                 ],
-                ajax: "{{ route('clase.index') }}",
+                ajax: "{{ route('categoria.index') }}",
                 columns: [{
-                        data: 'CLA_Id',
-                        name: 'CLA_Id'
+                        data: 'CAT_Id',
+                        name: 'CAT_Id'
+                    },
+                    {
+                        data: 'CAT_Nombre',
+                        name: 'CAT_Nombre'
                     },
                     {
                         data: 'CLA_Nombre',
@@ -108,11 +137,11 @@
                         data: null,
                         name: '',
                         'render': function(data, type, row) {
-                            return @can('clase.edit')
+                            return @can('categoria.edit')
                                     data.action1 + ' ' +
                                 @endcan
                             ''
-                            @can('clase.destroy')
+                            @can('categoria.destroy')
                                 +data.action2
                             @endcan ;
                         }
@@ -120,11 +149,12 @@
                 ]
             });
 
-            $('#saveBtn').click(function(e) {
+            $('#saveCategoria').click(function(e) {
                 e.preventDefault();
-                nombre = $("#CLA_Nombre").val();
+                nombreCategoria = $("#CAT_Nombre").val();
+                nombreClase = $("#CLA_Nombre").val();
 
-                if (nombre == '') {
+                if (nombreCategoria == '' || nombreClase == '') {
                     Toast.fire({
                         type: 'error',
                         title: 'Complete todos los campos por favor'
@@ -132,8 +162,8 @@
                     return false;
                 }
                 $.ajax({
-                    data: $('#class_form').serialize(),
-                    url: "{{ route('clase.store') }}",
+                    data: $('#cat_form').serialize(),
+                    url: "{{ route('categoria.store') }}",
                     type: "POST",
                     dataType: 'json',
                     success: function(data) {
@@ -142,41 +172,42 @@
                             type: 'success',
                             title: data.success
                         })
-                        cancelarUpdate();
+                        $('#cat_form').trigger("reset");
                         table.draw();
                     },
                     error: function(data) {
                         console.log('Error:', data);
                         Toast.fire({
                             type: 'error',
-                            title: 'clase fallo al Registrarse.'
+                            title: 'Categoria fallo al Registrarse.'
                         })
                     }
                 });
             });
 
-            $('body').on('click', '.editClase', function() {
-                var Clase_id_edit = $(this).data('identificador');
-                $.get('{{ route('clase.edit', ['clase' => ':clase']) }}'.replace(':clase', Clase_id_edit),
+            $('body').on('click', '.editCategoria', function() {
+                var Categoria_id_edit = $(this).data('id');
+                $.get('{{ route('categoria.edit', ':categoria') }}'.replace(':categoria',
+                    Categoria_id_edit),
                     function(result) {
                         console.log(result);
-                        $('#clase_id_edit').val(result.data.CLA_Id);
-                        $('#CLA_Nombre').val(result.data.CLA_Nombre);
-
+                        $('#categoria_id_edit').val(result.data.CAT_Id);
+                        $('#CAT_Nombre').val(result.data.CAT_Nombre);
+                        $('#CLA_Id').val(result.data.CLA_Id);
 
                         // Mostrar botón Actualizar y ocultar botón Guardar
-                        $("#saveBtn").hide();
+                        $("#saveCategoria").hide();
                         $("#updateBtn").show();
                     })
             });
 
             $('#updateBtn').click(function(e) {
                 e.preventDefault();
-                Clase_id_update = $('#clase_id_edit').val();
+                Categoria_id_update = $('#categoria_id_edit').val();
                 $.ajax({
-                    data: $('#class_form').serialize(),
-                    url: '{{ route('clase.update', ['clase' => ':clase']) }}'.replace(
-                        ':clase', Clase_id_update),
+                    data: $('#cat_form').serialize(),
+                    url: '{{ route('categoria.update', ':categoria') }}'.replace(':categoria',
+                        Categoria_id_update),
                     type: "PUT",
                     dataType: 'json',
                     success: function(data) {
@@ -192,7 +223,7 @@
                         console.log('Error:', data);
                         Toast.fire({
                             type: 'error',
-                            title: 'Clase fallo al actualizarse.'
+                            title: 'Categoria fallo al actualizarse.'
                         })
                     }
                 });
@@ -212,22 +243,22 @@
             });
 
             function cancelarUpdate() {
-                $('#class_form').trigger("reset");
-                $("#clase_id_edit").val('');
-                $("#saveBtn").show(); // Mostrar botón Guardar
+                $('#cat_form').trigger("reset");
+                $("#categoria_id_edit").val('');
+                $("#saveCategoria").show(); // Mostrar botón Guardar
                 $("#updateBtn").hide();
             }
 
-            $('body').on('click', '.deleteClase', function() {
+            $('body').on('click', '.deleteCategoria', function() {
 
-                var Clase_id_delete = $(this).data("id");
+                var Categoria_id_delete = $(this).data("id");
                 $confirm = confirm("¿Estás seguro de que quieres eliminarlo?");
                 if ($confirm == true) {
                     $.ajax({
                         type: "DELETE",
 
-                        url: '{{ route('clase.destroy', ['clase' => ':clase']) }}'.replace(
-                            ':clase', Clase_id_delete),
+                        url: '{{ route('categoria.destroy',  ':categoria') }}'.replace(
+                            ':categoria', Categoria_id_delete),
                         data: {
                             _token: '{{ csrf_token() }}'
                         },
@@ -245,19 +276,19 @@
                             console.log('Error:', data);
                             Toast.fire({
                                 type: 'error',
-                                title: 'Clase fallo al Eliminarlo.',
+                                title: 'Categoria fallo al Eliminarlo.',
                                 icon: 'info'
                             })
                         }
                     });
-                }else{
+                } else {
                     Toast.fire({
                         title: 'Acción cancelada',
-                        text: 'La clase no ha sido eliminada.',
+                        text: 'La categoria no ha sido eliminada.',
                         icon: 'info'
                     });
-                 }
+                }
             });
-        });
+        })
     </script>
 @endsection
