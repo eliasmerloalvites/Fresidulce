@@ -182,7 +182,7 @@
                             type: 'success',
                             title: data.success
                         })
-                        window.location.href = "/Home";
+                        window.location.href = "/home";
                         $('#LoginForm').trigger("reset");
                     },
                     error: function(data) {
