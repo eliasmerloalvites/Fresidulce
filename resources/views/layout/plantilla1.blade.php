@@ -5,7 +5,7 @@
 
     <body class="sidebar-mini layout-navbar-fixed text-sm" style="height: auto; min-height: 100%;">
         <div class="wrapper">
-            <nav class="main-header navbar navbar-expand navbar-dark">
+            <nav class="main-header navbar navbar-expand" style="background: #FF5F67 ;">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
@@ -64,7 +64,7 @@
             <!-- /.navbar -->
 
             <!-- Main Sidebar Container -->
-            <aside class="main-sidebar elevation-4 sidebar-light-black sidebar-dark-navy">
+            <aside class="main-sidebar elevation-4 sidebar-light-black " >
                 <!-- Brand Logo -->
                 <a href="/rrhh" class="brand-link navbar-light">
                     <img id="avatarImageHeader" class="brand-image img-circle elevation-3" alt="User Image">
@@ -120,22 +120,18 @@
                                 </a>
 
                                 <ul class="nav nav-treeview">
-                                    @can('rrhh.venta.create')
                                         <li class="nav-item">
-                                            <a href="{{ route('rrhh.venta.create') }}" class="nav-link " id="idCabVentaCrear">
+                                            <a href="{{ route('gestion.venta.create') }}" class="nav-link " id="idCabVentaCrear">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Crear</p>
                                             </a>
                                         </li>
-                                    @endcan
-                                    @can('rrhh.venta.index')
                                         <li class="nav-item">
-                                            <a href="{{ route('rrhh.venta.index') }}" class="nav-link " id="idCabVentaLista">
+                                            <a href="{{ route('gestion.venta.index') }}" class="nav-link " id="idCabVentaLista">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Lista</p>
                                             </a>
                                         </li>
-                                    @endcan
                                 </ul>
                             </li>
 
@@ -246,7 +242,7 @@
                                 </li>
                             @endcan
 
-                            @can('rrhh.venta.create')
+                            @can('gestion.venta.create')
                                 <li class="nav-item has-treeview" id="idCabReporte1">
                                     <a href="#" class="nav-link" id="idReporte1">
                                         <i class="nav-icon fas fa-chart-bar"></i>

@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,10 +43,20 @@ Route::middleware(['auth'])->group(function(){
   Route::resource('usuario', UserController::class);
   Route::resource('role', RoleController::class);  
   Route::resource('permiso', PermisoController::class);
+  Route::resource('clase',ClaseController::class);
+  
+  Route::resource('categoria', CategoriaController::class);
+  
+  Route::resource('producto',ProductoController::class);
+  
+  
+  Route::resource('gestion/venta',VentaController::class)->names([
+    'index' => 'gestion.venta.index',
+    'create' => 'gestion.venta.create',
+    'store' => 'gestion.venta.store',
+    'edit' => 'gestion.venta.edit',
+    'update' => 'gestion.venta.update',
+    'show' => 'gestion.venta.show'
+  ]);
 });
 
-Route::resource('clase',ClaseController::class);
-
-Route::resource('categoria', CategoriaController::class);
-
-Route::resource('producto',ProductoController::class);
