@@ -69,7 +69,8 @@
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 3000
+                timer: 3000,
+                icon: 'info'
             });
 
             var table = $('#tabla_clase').DataTable({
@@ -235,7 +236,8 @@
                             console.log('success:', data);
                             Toast.fire({
                                 type: 'success',
-                                title: String(data.success)
+                                title: String(data.success),
+                                icon: 'info'
                             });
 
                         },
@@ -243,12 +245,13 @@
                             console.log('Error:', data);
                             Toast.fire({
                                 type: 'error',
-                                title: 'Clase fallo al Eliminarlo.'
+                                title: 'Clase fallo al Eliminarlo.',
+                                icon: 'info'
                             })
                         }
                     });
                 }else{
-                    Swal.fire({
+                    Toast.fire({
                         title: 'Acción cancelada',
                         text: 'La clase no ha sido eliminada.',
                         icon: 'info'
