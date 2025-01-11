@@ -22,11 +22,11 @@ class ProductoController extends Controller
             return datatables()::of($data)
                 ->addIndexColumn()
                 ->addColumn('action1', function ($row) {
-                    $btn = '<a data-toggle="tooltip"  data-id="' . $row->PRO_Id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editPermiso" ><i class="fa fa-edit"></i></a>';
+                    $btn = '<a data-toggle="tooltip"  data-id="' . $row->PRO_Id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editProducto" ><i class="fa fa-edit"></i></a>';
                     return $btn;
                 })
                 ->addColumn('action2', function ($row) {
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->PRO_Id . '" data-original-title="Delete" class="btn btn-danger btn-sm deletePermiso"><i class="fa fa-trash"></i></a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->PRO_Id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteProducto"><i class="fa fa-trash"></i></a>';
 
                     return $btn;
                 })
@@ -83,7 +83,8 @@ class ProductoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $producto = Producto::find($id);
+        return response()->json(['data' => $producto]);
     }
 
     /**
@@ -91,7 +92,17 @@ class ProductoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $producto = Producto::find($id);
+        $producto->PRO_Nombre = $request->PRO_Nombre;
+        $producto->PRO_Descripcion = $request->PRO_Descripcion;
+        $producto->PRO_PrecioCompra = $request->PRO_PrecioCompra;
+        $producto->PRO_PrecioVenta = $request->PRO_PrecioVenta;
+        $producto->PRO_Marca = $request->PRO_Marca;
+        $producto->PRO_Status = $request->PRO_Status ?? 1;
+        $producto->CAT_Id = $request->CAT_Id;
+		$producto->update();
+
+        return response()->json(['success' => 'Producto Editado Exitosamente.',compact('producto')]);
     }
 
     /**
@@ -99,6 +110,8 @@ class ProductoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $producto = Producto::find($id);
+        $producto->delete();
+        return response()->json(['success' => 'Producto Eliminado Exitosamente.']);
     }
 }

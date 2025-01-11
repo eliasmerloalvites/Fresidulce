@@ -12,9 +12,9 @@
                         <p class="card-text"></p>
                         <form method="POST" id="product_form" action="{{route('producto.store')}}">
                             @csrf
+                            <input type="text" id="producto_id_edit" hidden>
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <input type="text" id="permiso_id_edit" hidden>
                                     <label class="control-label">Nombre:</label>
                                     <input type="text" id="PRO_Nombre" name="PRO_Nombre"
                                         class="form-control input_user "
@@ -23,7 +23,6 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <input type="text" id="permiso_id_edit" hidden>
                                     <label class="control-label">Descripción:</label>
                                     <input type="text" id="PRO_Descripcion" name="PRO_Descripcion"
                                         class="form-control input_user "
@@ -32,7 +31,6 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <input type="number" id="permiso_id_edit" hidden>
                                     <label class="control-label">Precio de Compra:</label>
                                     <input type="number" id="PRO_PrecioCompra" name="PRO_PrecioCompra"
                                         class="form-control input_user "
@@ -41,7 +39,6 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <input type="number" id="permiso_id_edit" hidden>
                                     <label class="control-label">Precio de Venta:</label>
                                     <input type="number" id="PRO_PrecioVenta" name="PRO_PrecioVenta"
                                         class="form-control input_user "
@@ -50,7 +47,6 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <input type="text" id="permiso_id_edit" hidden>
                                     <label class="control-label">Marca:</label>
                                     <input type="text" id="PRO_Marca" name="PRO_Marca"
                                         class="form-control input_user "
@@ -73,7 +69,10 @@
                             </div>
                             <p></p>
                             <button id="productosave" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
-                            
+                            <button id="updateBtn" class="btn btn-info" style="display: none;"><i
+                                class="fas fa-save"></i>Actualizar</button>
+                            <button type="reset" id="btncancelar" class="btn btn-danger"> <i
+                                class="fas fa-ban"></i>Cancelar </button>
                         </form>
                     </div>
                 </div>
@@ -218,6 +217,115 @@
                         })
                     }
                 });
+            });
+
+            $('body').on('click', '.editProducto', function() {
+                var Producto_id_edit = $(this).data('id');
+                $.get('{{ route('producto.edit', ':producto') }}'.replace(':producto', Producto_id_edit),
+                    function(result) {
+                        console.log(result);
+                        $('#producto_id_edit').val(result.data.PRO_Id);
+                        $('#PRO_Nombre').val(result.data.PRO_Nombre);
+                        $('#PRO_Descripcion').val(result.data.PRO_Nombre);
+                        $('#PRO_PrecioCompra').val(result.data.PRO_Nombre);
+                        $('#PRO_PrecioVenta').val(result.data.PRO_Nombre);
+                        $('#PRO_Marca').val(result.data.PRO_Nombre);
+                        $('#CAT_Id').val(result.data.CAT_Id);
+
+
+                        // Mostrar botón Actualizar y ocultar botón Guardar
+                        $("#productosave").hide();
+                        $("#updateBtn").show();
+                    })
+            });
+
+            $('#updateBtn').click(function(e) {
+                e.preventDefault();
+                Producto_id_update = $('#producto_id_edit').val();
+                $.ajax({
+                    data: $('#product_form').serialize(),
+                    url: '{{ route('producto.update',  ':producto') }}'.replace(
+                        ':producto', Producto_id_update),
+                    type: "PUT",
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log('Success:', data);
+                        Toast.fire({
+                            type: 'success',
+                            title: data.success
+                        });
+                        cancelarUpdate();
+                        table.draw();
+                    },
+                    error: function(data) {
+                        console.log('Error:', data);
+                        Toast.fire({
+                            type: 'error',
+                            title: 'Producto fallo al actualizarse.'
+                        })
+                    }
+                });
+            });
+
+            $('#btncancelar').click(function(e) {
+                cancelarUpdate();
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Registro cancelado',
+                    text: 'El formulario se ha reiniciado correctamente.',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            });
+
+            function cancelarUpdate() {
+                $('#product_form').trigger("reset");
+                $("#producto_id_edit").val('');
+                $("#productosave").show(); // Mostrar botón Guardar
+                $("#updateBtn").hide();
+            }
+
+            $('body').on('click', '.deleteProducto', function() {
+
+                var Producto_id_delete = $(this).data("id");
+                $confirm = confirm("¿Estás seguro de que quieres eliminarlo?");
+                if ($confirm == true) {
+                    $.ajax({
+                        type: "DELETE",
+
+                        url: '{{ route('producto.destroy',':producto') }}'.replace(
+                            ':producto', Producto_id_delete),
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(data) {
+                            table.draw();
+                            console.log('success:', data);
+                            Toast.fire({
+                                type: 'success',
+                                title: String(data.success),
+                                icon: 'info'
+                            });
+
+                        },
+                        error: function(data) {
+                            console.log('Error:', data);
+                            Toast.fire({
+                                type: 'error',
+                                title: 'Producto fallo al Eliminarlo.',
+                                icon: 'info'
+                            })
+                        }
+                    });
+                }else{
+                    Toast.fire({
+                        title: 'Acción cancelada',
+                        text: 'El producto no ha sido eliminado.',
+                        icon: 'info'
+                    });
+                 }
             });
         })
     </script>
