@@ -25,7 +25,7 @@ class ClaseController extends Controller
                     return $btn;
                 })
                 ->addColumn('action2', function ($row) {
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->CLA_Id . '" data-original-title="Delete" class="btn btn-danger btn-sm deletePermiso"><i class="fa fa-trash"></i></a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->CLA_Id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteClase"><i class="fa fa-trash"></i></a>';
 
                     return $btn;
                 })
@@ -97,6 +97,8 @@ class ClaseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $clase = Clase::find($id);
+        $clase->delete();
+        return response()->json(['success' => 'Clase Eliminado Exitosamente.']);
     }
 }

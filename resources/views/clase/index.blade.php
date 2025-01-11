@@ -24,8 +24,10 @@
                                 </div>
                                 <p></p>
                                 <button id="saveBtn" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
-                                <button id="updateBtn" class="btn btn-info" style="display: none;" ><i class="fas fa-save"></i>Actualizar</button>
-                                <button type="reset" id="btncancelar" class="btn btn-danger"> <i class="fas fa-ban"></i>Cancelar </button>
+                                <button id="updateBtn" class="btn btn-info" style="display: none;"><i
+                                        class="fas fa-save"></i>Actualizar</button>
+                                <button type="reset" id="btncancelar" class="btn btn-danger"> <i
+                                        class="fas fa-ban"></i>Cancelar </button>
                             </form>
                         </div>
                     </div>
@@ -57,6 +59,12 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -192,25 +200,61 @@
             $('#btncancelar').click(function(e) {
                 cancelarUpdate();
                 Swal.fire({
-                icon: 'info',
-                title: 'Registro cancelado',
-                text: 'El formulario se ha reiniciado correctamente.',
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000
+                    icon: 'info',
+                    title: 'Registro cancelado',
+                    text: 'El formulario se ha reiniciado correctamente.',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
                 });
             });
 
-            function cancelarUpdate(){
+            function cancelarUpdate() {
                 $('#class_form').trigger("reset");
                 $("#clase_id_edit").val('');
-                $("#saveBtn").show();  // Mostrar botón Guardar
+                $("#saveBtn").show(); // Mostrar botón Guardar
                 $("#updateBtn").hide();
             }
 
-           
+            $('body').on('click', '.deleteClase', function() {
 
+                var Clase_id_delete = $(this).data("id");
+                $confirm = confirm("¿Estás seguro de que quieres eliminarlo?");
+                if ($confirm == true) {
+                    $.ajax({
+                        type: "DELETE",
+
+                        url: '{{ route('clase.destroy', ['clase' => ':clase']) }}'.replace(
+                            ':clase', Clase_id_delete),
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(data) {
+                            table.draw();
+                            console.log('success:', data);
+                            Toast.fire({
+                                type: 'success',
+                                title: String(data.success)
+                            });
+
+                        },
+                        error: function(data) {
+                            console.log('Error:', data);
+                            Toast.fire({
+                                type: 'error',
+                                title: 'Clase fallo al Eliminarlo.'
+                            })
+                        }
+                    });
+                }else{
+                    Swal.fire({
+                        title: 'Acción cancelada',
+                        text: 'La clase no ha sido eliminada.',
+                        icon: 'info'
+                    });
+                 }
+            });
         });
     </script>
 @endsection
