@@ -12,9 +12,9 @@
                         <p class="card-text"></p>
                         <form method="POST" id="cat_form" action="{{ route('categoria.store') }}">
                             @csrf
+                            <input type="text" id="categoria_id_edit" hidden>
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <input type="text" id="permiso_id_edit" hidden>
                                     <label class="control-label">Nombre:</label>
                                     <input type="text" id="CAT_Nombre" name="CAT_Nombre" class="form-control "
                                         placeholder="Nombre" required>
@@ -35,6 +35,10 @@
                             </div>
                             <p></p>
                             <button id="saveCategoria" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
+                            <button id="updateBtn" class="btn btn-info" style="display: none;"><i
+                                    class="fas fa-save"></i>Actualizar</button>
+                            <button type="reset" id="btncancelar" class="btn btn-danger"> <i
+                                    class="fas fa-ban"></i>Cancelar </button>
                         </form>
                     </div>
                 </div>
@@ -66,6 +70,11 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -113,8 +122,8 @@
                         name: '',
                         'render': function(data, type, row) {
                             return @can('categoria.edit')
-                                data.action1 + ' ' +
-                            @endcan
+                                    data.action1 + ' ' +
+                                @endcan
                             ''
                             @can('categoria.destroy')
                                 +data.action2
@@ -158,6 +167,111 @@
                         })
                     }
                 });
+            });
+
+            $('body').on('click', '.editCategoria', function() {
+                var Categoria_id_edit = $(this).data('id');
+                $.get('{{ route('categoria.edit', ':categoria') }}'.replace(':categoria',
+                    Categoria_id_edit),
+                    function(result) {
+                        console.log(result);
+                        $('#categoria_id_edit').val(result.data.CAT_Id);
+                        $('#CAT_Nombre').val(result.data.CAT_Nombre);
+                        $('#CLA_Id').val(result.data.CLA_Id);
+
+                        // Mostrar botón Actualizar y ocultar botón Guardar
+                        $("#saveCategoria").hide();
+                        $("#updateBtn").show();
+                    })
+            });
+
+            $('#updateBtn').click(function(e) {
+                e.preventDefault();
+                Categoria_id_update = $('#categoria_id_edit').val();
+                $.ajax({
+                    data: $('#cat_form').serialize(),
+                    url: '{{ route('categoria.update', ':categoria') }}'.replace(':categoria',
+                        Categoria_id_update),
+                    type: "PUT",
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log('Success:', data);
+                        Toast.fire({
+                            type: 'success',
+                            title: data.success
+                        });
+                        cancelarUpdate();
+                        table.draw();
+                    },
+                    error: function(data) {
+                        console.log('Error:', data);
+                        Toast.fire({
+                            type: 'error',
+                            title: 'Categoria fallo al actualizarse.'
+                        })
+                    }
+                });
+            });
+
+            $('#btncancelar').click(function(e) {
+                cancelarUpdate();
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Registro cancelado',
+                    text: 'El formulario se ha reiniciado correctamente.',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            });
+
+            function cancelarUpdate() {
+                $('#cat_form').trigger("reset");
+                $("#categoria_id_edit").val('');
+                $("#saveCategoria").show(); // Mostrar botón Guardar
+                $("#updateBtn").hide();
+            }
+
+            $('body').on('click', '.deleteCategoria', function() {
+
+                var Categoria_id_delete = $(this).data("id");
+                $confirm = confirm("¿Estás seguro de que quieres eliminarlo?");
+                if ($confirm == true) {
+                    $.ajax({
+                        type: "DELETE",
+
+                        url: '{{ route('categoria.destroy',  ':categoria') }}'.replace(
+                            ':categoria', Categoria_id_delete),
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(data) {
+                            table.draw();
+                            console.log('success:', data);
+                            Toast.fire({
+                                type: 'success',
+                                title: String(data.success),
+                                icon: 'info'
+                            });
+
+                        },
+                        error: function(data) {
+                            console.log('Error:', data);
+                            Toast.fire({
+                                type: 'error',
+                                title: 'Categoria fallo al Eliminarlo.',
+                                icon: 'info'
+                            })
+                        }
+                    });
+                } else {
+                    Toast.fire({
+                        title: 'Acción cancelada',
+                        text: 'La categoria no ha sido eliminada.',
+                        icon: 'info'
+                    });
+                }
             });
         })
     </script>

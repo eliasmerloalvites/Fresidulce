@@ -37,7 +37,7 @@ Route::post('/salir', [UserController::class,'salir'])->name('logout');
 
 Route::middleware(['auth'])->group(function(){ 
   Route::get('/home', [HomeController::class,'index'])->name('home');
-  Route::post('/perfil/foto', 'ProfileController@updatePhoto');
+  //Route::post('/perfil/foto', 'ProfileController@updatePhoto');
   Route::get('personal/getimagen', [ProfileController::class,'getimagen'])->name('personal.getimagen');
   Route::resource('usuario', UserController::class);
   Route::resource('role', RoleController::class);  

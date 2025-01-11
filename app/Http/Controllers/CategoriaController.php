@@ -23,11 +23,11 @@ class CategoriaController extends Controller
             return datatables()::of($data)
                 ->addIndexColumn()
                 ->addColumn('action1', function ($row) {
-                    $btn = '<a data-toggle="tooltip"  data-id="' . $row->CAT_Id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editPermiso" ><i class="fa fa-edit"></i></a>';
+                    $btn = '<a data-toggle="tooltip"  data-id="' . $row->CAT_Id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editCategoria" ><i class="fa fa-edit"></i></a>';
                     return $btn;
                 })
                 ->addColumn('action2', function ($row) {
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->CAT_Id . '" data-original-title="Delete" class="btn btn-danger btn-sm deletePermiso"><i class="fa fa-trash"></i></a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->CAT_Id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteCategoria"><i class="fa fa-trash"></i></a>';
 
                     return $btn;
                 })
@@ -81,7 +81,8 @@ class CategoriaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categoria = Categoria::find($id);
+        return response()->json(['data' => $categoria]);
     }
 
     /**
@@ -89,7 +90,12 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $categoria = Categoria::find($id);
+        $categoria->CAT_Nombre = $request->CAT_Nombre;
+        $categoria->CLA_Id = $request->CLA_Id;
+		$categoria->update();
+
+        return response()->json(['success' => 'Categoria Editado Exitosamente.',compact('categoria')]);
     }
 
     /**
@@ -97,6 +103,8 @@ class CategoriaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $categoria = Categoria::find($id);
+        $categoria->delete();
+        return response()->json(['success' => 'Categoria Eliminado Exitosamente.']);
     }
 }
