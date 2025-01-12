@@ -15,9 +15,9 @@ class ProveedorController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-			$data = DB::table('proveedor as prov')
-			->select('prov.*')
-			->get();
+            $data = DB::table('proveedor as prov')
+                ->select('prov.*')
+                ->get();
             return datatables()::of($data)
                 ->addIndexColumn()
                 ->addColumn('action1', function ($row) {
@@ -29,8 +29,8 @@ class ProveedorController extends Controller
 
                     return $btn;
                 })
-               
-                ->rawColumns(['action1','action2'])
+
+                ->rawColumns(['action1', 'action2'])
                 ->make(true);
         }
         return view('administracion.proveedor.index');
@@ -49,24 +49,23 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
-        $query=Proveedor::where('PROV_NumDocumento','=',$request->get('PROV_NumDocumento'))->get();
-        if($query->count()!=0) //si lo encuentra, osea si no esta vacia
+        $query = Proveedor::where('PROV_NumDocumento', '=', $request->get('PROV_NumDocumento'))->get();
+        if ($query->count() != 0) //si lo encuentra, osea si no esta vacia
         {
-            
-            return response()->json(['error' => 'Proveedor ya se encuentra registrado'], 401);                   
-        }
-        else{
-            $Proveedor= new Proveedor();
-            $Proveedor->PROV_TipoDocumento=$request->PROV_TipoDocumento;
-            $Proveedor->PROV_NumDocumento=$request->PROV_NumDocumento;
-            $Proveedor->PROV_RazonSocial=$request->PROV_RazonSocial;
-            $Proveedor->PROV_Direccion=$request->PROV_Direccion;
-            $Proveedor->PROV_Descripcion=$request->PROV_Descripcion;
-            $Proveedor->PROV_Celular=$request->PROV_Celular;
-            $Proveedor->PROV_Correo=$request->PROV_Correo;
-            $Proveedor->PROV_Status=$request->PROV_Status ?? 1;
+
+            return response()->json(['error' => 'Proveedor ya se encuentra registrado'], 401);
+        } else {
+            $Proveedor = new Proveedor();
+            $Proveedor->PROV_TipoDocumento = $request->PROV_TipoDocumento;
+            $Proveedor->PROV_NumDocumento = $request->PROV_NumDocumento;
+            $Proveedor->PROV_RazonSocial = $request->PROV_RazonSocial;
+            $Proveedor->PROV_Direccion = $request->PROV_Direccion;
+            $Proveedor->PROV_Descripcion = $request->PROV_Descripcion;
+            $Proveedor->PROV_Celular = $request->PROV_Celular;
+            $Proveedor->PROV_Correo = $request->PROV_Correo;
+            $Proveedor->PROV_Status = $request->PROV_Status ?? 1;
             $Proveedor->save();
-            return response()->json(['success' => 'Proveedor Registrado Exitosamente!',compact('Proveedor')]);    
+            return response()->json(['success' => 'Proveedor Registrado Exitosamente!', compact('Proveedor')]);
         }
     }
 
@@ -83,7 +82,8 @@ class ProveedorController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $Proveedor = Proveedor::find($id);
+        return response()->json(['data' => $Proveedor]);
     }
 
     /**
@@ -91,7 +91,17 @@ class ProveedorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $Proveedor = Proveedor::find($id);
+        $Proveedor->PROV_TipoDocumento = $request->PROV_TipoDocumento;
+        $Proveedor->PROV_NumDocumento = $request->PROV_NumDocumento;
+        $Proveedor->PROV_RazonSocial = $request->PROV_RazonSocial;
+        $Proveedor->PROV_Direccion = $request->PROV_Direccion;
+        $Proveedor->PROV_Descripcion = $request->PROV_Descripcion;
+        $Proveedor->PROV_Celular = $request->PROV_Celular;
+        $Proveedor->PROV_Correo = $request->PROV_Correo;
+        $Proveedor->update();
+
+        return response()->json(['success' => 'Proveedor Editado Exitosamente.', compact('Proveedor')]);
     }
 
     /**
@@ -99,6 +109,8 @@ class ProveedorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $Proveedor = Proveedor::find($id);
+        $Proveedor->delete();
+        return response()->json(['success' => 'Proveedor Eliminado Exitosamente.']);
     }
 }
