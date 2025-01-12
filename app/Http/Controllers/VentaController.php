@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Venta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class VentaController extends Controller
 {
@@ -46,7 +47,23 @@ class VentaController extends Controller
     {
         $clase = DB::table('clase')->select('*')->orderBy('CLA_Nombre', 'asc')->get();
         $categoria = DB::table('categoria')->select('*')->orderBy('CAT_Nombre', 'asc')->get();
-        return view('gestion.venta.create', compact('clase','categoria'));
+
+
+        $lotesproductos = DB::table('lote as lt')
+            ->join('almacen as a', 'a.ALM_Id', '=', 'lt.ALM_Id')
+            ->join('producto as p', 'p.PRO_Id', '=', 'lt.PRO_Id')
+            ->join('categoria as cat', 'cat.CAT_Id', '=', 'p.CAT_Id')
+            ->join('clase as cl', 'cl.CLA_Id', '=', 'cat.CLA_Id')
+            ->select('a.ALM_Id', 'p.PRO_Id', 'p.PRO_Nombre', 'p.CAT_Id as TIPO', 'cl.CLA_Nombre as Clase', 'cat.CAT_Nombre as Clase', DB::raw('sum(lt.LOT_CantidadReal) as PRO_Cantidad'), DB::raw('max(lt.LOT_PrecioVenta) as PRO_PrecioBaseVenta'), DB::raw('max(lt.LOT_PrecioCompra)'), 'a.ALM_Id', 'a.ALM_Nombre', DB::raw('SUM(lt.LOT_CantidadReal) as LOT_CantidadReal'))
+            ->where('lt.LOT_CantidadReal', '>', 0)
+            ->where('p.PRO_Status', '=', 1)
+            ->groupBy('a.ALM_Id', 'p.PRO_Id', 'p.PRO_Nombre', 'p.PRO_Marca', 'p.CAT_Id', 'cat.CAT_Nombre', 'cl.CLA_Nombre','a.ALM_Id', 'a.ALM_Nombre')
+            ->get();
+        // dd($lotesproductos);
+        Cache::put('listaProductos', $lotesproductos);
+        $lotesuni = Cache::get('listaProductos');
+
+        return view('gestion.venta.create', compact('clase','categoria','lotesuni'));
     }
 
     /**

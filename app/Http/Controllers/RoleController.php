@@ -188,9 +188,7 @@ class RoleController extends Controller
         }
 
         $role = Role::find($id);
-        $role->descripcion = $request->descripcion;
-
-		
+        $role->descripcion = $request->descripcion;		
 		$role->update();
 
 

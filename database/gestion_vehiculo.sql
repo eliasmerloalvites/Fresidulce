@@ -132,6 +132,26 @@ ALTER TABLE `producto` MODIFY `PRO_Id` bigint (20) UNSIGNED NOT NULL AUTO_INCREM
 
 ALTER TABLE `producto` ADD CONSTRAINT `PRO_KFR1` FOREIGN KEY (`CAT_Id`) REFERENCES `categoria` (`CAT_Id`) ON DELETE CASCADE;
 
+
+CREATE TABLE
+  `cliente` (
+    `CLI_Id` int (11) UNSIGNED NOT NULL,
+    `CLI_TipoDocumento` varchar(5) NOT NULL,
+    `CLI_NumDocumento` varchar(12) NOT NULL,
+    `CLI_Nombre` varchar(150) NOT NULL,
+    `CLI_Direccion` varchar(150) DEFAULT NULL,
+    `CLI_Celular` varchar(12) DEFAULT NULL,
+    `CLI_Correo` varchar(50) DEFAULT NULL,
+    `CLI_Status` tinyint(1) NOT NULL DEFAULT 1,
+    `created_at` timestamp NULL DEFAULT NULL,
+    `updated_at` timestamp NULL DEFAULT NULL
+  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+ALTER TABLE `cliente` ADD PRIMARY KEY (`CLI_Id`);
+
+ALTER TABLE `cliente` MODIFY `CLI_Id` int (20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+
 -- --------------------------------------------------------
 --
 -- Estructura de tabla para la tabla `contrato_personal`

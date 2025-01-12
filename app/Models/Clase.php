@@ -9,7 +9,7 @@ class Clase extends Model
 {
     protected $table = 'clase';
     protected $primaryKey='CLA_Id';
-    public $timestamps=false;
+    public $timestamps=true;
     protected $fillable=[
         'CLA_Nombre',
     ];

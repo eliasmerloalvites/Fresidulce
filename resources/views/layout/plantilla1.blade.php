@@ -5,13 +5,13 @@
 
     <body class="sidebar-mini layout-navbar-fixed text-sm" style="height: auto; min-height: 100%;">
         <div class="wrapper">
-            <nav class="main-header navbar navbar-expand" style="background: #80A442 ;">
+            <nav class="main-header navbar navbar-expand navbar-light" >
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block">
-                        <a href="/rrhh" class="nav-link">Menu</a>
+                        <a href="/home" class="nav-link">Menu</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -66,7 +66,7 @@
             <!-- Main Sidebar Container -->
             <aside class="main-sidebar elevation-4 sidebar-light-black " >
                 <!-- Brand Logo -->
-                <a href="/rrhh" class="brand-link navbar-light">
+                <a href="/home" class="brand-link navbar-light">
                     <img id="avatarImageHeader" class="brand-image img-circle elevation-3" alt="User Image">
                     <span class="brand-text font-weight-light">
                         <img src="{{ asset('dist/img/logo.png') }}" alt="AdminLTE Logo" style="height:30px"> </span>
@@ -127,7 +127,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('gestion.venta.index') }}" class="nav-link " id="idCabVentaLista">
+                                            <a href="{{ route('gestion.cliente.index') }}" class="nav-link " id="idCabVentaLista">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Cliente</p>
                                             </a>

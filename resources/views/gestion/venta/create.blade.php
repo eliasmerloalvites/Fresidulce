@@ -357,11 +357,10 @@
     <div class="row panel-group">
         <div class="col-lg-6  col-md-12 col-sm-12 col-xs-12 ">
             <div class="row">
-
                 <div class="col-lg-9  col-md-9 col-sm-9 col-xs-12 ">
                     <div class="table" style="height: calc(30vh - 10px)">
                         <table id="detallesCalculadora" class="table table-sm table-bordered table-condensed table-hover ; padding:0px;margin:0px">
-                            <thead class="hide" style="background: #ade9ff;">
+                            <thead hidden style="background: #ade9ff;">
                             </thead>
 
                             <tr style="padding:0px;margin:0px">
@@ -396,23 +395,22 @@
                     </div>
                 </div>
                 <div class="col-lg-3  col-md-3 col-sm-3 col-xs-12 ">
-                    <div class="table" style="height: calc(30vh - 10px);   overflow-y:scroll">
-                        <table id="detallesClase" class="table  table-bordered table-condensed table-hover">
-                            <thead class="hide" style="background: #ade9ff;">
+                    <div class="table" style="height: calc(28vh - 10px);   overflow-y:scroll">
+                        <table id="detallesClase" class="table table-sm table-bordered table-condensed table-hover ; padding:0px;margin:0px">
+                            <thead hidden style="background: #ade9ff;">
                             </thead>
                             @foreach ($clase as $t => $val)
                             <tr>
                                 <td style=" text-align: center;  font-size: 30px;"><button class="btn4" id="btnidc{{$t+1}}" onclick="Tabla_Categoria({{$t+1}});" style="text-align:center;" value="{{$val->CLA_Id}}" type="button">{{$val->CLA_Nombre}}</button></td>
                             </tr>
                             @endforeach
-
                         </table>
                     </div>
                 </div>
             </div>
             <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 ">
                 <table id="detallesCategoria" class="table  table-bordered table-condensed table-hover">
-                    <thead class="hide" style="background: #ade9ff;">
+                    <thead hidden style="background: #ade9ff;">
                     </thead>
                     <tr>
                         @foreach ($categoria as $t => $val)
@@ -459,13 +457,13 @@
                     <div class="row col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: #DDD;">
 
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="text-align: center;font-weight: bold;">TOTAL</div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right;"><label id="total" name="total">S/ 0.00</label><input name="total_venta" type="hidden" id="total_venta"></div>
-                        <!--<th hidden="true"><input type="hidden" name="totalVenta" id="totalVenta"></th>-->
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="text-align: right;"><label id="total" name="total">S/ 0.00</label><input name="total_venta" hidden id="total_venta"></div>
+                        <!--<th hidden="true"><input hidden name="totalVenta" id="totalVenta"></th>-->
                     </div>
                 </div>
                 <div class="table-responsive col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <table id="detallesInformacion" class="table table-sm table-bordered table-condensed table-hover hide">
-                        <thead class="hide" style="background: #dddddd;">
+                        <thead hidden style="background: #dddddd;">
                             <th style="text-align: left; font-size: 12px; width: 80%;font-weight: bold;"><label>PRODUCTO</label> </th>
                             <th style="text-align: left; font-size: 12px; width: 20%;font-weight: bold;"><label>STOCK</label> </th>
                         </thead>
@@ -597,7 +595,7 @@
                     </div>
                 </div>
                 <div class=" row col-lg-8 col-md-8 col-sm-8 col-xs-12" style="margin-top: 10px">
-                    <input type="hidden" name="_token" value="{{csrf_token()}}">
+                    <input hidden name="_token" value="{{csrf_token()}}">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <button title="Vaciar Carrito" onclick="vaciar()" target="_blank" type="button" class="btn btn-danger" style="border-radius: 10px;">VACIAR </button>
                     </div>
@@ -699,16 +697,9 @@
         idProducto = datosArticulo[0];
         //alert(idProducto);
         producto = $("#btnidp" + ind + "").text();
-        uMedida = datosArticulo[1];
-        stock = datosArticulo[2];
-        pVenta = datosArticulo[3];
+        stock = datosArticulo[1];
+        pVenta = datosArticulo[2];
         cantidad = 1;
-
-        //var label=document.querySelector('#idpro');
-        //label.textContent=producto;
-        //$("#idpro").val(producto);
-        //$("#idven").val(pVenta);
-        //$("#idsto").val(stock);
         $editar = 0
         for (var i = 0; i < ListPedido.length; i++) {
             if (ListPedido[i][0] == idProducto) {
@@ -744,8 +735,8 @@
 
             $("#detallesVenta tbody").remove();
             for (var i = 0; i < ListPedido.length; i++) {
-                var fila = '<tr  id="fila' + i + '" onclick="posicionamiento(' + i + ');"><td><input readonly="true"   type="hidden" name="PRO_Id[]" value="' + ListPedido[i][0] + '"><label style="font-size: 11px;font-weight: bold; ">' + ListPedido[i][1] + '</label></td><td><input readonly="true" class="hide"  type="number"   name="DEV_PrecioUnitario[]" id="precioUnit' + i + '" value="' + ListPedido[i][2] + '" ><label id="precioUnitLabel' + i + '" style="font-size: 11px;">' + ListPedido[i][2] + '</label></td><td style="text-align: center;" ><input readonly="true" type="number" onkeyup="Valida2(' +
-                    i + ');" name="DEV_Cantidad[]" class="hide" id="cantidad' + i + '"  value="' + ListPedido[i][3] + '"><label id="cantidadLabel' + i + '" style="font-size: 11px;">' + ListPedido[i][3] + '</label></td><td style="text-align: right;"><input readonly="true" class="hide" name="DEV_Descuento[]" onkeyup="Valida2(' + i + ');" id="descuento' + i + '"  value="' + ListPedido[i][5] + '"><label id="descuentoLabel' + i + '" style="font-size: 11px;">' + ListPedido[i][5] + '</label></td><td style="text-align: right;"><input disabled name="subTot' + i + '" class="hide" id="subTot' + i + '"  value="' + ListPedido[i][4] + '"><label id="subTotLabel' + i + '" style="font-size: 11px;">' + ListPedido[i][4] + '</label></td></tr>';
+                var fila = '<tr  id="fila' + i + '" onclick="posicionamiento(' + i + ');"><td><input readonly="true"   hidden name="PRO_Id[]" value="' + ListPedido[i][0] + '"><label style="font-size: 11px;font-weight: bold; ">' + ListPedido[i][1] + '</label></td><td><input readonly="true" hidden  type="number"   name="DEV_PrecioUnitario[]" id="precioUnit' + i + '" value="' + ListPedido[i][2] + '" ><label id="precioUnitLabel' + i + '" style="font-size: 11px;">' + ListPedido[i][2] + '</label></td><td style="text-align: center;" ><input readonly="true" type="number" onkeyup="Valida2(' +
+                    i + ');" name="DEV_Cantidad[]" hidden id="cantidad' + i + '"  value="' + ListPedido[i][3] + '"><label id="cantidadLabel' + i + '" style="font-size: 11px;">' + ListPedido[i][3] + '</label></td><td style="text-align: right;"><input readonly="true" hidden name="DEV_Descuento[]" onkeyup="Valida2(' + i + ');" id="descuento' + i + '"  value="' + ListPedido[i][5] + '"><label id="descuentoLabel' + i + '" style="font-size: 11px;">' + ListPedido[i][5] + '</label></td><td style="text-align: right;"><input disabled name="subTot' + i + '" hidden id="subTot' + i + '"  value="' + ListPedido[i][4] + '"><label id="subTotLabel' + i + '" style="font-size: 11px;">' + ListPedido[i][4] + '</label></td></tr>';
                 $("#detallesVenta").append(fila);
                 $POS = i;
             }
@@ -753,7 +744,7 @@
 
 
             $("#detallesInformacion tbody").remove();
-            var filainfo = '<tr  ><td><label style="font-size: 11px;"  type="hidden" ">' + ListPedido[$POS][1] + '</label></td><td><label style="font-size: 11px;"  type="hidden">' + stock + '</label></td></tr>'
+            var filainfo = '<tr  ><td><label style="font-size: 11px;"  hidden ">' + ListPedido[$POS][1] + '</label></td><td><label style="font-size: 11px;"  hidden>' + stock + '</label></td></tr>'
             $("#detallesInformacion").append(filainfo);
 
             //alert($POS)
@@ -773,6 +764,81 @@
             alert("Error, Revise los datos del Producto");
         }
     }
+
+    function Tabla_Producto(id){
+			var idTipo = $('#btnidt'+id).val();
+			//alert(idTipo)
+			$("#detalles tbody").remove();
+			$con = 0;
+			$fin = 0;
+			$ind = 1;
+
+			<?php foreach ($lotesuni as $lot): ?>	
+				$tipo = '<?php echo $lot->TIPO; ?>';			
+				$Producto = '<?php echo $lot->PRO_Nombre; ?>';
+				$idProducto = '<?php echo $lot->PRO_Id; ?>';
+				$stock = '<?php echo $lot->PRO_Cantidad; ?>';
+				$preventa = '<?php echo $lot->PRO_PrecioBaseVenta; ?>';
+				if (idTipo==$tipo) 
+				{
+					$con = $con + 1;
+					if ($con==1 ) 
+					{
+						var fila = "<tr>";
+						if ($stock>0) 
+						{
+							fila += '<td style=" text-align: center;"><button class="btntipo1" id="btnidp'+$ind+'" onclick="agregar('+$ind+');" value="'+$idProducto+'_'+$stock+'_'+$preventa+'" style="text-align:center;" value="1" type="button">'+$Producto+'</button></td>';
+						}
+						else
+						{
+							fila += '<td style=" text-align: center;"><button class="btntipo3" disabled id="btnidp'+$ind+'" onclick="agregar('+$ind+');" value="'+$idProducto+'_'+$stock+'_'+$preventa+'" style="text-align:center;" value="1" type="button">'+$Producto+'</button></td>';
+						}
+						
+					}
+					else if($con==2)
+					{
+						if ($stock>0) 
+						{
+							fila += '<td style=" text-align: center;"><button class="btntipo1" id="btnidp'+$ind+'" onclick="agregar('+$ind+');" value="'+$idProducto+'_'+$stock+'_'+$preventa+'" style="text-align:center;" value="1" type="button">'+$Producto+'</button></td>';
+						}
+						else
+						{
+							fila += '<td style=" text-align: center;"><button class="btntipo3" disabled id="btnidp'+$ind+'" onclick="agregar('+$ind+');" value="'+$idProducto+'_'+$stock+'_'+$preventa+'" style="text-align:center;" value="1" type="button">'+$Producto+'</button></td>';
+						}
+						
+					}
+					else if ($con==3) 
+					{
+						if ($stock>0) 
+						{
+							fila += '<td style=" text-align: center;"><button class="btntipo1" id="btnidp'+$ind+'" onclick="agregar('+$ind+');" value="'+$idProducto+'_'+$stock+'_'+$preventa+'" style="text-align:center;" value="1" type="button">'+$Producto+'</button></td>';
+						}
+						else
+						{
+							fila += '<td style=" text-align: center;"><button class="btntipo3" disabled id="btnidp'+$ind+'" onclick="agregar('+$ind+');" value="'+$idProducto+'_'+$stock+'_'+$preventa+'" style="text-align:center;" value="1" type="button">'+$Producto+'</button></td>';
+						}
+
+						fila += '</tr>';
+						$("#detalles").append(fila);
+						$con = 0;
+						$fin = $fin +1;
+						
+					}
+
+					$ind  = $ind  + 1 ;
+
+				}			
+			<?php endforeach ?>
+
+			if ($con==1 || $con==2) 
+			{
+				fila += '</tr>';
+						$("#detalles").append(fila);
+						$con = 0;
+						$fin = $fin +1;
+			}
+			
+		}
 
     function aceptar() {
         $('#VentaTipo').val('VENTA');
@@ -969,7 +1035,7 @@
     function posicionamiento(index) {
         $POS = index;
         $("#detallesInformacion tbody").remove();
-        var filainfo = '<tr  ><td><label style="font-size: 11px;"  type="hidden" ">' + ListPedido[$POS][1] + '</label></td><td><label style="font-size: 11px;"  type="hidden">' + ListPedido[$POS][6] + '</label></td></tr>'
+        var filainfo = '<tr  ><td><label style="font-size: 11px;"  hidden ">' + ListPedido[$POS][1] + '</label></td><td><label style="font-size: 11px;"  hidden>' + ListPedido[$POS][6] + '</label></td></tr>'
         $("#detallesInformacion").append(filainfo);
 
 
