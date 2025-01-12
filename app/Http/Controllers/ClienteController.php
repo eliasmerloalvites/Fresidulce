@@ -99,7 +99,9 @@ class ClienteController extends Controller
     public function destroy(string $id)
     {
         $cliente = Cliente::find($id);
-        $cliente->delete();
+        $cliente->CLI_Status = 0;
+		$cliente->update();
+
         return response()->json(['success' => 'Cliente Eliminado Exitosamente.']);
     }
 }
