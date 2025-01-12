@@ -7,6 +7,7 @@ use App\Http\Controllers\PermisoControl;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentaController;
@@ -48,6 +49,8 @@ Route::middleware(['auth'])->group(function(){
   Route::resource('categoria', CategoriaController::class);
   
   Route::resource('producto',ProductoController::class);
+
+  Route::resource('proveedor', ProveedorController::class);
   
   
   Route::resource('gestion/venta',VentaController::class)->names([
