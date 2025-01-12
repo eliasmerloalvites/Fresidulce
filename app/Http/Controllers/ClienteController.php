@@ -15,7 +15,7 @@ class ClienteController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-			$data = DB::table('cliente')->get();
+			$data = DB::table('cliente')->where('CLI_Status',1)->get();
             return datatables()::of($data)
                 ->addIndexColumn()
                 ->addColumn('action1', function ($row) {
