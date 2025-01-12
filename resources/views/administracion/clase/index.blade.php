@@ -16,7 +16,7 @@
                                 <input type="text" id="clase_id_edit" hidden>
                                 <div class="form-group row">
                                     <div class="col-12">
-                                        <label class="control-label">Nombre:</label>
+                                        <label class="control-label"  style=" text-align: left; display: block;">Nombre:</label>
                                         <input type="text" id="CLA_Nombre" name="CLA_Nombre" class="form-control "
                                             placeholder="Nombre" required>
                                     </div>

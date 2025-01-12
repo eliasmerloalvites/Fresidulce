@@ -3,6 +3,12 @@
 @section('titulo', 'Productos')
 
 @section('contenido')
+<head>
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+</head>
     <div class="container">
         <div class="row ">
             <div class="col-4">
@@ -15,49 +21,9 @@
                             <input type="text" id="producto_id_edit" hidden>
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <label class="control-label">Nombre:</label>
-                                    <input type="text" id="PRO_Nombre" name="PRO_Nombre"
-                                        class="form-control input_user "
-                                        placeholder="Nombre" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-12">
-                                    <label class="control-label">Descripción:</label>
-                                    <input type="text" id="PRO_Descripcion" name="PRO_Descripcion"
-                                        class="form-control input_user "
-                                        placeholder="Descripción" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-12">
-                                    <label class="control-label">Precio de Compra:</label>
-                                    <input type="number" id="PRO_PrecioCompra" name="PRO_PrecioCompra"
-                                        class="form-control input_user "
-                                        placeholder="Precio de Compra" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-12">
-                                    <label class="control-label">Precio de Venta:</label>
-                                    <input type="number" id="PRO_PrecioVenta" name="PRO_PrecioVenta"
-                                        class="form-control input_user "
-                                        placeholder="Precio de Venta" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-12">
-                                    <label class="control-label">Marca:</label>
-                                    <input type="text" id="PRO_Marca" name="PRO_Marca"
-                                        class="form-control input_user "
-                                        placeholder="Marca" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-12">
-                                    <label class="control-label">Categoria:</label>
+                                    <label class="control-label" style=" text-align: left; display: block;">Categoria:</label>
                                     <select class="form-control select2 select2-info" id="CAT_Id" name="CAT_Id"
-                                        data-dropdown-css-class="select2-info" onchange="verName()" style="width: 100%;">
+                                        data-dropdown-css-class="select2-info"  style="width: 100%; ">
                                         <option value="">Seleccionar ...</option>
                                         @foreach ($categorias as $itemCategoria)
                                             <option value="{{ $itemCategoria->CAT_Id }}">
@@ -65,6 +31,46 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label class="control-label"  style=" text-align: left; display: block;">Nombre:</label>
+                                    <input type="text" id="PRO_Nombre" name="PRO_Nombre"
+                                        class="form-control input_user "
+                                        placeholder="Nombre" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label class="control-label"  style=" text-align: left; display: block;">Descripción:</label>
+                                    <input type="text" id="PRO_Descripcion" name="PRO_Descripcion"
+                                        class="form-control input_user "
+                                        placeholder="Descripción" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label class="control-label"  style=" text-align: left; display: block;">Precio de Compra:</label>
+                                    <input type="number" id="PRO_PrecioCompra" name="PRO_PrecioCompra"
+                                        class="form-control input_user "
+                                        placeholder="Precio de Compra" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label class="control-label"  style=" text-align: left; display: block;">Precio de Venta:</label>
+                                    <input type="number" id="PRO_PrecioVenta" name="PRO_PrecioVenta"
+                                        class="form-control input_user "
+                                        placeholder="Precio de Venta" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    <label class="control-label"  style=" text-align: left; display: block;">Marca:</label>
+                                    <input type="text" id="PRO_Marca" name="PRO_Marca"
+                                        class="form-control input_user "
+                                        placeholder="Marca" required>
                                 </div>
                             </div>
                             <p></p>
@@ -114,6 +120,12 @@
                 timer: 3000
             });
             
+            $('.select2').select2();
+
+            $('.select2bs4').select2({
+              theme: 'bootstrap4'
+            })
+
             var table = $('#lista_productos').DataTable({
                 responsive: true, // Habilitar la opción responsive
                 autoWidth: false,
@@ -208,6 +220,8 @@
                             type: 'success',
                             title: data.success
                         })
+                        $("#CAT_Id").val('');
+                        $('#CAT_Id').change();
                         $('#product_form').trigger("reset");
                         table.draw();
                     },
@@ -228,11 +242,12 @@
                         console.log(result);
                         $('#producto_id_edit').val(result.data.PRO_Id);
                         $('#PRO_Nombre').val(result.data.PRO_Nombre);
-                        $('#PRO_Descripcion').val(result.data.PRO_Nombre);
-                        $('#PRO_PrecioCompra').val(result.data.PRO_Nombre);
-                        $('#PRO_PrecioVenta').val(result.data.PRO_Nombre);
-                        $('#PRO_Marca').val(result.data.PRO_Nombre);
+                        $('#PRO_Descripcion').val(result.data.PRO_Descripcion);
+                        $('#PRO_PrecioCompra').val(result.data.PRO_PrecioCompra);
+                        $('#PRO_PrecioVenta').val(result.data.PRO_PrecioVenta);
+                        $('#PRO_Marca').val(result.data.PRO_Marca);
                         $('#CAT_Id').val(result.data.CAT_Id);
+                        $('#CAT_Id').change();
 
 
                         // Mostrar botón Actualizar y ocultar botón Guardar
@@ -284,7 +299,8 @@
 
             function cancelarUpdate() {
                 $('#product_form').trigger("reset");
-                $("#producto_id_edit").val('');
+                $("#CAT_Id").val('');
+                $('#CAT_Id').change();
                 $("#productosave").show(); // Mostrar botón Guardar
                 $("#updateBtn").hide();
             }

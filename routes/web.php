@@ -9,6 +9,7 @@ use App\Http\Controllers\PermisoControl;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentaController;
@@ -64,6 +65,10 @@ Route::middleware(['auth'])->group(function(){
     'destroy' => 'gestion.cliente.destroy',
     'show' => 'gestion.cliente.show'
   ]);
+
+  Route::resource('proveedor', ProveedorController::class);
+  
+  
   Route::resource('gestion/venta',VentaController::class)->names([
     'index' => 'gestion.venta.index',
     'create' => 'gestion.venta.create',
