@@ -1,6 +1,12 @@
 @extends('layout.plantilla1')
 @section('title', 'proveedor')
 @section('contenido')
+<head>
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+</head>
     <div class="container">
         <div class="row">
             <div class="col-5">
@@ -15,8 +21,14 @@
                                 <div class="col-12">
                                     <label class="control-label" style=" text-align: left; display: block;">Tipo de
                                         documento:</label>
-                                    <input type="text" id="PROV_TipoDocumento" name="PROV_TipoDocumento"
-                                        class="form-control " placeholder="Tipo de documento" required>
+                                        <select id="PROV_TipoDocumento" name="PROV_TipoDocumento" class="form-control select2 select2-info"
+                                        data-dropdown-css-class="select2-info" required>
+                                            <option value="" selected disabled>Seleccione un tipo de documento</option>
+                                            <option value="DNI">DNI</option>
+                                            <option value="RUC">RUC</option>
+                                            <option value="Pasaporte">Pasaporte</option>
+                                            <option value="Carnet de extranjería">Carnet de extranjería</option>
+                                        </select>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -104,6 +116,12 @@
     <script>
         $(document).ready(function() {
 
+            $('.select2').select2()
+
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+            
             const Toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
@@ -213,6 +231,8 @@
                             type: 'success',
                             title: data.success
                         })
+                        $('#PROV_TipoDocumento').val('');
+                        $('#PROV_TipoDocumento').change();
                         table.draw();
                     },
                     error: function(data) {
