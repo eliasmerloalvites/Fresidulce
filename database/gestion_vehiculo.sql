@@ -415,7 +415,12 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (27, 'producto.show', 'web', '2025-01-10 02:29:25', '2025-01-10 02:29:25', 1, '-', 'Visualizacion de detalles de producto'),
 (28, 'producto.create', 'web', '2025-01-10 02:29:43', '2025-01-10 02:29:43', 1, '-', 'Creacion de producto'),
 (29, 'producto.edit', 'web', '2025-01-10 02:30:11', '2025-01-10 02:30:11', 1, '-', 'Edicion de producto'),
-(30, 'producto.destroy', 'web', '2025-01-10 02:30:42', '2025-01-10 02:30:42', 1, '-', 'Eliminacion de producto');
+(30, 'producto.destroy', 'web', '2025-01-10 02:30:42', '2025-01-10 02:30:42', 1, '-', 'Eliminacion de producto'),
+(31, 'gestion.cliente.index', 'web', '2025-01-10 02:28:41', '2025-01-10 15:48:37', 1, '-', 'CLIENTE '),
+(32, 'gestion.cliente.show', 'web', '2025-01-10 02:29:25', '2025-01-10 02:29:25', 1, '-', 'Visualizacion de detalles de cliente'),
+(33, 'gestion.cliente.create', 'web', '2025-01-10 02:29:43', '2025-01-10 02:29:43', 1, '-', 'Creacion de cliente'),
+(34, 'gestion.cliente.edit', 'web', '2025-01-10 02:30:11', '2025-01-10 02:30:11', 1, '-', 'Edicion de cliente'),
+(35, 'gestion.cliente.destroy', 'web', '2025-01-10 02:30:42', '2025-01-10 02:30:42', 1, '-', 'Eliminacion de cliente');
 
 -- --------------------------------------------------------
 
@@ -709,7 +714,12 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (27, 1),
 (28, 1),
 (29, 1),
-(30, 1);
+(30, 1),
+(31, 1),
+(32, 1),
+(33, 1),
+(34, 1),
+(35, 1);
 
 -- --------------------------------------------------------
 
@@ -741,8 +751,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `photo_extension`, `provider`, `provider_id`, `remember_token`, `created_at`, `updated_at`, `estadousuario`, `avatar`, `tipousuario`, `numerodocumento`, `PER_Id`) VALUES
-(1, 'Elias s Merlo', 'merloalviteselias@gmail.com', NULL, '$2y$10$QIRp4TJ1IyW4WHxUZnCd3eOmNqpldLkUUepaedJP/lMcNpIQTQCsa', NULL, NULL, NULL, 'v6GbOTVXfxpiKud9IFub1q6KIXC5h1J75N6pYz8M0jBYlQZwj0rA5W1tl1Ke', '2023-11-02 02:23:21', '2024-04-03 22:02:46', 1, '', 0, NULL, 1),
-(2, 'Cielo Menor Saavedra', 'cmenorsaavedra@gmail.com', NULL, '$2y$10$dhmXJkshrLc/fyo.99zst.Tsi8WWDA3XsY5BM16MBpYowMva8dtp2', NULL, NULL, NULL, '3HzaPl8ZCUKAqVkSGqEcJfMKvPFJeE0Ehm2rp5BPGu6tNTS8vUUVoli2vteD', '2024-04-01 23:07:44', '2024-04-01 23:07:44', 1, NULL, 0, NULL, 0),
+(1, 'Abner Elias Merlo Alvites', 'merloalviteselias@gmail.com', NULL, '$2y$10$QIRp4TJ1IyW4WHxUZnCd3eOmNqpldLkUUepaedJP/lMcNpIQTQCsa', NULL, NULL, NULL, 'v6GbOTVXfxpiKud9IFub1q6KIXC5h1J75N6pYz8M0jBYlQZwj0rA5W1tl1Ke', '2023-11-02 02:23:21', '2024-04-03 22:02:46', 1, '', 0, NULL, 1),
+(2, 'Dalila Katherine Salazar Teran', 'katherineteran06@gmail.com', NULL, '$2y$10$dhmXJkshrLc/fyo.99zst.Tsi8WWDA3XsY5BM16MBpYowMva8dtp2', NULL, NULL, NULL, '3HzaPl8ZCUKAqVkSGqEcJfMKvPFJeE0Ehm2rp5BPGu6tNTS8vUUVoli2vteD', '2024-04-01 23:07:44', '2024-04-01 23:07:44', 1, NULL, 0, NULL, 0),
 (3, 'Maria Saavedra Chalan', 'maria@gmail.com', NULL, '$2y$10$ABQomQ0BTGNDqv96p78YKupnd7HHEf421iwGiaxEOxyfzuNmbtuFa', NULL, NULL, NULL, 'qxtZXnDr2S', '2024-04-02 06:19:48', '2024-04-02 06:19:48', 1, NULL, 0, NULL, 0),
 (4, 'Carlos Puemape', 'carlos@gmail.com', NULL, '$2y$10$dpwR75v8GipiCmzFA73iMuGG2cfPRPO0zZQjg5AioZULIpTuMPRm6', NULL, NULL, NULL, 'M4EbcYXsNMSZV4RkRuJfzOBuaiGslH92SBQwUT2VoKG9t8G6dEDU03sadaty', '2024-04-02 06:45:51', '2024-04-03 23:22:11', 1, NULL, 0, NULL, 0),
 (5, 'Carla Sanchez', 'carla@gmail.com', NULL, '$2y$10$8ZSq.GwYld3nprqw5fNnquVp8IVSBIYMiP.PtQmuUW5PfTNZm9lyG', NULL, NULL, NULL, '6h1ylhmzfD', '2024-04-03 20:52:26', '2024-04-03 23:20:57', 1, NULL, 0, NULL, 0);

@@ -110,9 +110,9 @@
                                     @endcan
                                 </ul>
                             </li>
-                            <li class="nav-item has-treeview" id="idCabVentas">
-                                <a href="#" class="nav-link" id="idVentas">
-                                    <i class="nav-icon fas fa-cash-register"></i>
+                            <li class="nav-item has-treeview {{ request()->is('gestion/venta*') || request()->is('gestion/cliente*') ? 'menu-open' : '' }}" >
+                                <a href="#" class="nav-link {{ request()->is('gestion/venta*') || request()->is('gestion/cliente*') ? 'active' : '' }} ">
+                                    <i class="nav-icon fas fa-layer-group"></i>
                                     <p>
                                         VENTAS
                                         <i class="fas fa-angle-left right"></i>
@@ -121,22 +121,25 @@
 
                                 <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('gestion.venta.create') }}" class="nav-link " id="idCabVentaCrear">
+                                            <a href="{{ route('gestion.venta.create') }}" class="nav-link {{ request()->is('gestion/venta*') ? 'active' : '' }}" >
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Ventas</p>
                                             </a>
                                         </li>
+                                        @can('gestion.cliente.index')
                                         <li class="nav-item">
-                                            <a href="{{ route('gestion.cliente.index') }}" class="nav-link " id="idCabVentaLista">
+                                            <a href="{{ route('gestion.cliente.index') }}" class="nav-link {{ request()->is('gestion/cliente*') ? 'active' : '' }} " >
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Cliente</p>
                                             </a>
                                         </li>
+                                        @endcan
                                 </ul>
                             </li>
-                            <li class="nav-item has-treeview" id="idCabVentas">
-                                <a href="#" class="nav-link" id="idVentas">
-                                    <i class="nav-icon fas fa-cash-register"></i>
+                            
+                            <li class="nav-item has-treeview {{request()->is('proveedor*') ? 'menu-open' : '' }}" >
+                                <a href="#" class="nav-link {{request()->is('proveedor*')? 'active' : '' }}" >
+                                    <i class="nav-icon fas fa-layer-group"></i>
                                     <p>
                                         COMPRAS
                                         <i class="fas fa-angle-left right"></i>
@@ -145,13 +148,13 @@
 
                                 <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('gestion.venta.create') }}" class="nav-link " id="idCabVentaCrear">
+                                            <a href="" class="nav-link " >
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Compra</p>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('gestion.venta.index') }}" class="nav-link " id="idCabVentaLista">
+                                            <a href="{{ route('proveedor.index') }}" class="nav-link {{ request()->is('proveedor*') ? 'active' : '' }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Proveedor</p>
                                             </a>
@@ -404,8 +407,8 @@
 
 
                             @can('clase.index')
-                                <li class="nav-item has-treeview {{ request()->is('clase*') || request()->is('categoria*') || request()->is('producto*')|| request()->is('proveedor*') ? 'menu-open' : '' }}">
-                                    <a href="#" class="nav-link {{ request()->is('clase*') || request()->is('categoria*') || request()->is('producto*') || request()->is('proveedor*')? 'active' : '' }}">
+                                <li class="nav-item has-treeview {{ request()->is('clase*') || request()->is('categoria*') || request()->is('producto*')? 'menu-open' : '' }}">
+                                    <a href="#" class="nav-link {{ request()->is('clase*') || request()->is('categoria*') || request()->is('producto*')? 'active' : '' }}">
                                         <i class="nav-icon fas fa-layer-group"></i>
                                         <p>
                                             MODULO
@@ -441,12 +444,7 @@
                                             </li>
                                         @endcan
 
-                                        <li class="nav-item">
-                                            <a href="{{ route('proveedor.index') }}" class="nav-link {{ request()->is('proveedor*') ? 'active' : '' }}">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Proveedor</p>
-                                            </a>
-                                        </li>
+                                        
 
                                     </ul>
                                 </li>

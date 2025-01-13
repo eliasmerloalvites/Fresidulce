@@ -83,7 +83,7 @@ class ConsultaDocumentoController extends Controller
     }
 
 
-    function buscarRuc(Request $request,$id)
+    /* function buscarRuc(Request $request,$id)
     {
         header('Access-Control-Allow-Origin: *');
         header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
@@ -132,6 +132,44 @@ class ConsultaDocumentoController extends Controller
             );
 
         return response()->json(['success' => $datos], $this-> successStatus);
+    } */
+    function buscarRuc(Request $request, $id)
+    {
+        header('Access-Control-Allow-Origin: *');
+        header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+    
+        $curl = curl_init();
+    
+        $data = [
+            'token' => 'I5Q2isdGve4xgTW53inHchckBvpTNnWeLaiDmN4isvuriO8cPAMwriqz5F1U',
+            'ruc' => $id
+        ];
+    
+        $post_data = http_build_query($data);
+    
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.migo.pe/api/v1/ruc",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => $post_data,
+        ));
+    
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+    
+        $info = json_decode($response, true);
+    
+        if (!isset($info['nombre_o_razon_social']) || empty($info['nombre_o_razon_social'])) {
+            return response()->json(['success' => false, 'message' => 'RUC Inválido'], 200);
+        }
+    
+        $cad['nombre'] = $info['nombre_o_razon_social'];
+        $cad['direccion'] = $info['direccion_simple'];
+        $cad['ubicacion'] = $info['departamento'] . ' - ' . $info['provincia'] . ' - ' . $info['distrito'];
+    
+        return response()->json(['success' => true, 'data' => $cad], 200);
     }
 
 

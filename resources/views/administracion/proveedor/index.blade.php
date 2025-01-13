@@ -2,12 +2,6 @@
 @section('title', 'proveedor')
 @section('contenido')
 
-    <head>
-        <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-        <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}" rel="stylesheet">
-        <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
-    </head>
     <div class="container">
         <div class="row">
             <div class="col-5">
@@ -22,10 +16,9 @@
                                 <div class="col-12">
                                     <label class="control-label" style=" text-align: left; display: block;">Tipo de
                                         documento:</label>
-                                    <select id="PROV_TipoDocumento" name="PROV_TipoDocumento"
-                                        class="form-control select2 select2-info" data-dropdown-css-class="select2-info"
-                                        required>
-                                        <option value="" selected disabled>Seleccione un tipo de documento</option>
+                                    <select id="PROV_TipoDocumento" name="PROV_TipoDocumento" class="form-control "
+                                        onchange="Limitar()" required>
+
                                         <option value="DNI">DNI</option>
                                         <option value="RUC">RUC</option>
                                         <option value="Pasaporte">Pasaporte</option>
@@ -37,8 +30,20 @@
                                 <div class="col-12">
                                     <label class="control-label" style=" text-align: left; display: block;">Número de
                                         documento:</label>
-                                    <input type="text" id="PROV_NumDocumento" name="PROV_NumDocumento"
-                                        class="form-control " placeholder="Número de documento" required>
+                                    <div class="input-group ">
+                                        <input type="text" class="form-control sm" id="PROV_NumDocumento"
+                                            name="PROV_NumDocumento" placeholder="Ingrese Nº Documento" maxlength="8"
+                                            required>
+                                        <div class="input-group-append">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id="Buscar_Cliente" style="display: block;"
+                                                    onclick="buscarCliente()"><i class="fas fa-search"></i></span>
+                                                <span class="input-group-text hide" id="cargando"
+                                                    style="display: none;"><img width="15px"
+                                                        src="{{ asset('images/gif/cargando1.gif') }}"></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -127,11 +132,6 @@
                 }
             });
 
-            $('.select2').select2()
-
-            $('.select2bs4').select2({
-                theme: 'bootstrap4'
-            })
 
             const Toast = Swal.mixin({
                 toast: true,
@@ -242,8 +242,7 @@
                             type: 'success',
                             title: data.success
                         })
-                        $('#PROV_TipoDocumento').val('');
-                        $('#PROV_TipoDocumento').change();
+
                         $('#proveedor_form').trigger("reset");
                         table.draw();
                     },
@@ -265,7 +264,6 @@
                         console.log(result);
                         $('#proveedor_id_edit').val(result.data.PROV_Id);
                         $('#PROV_TipoDocumento').val(result.data.PROV_TipoDocumento);
-                        $('#PROV_TipoDocumento').change();
                         $('#PROV_NumDocumento').val(result.data.PROV_NumDocumento);
                         $('#PROV_RazonSocial').val(result.data.PROV_RazonSocial);
                         $('#PROV_Direccion').val(result.data.PROV_Direccion);
@@ -320,15 +318,6 @@
                 });
             });
 
-            function cancelarUpdate() {
-                $('#proveedor_form').trigger("reset");
-                $('#PROV_TipoDocumento').val('');
-                $('#PROV_TipoDocumento').change();
-                $("#proveedor_id_edit").val('');
-                $("#saveBtn").show(); // Mostrar botón Guardar
-                $("#updateBtn").hide();
-            }
-
             $('body').on('click', '.deleteProveedor', function() {
 
                 var Proveedor_id_delete = $(this).data("id");
@@ -350,7 +339,7 @@
                                 title: String(data.success),
                                 icon: 'info'
                             });
-                            
+
 
                         },
                         error: function(data) {
@@ -371,6 +360,117 @@
                 }
             });
         });
+
+        function cancelarUpdate() {
+            $('#proveedor_form').trigger("reset");
+            $("#proveedor_id_edit").val('');
+            $("#saveBtn").show(); // Mostrar botón Guardar
+            $("#updateBtn").hide();
+        }
+
+        function Limitar() {
+            var cod = document.getElementById("PROV_TipoDocumento").value;
+            if (cod == 'DNI') {
+                $("#PROV_NumDocumento").val("");
+                $("#PROV_NumDocumento").attr('maxlength', '8');
+            } else if (cod == 'RUC') {
+                $("#PROV_NumDocumento").val("");
+                $("#PROV_NumDocumento").attr('maxlength', '11');
+            }
+        }
+
+        function buscarCliente() {
+            if ($('#PROV_TipoDocumento').val() == 'DNI') {
+                var numdni = $('#PROV_NumDocumento').val();
+                if (numdni != '') {
+                    ocultar()
+                    var url = '/consultardni/' + numdni + '?';
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        success: function(dat) {
+                            if (dat.success[1] == false) {
+                                Swal
+                                    .fire({
+                                        title: "DNI Inválido",
+                                        icon: 'error',
+                                        confirmButtonColor: "#26BA9A",
+                                        width: '350px',
+                                        confirmButtonText: "Ok"
+                                    })
+                                    .then(resultado => {
+                                        if (resultado.value) {
+                                            $("#PROV_RazonSocial").val("");
+                                        } else {}
+                                    });
+                                    $("#cargando").hide(); // Oculta el ícono de carga si hay error
+                                    return;
+                            } else {
+                                $('#PROV_RazonSocial').val(dat.success[0].apellido + ' ' + dat.success[0]
+                                    .nombre);
+                            }
+                        }
+
+                    });
+                } else {
+                    //mostrar()
+                    alert('Escriba el DNI.!');
+                    $('#PROV_NumDocumento').focus();
+                }
+            } else if ($('#PROV_TipoDocumento').val() == 'RUC') {
+                var numdni = $('#PROV_NumDocumento').val();
+                if (numdni != '') {
+                    ocultar()
+                    var url = '/consultarruc/' + numdni + '?';
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        success: function(dat) {
+                            console.log(dat)
+                            if (dat.success === false) {
+
+                                Swal
+                                    .fire({
+                                        title: "RUC Inválido",
+                                        text: dat.message,
+                                        icon: 'error',
+                                        confirmButtonColor: "#26BA9A",
+                                        width: '350px',
+                                        confirmButtonText: "Ok"
+                                    })
+                                    .then(resultado => {
+                                        if (resultado.value) {
+                                            $("#PROV_RazonSocial").val("");
+                                        }
+                                    });
+                                    $("#cargando").hide(); // Oculta el ícono de carga si hay error
+                                    return;
+                            } else {
+                                $('#PROV_RazonSocial').val(dat.data.nombre);
+                            }
+                        },
+                    });
+                } else {
+                    alert('Escriba el RUC.!');
+                    $('#PROV_NumDocumento').focus();
+                }
+            }
+        }
+
+        function ocultar() {
+            document.getElementById('Buscar_Cliente').style.display = 'none';
+            document.getElementById('cargando').style.display = 'block';
+            setInterval('mostrar()', 1000);
+        }
+
+        function mostrar() {
+            $valorcito = $('#PROV_RazonSocial').val();
+            $valor = $valorcito.length;
+            if ($valor > 0) {
+                document.getElementById('Buscar_Cliente').style.display = 'block';
+                document.getElementById('cargando').style.display = 'none';
+            }
+        }
     </script>
 
 @endsection
