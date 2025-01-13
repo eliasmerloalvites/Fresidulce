@@ -14,5 +14,5 @@ class Categoria extends Model
         'CAT_Nombre',
         'CLA_Id'
     ]  ;
-    protected $guarded;
+    protected $guarded=[];
 }

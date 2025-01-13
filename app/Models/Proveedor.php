@@ -20,5 +20,5 @@ class Proveedor extends Model
         'PROV_Correo',
         'PROV_Status'
     ];
-    protected $guarded;
+    protected $guarded=[];
 }

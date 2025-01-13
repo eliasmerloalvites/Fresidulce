@@ -19,5 +19,5 @@ class Producto extends Model
         'CAT_Id',
         'PRO_Status'
     ];
-    protected $guarded;
+    protected $guarded=[];
 }

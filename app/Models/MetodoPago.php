@@ -5,18 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Almacen extends Model
+class MetodoPago extends Model
 {
-    protected $table= 'almacen';
-    protected $primaryKey='ALM_Id';
+    protected $table='metodo_pago';
+    protected $primaryKey='MEP_Id';
     public $timestamps=false;
     protected $fillable=[
-        'ALM_Nombre',
-        'ALM_Direccion',
-        'ALM_Ruc',
-        'ALM_Celular',
-        'ALM_Status'
+        'MEP_Pago',
+        'MEP_Status'
     ];
     protected $guarded=[];
-
 }

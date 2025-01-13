@@ -407,8 +407,8 @@
 
 
                             @can('clase.index')
-                                <li class="nav-item has-treeview {{ request()->is('clase*') || request()->is('categoria*') || request()->is('producto*') || request()->is('almacen*')? 'menu-open' : '' }}">
-                                    <a href="#" class="nav-link {{ request()->is('clase*') || request()->is('categoria*')|| request()->is('producto*') || request()->is('almacen*')? 'active' : '' }}">
+                                <li class="nav-item has-treeview {{ request()->is('clase*') || request()->is('categoria*') || request()->is('producto*') || request()->is('almacen*')|| request()->is('metodoPago*')? 'menu-open' : '' }}">
+                                    <a href="#" class="nav-link {{ request()->is('clase*') || request()->is('categoria*')|| request()->is('producto*')|| request()->is('almacen*') || request()->is('metodoPago*')? 'active' : '' }}">
                                         <i class="nav-icon fas fa-layer-group"></i>
                                         <p>
                                             MODULO
@@ -448,6 +448,13 @@
                                             <a href="{{ route('almacen.index') }}" class="nav-link {{ request()->is('almacen*') ? 'active' : '' }}">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Almacen</p>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('metodoPago.index') }}" class="nav-link {{ request()->is('metodoPago*') ? 'active' : '' }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Método de Pago</p>
                                             </a>
                                         </li>
 
