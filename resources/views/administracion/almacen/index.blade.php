@@ -18,8 +18,8 @@
                                 <div class="col-12">
                                     <label class="control-label" style=" text-align: left; display: block;">RUC:</label>
                                     <div class="input-group ">
-                                        <input type="text" id="ALM_Ruc" name="ALM_Ruc" class="form-control "maxlength="11"
-                                        placeholder="Ruc" required>
+                                        <input type="number" id="ALM_Ruc" name="ALM_Ruc"
+                                            class="form-control "maxlength="11" placeholder="Ruc" required>
                                         <div class="input-group-append">
                                             <div class="input-group-append">
                                                 <span class="input-group-text" id="Buscar_Cliente" style="display: block;"
@@ -50,7 +50,7 @@
                             <div class="form-group row">
                                 <div class="col-12">
                                     <label class="control-label" style=" text-align: left; display: block;">CELULAR:</label>
-                                    <input type="text" id="ALM_Celular" name="ALM_Celular" class="form-control "
+                                    <input type="number" id="ALM_Celular" name="ALM_Celular" class="form-control "
                                         placeholder="Celular" required>
                                 </div>
                             </div>
@@ -205,9 +205,9 @@
                     function(result) {
                         console.log(result);
                         $('#almacen_id_edit').val(result.data.ALM_Id);
-                        $('#ALM_Nombre').val(result.data.ALM_Nombre);
+                        $('#ALM_Nombre').val(result.data.ALM_Nombre).prop('disabled', true);
                         $('#ALM_Direccion').val(result.data.ALM_Direccion);
-                        $('#ALM_Ruc').val(result.data.ALM_Ruc);
+                        $('#ALM_Ruc').val(result.data.ALM_Ruc).prop('disabled', true);
                         $('#ALM_Celular').val(result.data.ALM_Celular);
 
 
@@ -305,48 +305,50 @@
             $("#almacen_id_edit").val('');
             $("#saveBtn").show(); // Mostrar botón Guardar
             $("#updateBtn").hide();
+            $('#ALM_Ruc').prop('disabled', false); // Habilitar RUC
+            $('#ALM_Nombre').prop('disabled', false); // Habilitar Nombre
         }
 
         function buscarCliente() {
-                var numruc = $('#ALM_Ruc').val();
-                if (numruc != '') {
-                    ocultar()
-                    var url = '/consultarruc/' + numruc + '?';
-                    $.ajax({
-                        type: 'GET',
-                        url: url,
-                        success: function(dat) {
-                            console.log(dat)
-                            if (dat.success === false) {
+            var numruc = $('#ALM_Ruc').val();
+            if (numruc != '') {
+                ocultar()
+                var url = '/consultarruc/' + numruc + '?';
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function(dat) {
+                        console.log(dat)
+                        if (dat.success === false) {
 
-                                Swal
-                                    .fire({
-                                        title: "RUC Inválido",
-                                        text: dat.message,
-                                        icon: 'error',
-                                        confirmButtonColor: "#26BA9A",
-                                        width: '350px',
-                                        confirmButtonText: "Ok"
-                                    })
-                                    .then(resultado => {
-                                        if (resultado.value) {
-                                            $("#ALM_Nombre").val("");
-                                        }
-                                    });
-                                    $('#almacen_form').trigger("reset");
-                                    $('#cargando').hide();
-                                    $('#Buscar_Cliente').show();
-                                    table.draw();
-                            } else {
-                                $('#ALM_Nombre').val(dat.data.nombre);
-                            }
-                        },
-                    });
-                } else {
-                    alert('Escriba el RUC.!');
-                    $('#ALM_Ruc').focus();
-                }
-            
+                            Swal
+                                .fire({
+                                    title: "RUC Inválido",
+                                    text: dat.message,
+                                    icon: 'error',
+                                    confirmButtonColor: "#26BA9A",
+                                    width: '350px',
+                                    confirmButtonText: "Ok"
+                                })
+                                .then(resultado => {
+                                    if (resultado.value) {
+                                        $("#ALM_Nombre").val("");
+                                    }
+                                });
+                            $('#almacen_form').trigger("reset");
+                            $('#cargando').hide();
+                            $('#Buscar_Cliente').show();
+                            table.draw();
+                        } else {
+                            $('#ALM_Nombre').val(dat.data.nombre);
+                        }
+                    },
+                });
+            } else {
+                alert('Escriba el RUC.!');
+                $('#ALM_Ruc').focus();
+            }
+
         }
 
         function ocultar() {
@@ -363,6 +365,5 @@
                 document.getElementById('cargando').style.display = 'none';
             }
         }
-        
     </script>
 @endsection

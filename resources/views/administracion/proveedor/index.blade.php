@@ -31,7 +31,7 @@
                                     <label class="control-label" style=" text-align: left; display: block;">Número de
                                         documento:</label>
                                     <div class="input-group ">
-                                        <input type="text" class="form-control sm" id="PROV_NumDocumento"
+                                        <input type="number" class="form-control sm" id="PROV_NumDocumento"
                                             name="PROV_NumDocumento" placeholder="Ingrese Nº Documento" maxlength="8"
                                             required>
                                         <div class="input-group-append">
@@ -73,14 +73,14 @@
                             <div class="form-group row">
                                 <div class="col-12">
                                     <label class="control-label" style=" text-align: left; display: block;">Celular:</label>
-                                    <input type="text" id="PROV_Celular" name="PROV_Celular" class="form-control "
+                                    <input type="number" id="PROV_Celular" name="PROV_Celular" class="form-control "
                                         placeholder="Celular">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-12">
                                     <label class="control-label" style=" text-align: left; display: block;">E-mail:</label>
-                                    <input type="text" id="PROV_Correo" name="PROV_Correo" class="form-control "
+                                    <input type="email" id="PROV_Correo" name="PROV_Correo" class="form-control "
                                         placeholder="Email">
                                 </div>
                             </div>
@@ -263,9 +263,9 @@
                     function(result) {
                         console.log(result);
                         $('#proveedor_id_edit').val(result.data.PROV_Id);
-                        $('#PROV_TipoDocumento').val(result.data.PROV_TipoDocumento);
-                        $('#PROV_NumDocumento').val(result.data.PROV_NumDocumento);
-                        $('#PROV_RazonSocial').val(result.data.PROV_RazonSocial);
+                        $('#PROV_TipoDocumento').val(result.data.PROV_TipoDocumento).prop('disabled', true);
+                        $('#PROV_NumDocumento').val(result.data.PROV_NumDocumento).prop('disabled', true);
+                        $('#PROV_RazonSocial').val(result.data.PROV_RazonSocial).prop('disabled', true);
                         $('#PROV_Direccion').val(result.data.PROV_Direccion);
                         $('#PROV_Descripcion').val(result.data.PROV_Descripcion);
                         $('#PROV_Celular').val(result.data.PROV_Celular);
@@ -366,6 +366,9 @@
             $("#proveedor_id_edit").val('');
             $("#saveBtn").show(); // Mostrar botón Guardar
             $("#updateBtn").hide();
+            $('#PROV_TipoDocumento').prop('disabled', false); // Habilitar Tipo
+            $('#PROV_NumDocumento').prop('disabled', false); // Habilitar N° doc
+            $('#PROV_RazonSocial').prop('disabled', false); // Habilitar Nombre
         }
 
         function Limitar() {
