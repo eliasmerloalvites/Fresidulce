@@ -403,8 +403,10 @@
                                             $("#PROV_RazonSocial").val("");
                                         } else {}
                                     });
-                                    $("#cargando").hide(); // Oculta el ícono de carga si hay error
-                                    return;
+                                    $('#proveedor_form').trigger("reset");
+                                    $('#cargando').hide();
+                                    $('#Buscar_Cliente').show();
+                                    table.draw();
                             } else {
                                 $('#PROV_RazonSocial').val(dat.success[0].apellido + ' ' + dat.success[0]
                                     .nombre);
