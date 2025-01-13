@@ -445,8 +445,10 @@
                                             $("#PROV_RazonSocial").val("");
                                         }
                                     });
-                                    $("#cargando").hide(); // Oculta el ícono de carga si hay error
-                                    return;
+                                    $('#proveedor_form').trigger("reset");
+                                    $('#cargando').hide();
+                                    $('#Buscar_Cliente').show();
+                                    table.draw();
                             } else {
                                 $('#PROV_RazonSocial').val(dat.data.nombre);
                             }

@@ -17,8 +17,19 @@
                             <div class="form-group row">
                                 <div class="col-12">
                                     <label class="control-label" style=" text-align: left; display: block;">RUC:</label>
-                                    <input type="text" id="ALM_Ruc" name="ALM_Ruc" class="form-control "
+                                    <div class="input-group ">
+                                        <input type="text" id="ALM_Ruc" name="ALM_Ruc" class="form-control "maxlength="11"
                                         placeholder="Ruc" required>
+                                        <div class="input-group-append">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" id="Buscar_Cliente" style="display: block;"
+                                                    onclick="buscarCliente()"><i class="fas fa-search"></i></span>
+                                                <span class="input-group-text hide" id="cargando"
+                                                    style="display: none;"><img width="15px"
+                                                        src="{{ asset('images/gif/cargando1.gif') }}"></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -30,7 +41,8 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-12">
-                                    <label class="control-label" style=" text-align: left; display: block;">Direccion:</label>
+                                    <label class="control-label"
+                                        style=" text-align: left; display: block;">Direccion:</label>
                                     <input type="text" id="ALM_Direccion" name="ALM_Direccion" class="form-control "
                                         placeholder="Dirección" required>
                                 </div>
@@ -156,7 +168,7 @@
                 ruc = $("#ALM_Ruc").val();
                 celular = $("#ALM_Celular").val();
 
-                if ( nombre == ''|| direccion == ''|| ruc == ''|| celular == '') {
+                if (nombre == '' || direccion == '' || ruc == '' || celular == '') {
                     Toast.fire({
                         type: 'error',
                         title: 'Complete todos los campos por favor'
@@ -189,7 +201,7 @@
 
             $('body').on('click', '.editAlmacen', function() {
                 var Almacen_id_edit = $(this).data('identificador');
-                $.get('{{ route('almacen.edit',':almacen') }}'.replace(':almacen', Almacen_id_edit),
+                $.get('{{ route('almacen.edit', ':almacen') }}'.replace(':almacen', Almacen_id_edit),
                     function(result) {
                         console.log(result);
                         $('#almacen_id_edit').val(result.data.ALM_Id);
@@ -210,7 +222,8 @@
                 Almacen_id_update = $('#almacen_id_edit').val();
                 $.ajax({
                     data: $('#almacen_form').serialize(),
-                    url: '{{ route('almacen.update', ':almacen') }}'.replace( ':almacen', Almacen_id_update),
+                    url: '{{ route('almacen.update', ':almacen') }}'.replace(':almacen',
+                        Almacen_id_update),
                     type: "PUT",
                     dataType: 'json',
                     success: function(data) {
@@ -245,13 +258,6 @@
                 });
             });
 
-            function cancelarUpdate() {
-                $('#almacen_form').trigger("reset");
-                $("#almacen_id_edit").val('');
-                $("#saveBtn").show(); // Mostrar botón Guardar
-                $("#updateBtn").hide();
-            }
-
             $('body').on('click', '.deleteAlmacen', function() {
 
                 var Almacen_id_delete = $(this).data("id");
@@ -260,7 +266,7 @@
                     $.ajax({
                         type: "DELETE",
 
-                        url: '{{ route('almacen.destroy', ':almacen' )}}'.replace(
+                        url: '{{ route('almacen.destroy', ':almacen') }}'.replace(
                             ':almacen', Almacen_id_delete),
                         data: {
                             _token: '{{ csrf_token() }}'
@@ -284,14 +290,79 @@
                             })
                         }
                     });
-                }else{
+                } else {
                     Toast.fire({
                         title: 'Acción cancelada',
                         text: 'El almacen no ha sido eliminada.',
                         icon: 'info'
                     });
-                 }
+                }
             });
         });
+
+        function cancelarUpdate() {
+            $('#almacen_form').trigger("reset");
+            $("#almacen_id_edit").val('');
+            $("#saveBtn").show(); // Mostrar botón Guardar
+            $("#updateBtn").hide();
+        }
+
+        function buscarCliente() {
+                var numruc = $('#ALM_Ruc').val();
+                if (numruc != '') {
+                    ocultar()
+                    var url = '/consultarruc/' + numruc + '?';
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        success: function(dat) {
+                            console.log(dat)
+                            if (dat.success === false) {
+
+                                Swal
+                                    .fire({
+                                        title: "RUC Inválido",
+                                        text: dat.message,
+                                        icon: 'error',
+                                        confirmButtonColor: "#26BA9A",
+                                        width: '350px',
+                                        confirmButtonText: "Ok"
+                                    })
+                                    .then(resultado => {
+                                        if (resultado.value) {
+                                            $("#ALM_Nombre").val("");
+                                        }
+                                    });
+                                    $('#almacen_form').trigger("reset");
+                                    $('#cargando').hide();
+                                    $('#Buscar_Cliente').show();
+                                    table.draw();
+                            } else {
+                                $('#ALM_Nombre').val(dat.data.nombre);
+                            }
+                        },
+                    });
+                } else {
+                    alert('Escriba el RUC.!');
+                    $('#ALM_Ruc').focus();
+                }
+            
+        }
+
+        function ocultar() {
+            document.getElementById('Buscar_Cliente').style.display = 'none';
+            document.getElementById('cargando').style.display = 'block';
+            setInterval('mostrar()', 1000);
+        }
+
+        function mostrar() {
+            $valorcito = $('#ALM_Nombre').val();
+            $valor = $valorcito.length;
+            if ($valor > 0) {
+                document.getElementById('Buscar_Cliente').style.display = 'block';
+                document.getElementById('cargando').style.display = 'none';
+            }
+        }
+        
     </script>
 @endsection
