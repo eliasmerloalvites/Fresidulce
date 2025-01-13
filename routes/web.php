@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ClaseController;
 use App\Http\Controllers\ClienteController;
@@ -79,5 +80,6 @@ Route::middleware(['auth'])->group(function(){
   ]);
 
 
+  Route::resource('almacen', AlmacenController::class);
 });
 

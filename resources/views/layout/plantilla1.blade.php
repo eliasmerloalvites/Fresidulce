@@ -407,8 +407,8 @@
 
 
                             @can('clase.index')
-                                <li class="nav-item has-treeview {{ request()->is('clase*') || request()->is('categoria*') || request()->is('producto*')? 'menu-open' : '' }}">
-                                    <a href="#" class="nav-link {{ request()->is('clase*') || request()->is('categoria*') || request()->is('producto*')? 'active' : '' }}">
+                                <li class="nav-item has-treeview {{ request()->is('clase*') || request()->is('categoria*') || request()->is('producto*') || request()->is('almacen*')? 'menu-open' : '' }}">
+                                    <a href="#" class="nav-link {{ request()->is('clase*') || request()->is('categoria*')|| request()->is('producto*') || request()->is('almacen*')? 'active' : '' }}">
                                         <i class="nav-icon fas fa-layer-group"></i>
                                         <p>
                                             MODULO
@@ -444,7 +444,12 @@
                                             </li>
                                         @endcan
 
-                                        
+                                        <li class="nav-item">
+                                            <a href="{{ route('almacen.index') }}" class="nav-link {{ request()->is('almacen*') ? 'active' : '' }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Almacen</p>
+                                            </a>
+                                        </li>
 
                                     </ul>
                                 </li>
