@@ -1,7 +1,11 @@
 @extends('layout.plantilla1')
 @section('title', 'proveedor')
 @section('contenido')
+<head>
+    <!-- Ruta para incluir el archivo CSS -->
+<link href="{{ asset('css/stylemodal.css') }}" rel="stylesheet">
 
+</head>
     <div class="container">
         <div class="row">
             <div class="col-5">
@@ -107,12 +111,55 @@
                                         <th scope="col">Tipo de documento</th>
                                         <th scope="col">Número de documento</th>
                                         <th scope="col">Razón social</th>
-                                        
                                         <th scope="col">Opciones</th>
                                     </tr>
                                 </thead>
                             </table>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalVerDetalle" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Detalles del Proveedor</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <p class="col">Id Proveedor: </p>
+                            <p id="ver_PROV_Id" class="col"></p>
+                        </div>
+                        <div class="row">
+                            <p class="col">Tipo Documento:</p>
+                            <p id="ver_PROV_TipoDocumento" class="col"></p>
+                        </div>
+                        <div class="row">
+                            <p class="col">Numero Documento:</p>
+                            <p id="ver_PROV_NumDocumento" class="col"></p>
+                        </div>
+                        <div class="row">
+                            <p class="col">Nombre: </p>
+                            <p id="ver_PROV_RazonSocial" class="col"></p>
+                        </div>
+                        <div class="row">
+                            <p class="col">Dirección: </p>
+                            <p id="ver_PROV_Direccion" class="col"></p>
+                        </div>
+                        <div class="row">
+                            <p class="col">Celular: </p>
+                            <p id="ver_PROV_Celular" class="col"></p>
+                        </div>
+                        <div class="row">
+                            <p class="col">Correo: </p>
+                            <p id="ver_PROV_Correo" class="col"></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -177,12 +224,12 @@
                         data: 'PROV_RazonSocial',
                         name: 'PROV_RazonSocial'
                     },
-                    
+
                     {
                         data: null,
                         name: '',
                         'render': function(data, type, row) {
-                            return data.action1 + ' ' + data.action2;
+                            return data.action3 + ' ' + data.action1 + ' ' + data.action2;
                         }
                     }
                 ]
@@ -245,8 +292,10 @@
                     function(result) {
                         console.log(result);
                         $('#proveedor_id_edit').val(result.data.PROV_Id);
-                        $('#PROV_TipoDocumento').val(result.data.PROV_TipoDocumento).prop('disabled', true);
-                        $('#PROV_NumDocumento').val(result.data.PROV_NumDocumento).prop('disabled', true);
+                        $('#PROV_TipoDocumento').val(result.data.PROV_TipoDocumento).prop('disabled',
+                            true);
+                        $('#PROV_NumDocumento').val(result.data.PROV_NumDocumento).prop('disabled',
+                            true);
                         $('#PROV_RazonSocial').val(result.data.PROV_RazonSocial).prop('disabled', true);
                         $('#PROV_Direccion').val(result.data.PROV_Direccion);
                         $('#PROV_Descripcion').val(result.data.PROV_Descripcion);
@@ -256,6 +305,22 @@
                         // Mostrar botón Actualizar y ocultar botón Guardar
                         $("#saveBtn").hide();
                         $("#updateBtn").show();
+                    })
+            });
+
+            $('body').on('click', '.eyeProveedor', function() {
+                var Proveedor_id_ver = $(this).data('id');
+                $('#modalVerDetalle').modal('show');
+                $.get('{{ route('proveedor.show', ':proveedor') }}'.replace(':proveedor',
+                        Proveedor_id_ver),
+                    function(data) {
+                        $('#ver_PROV_Id').text(data.data.PROV_Id);
+                        $('#ver_PROV_TipoDocumento').text(data.data.PROV_TipoDocumento);
+                        $('#ver_PROV_NumDocumento').text(data.data.PROV_NumDocumento);
+                        $('#ver_PROV_RazonSocial').text(data.data.PROV_RazonSocial);
+                        $('#ver_PROV_Direccion').text(data.data.PROV_Direccion);
+                        $('#ver_PROV_Celular').text(data.data.PROV_Celular);
+                        $('#ver_PROV_Correo').text(data.data.PROV_Correo);
                     })
             });
 
@@ -388,10 +453,10 @@
                                             $("#PROV_RazonSocial").val("");
                                         } else {}
                                     });
-                                    $('#proveedor_form').trigger("reset");
-                                    $('#cargando').hide();
-                                    $('#Buscar_Cliente').show();
-                                    table.draw();
+                                $('#proveedor_form').trigger("reset");
+                                $('#cargando').hide();
+                                $('#Buscar_Cliente').show();
+                                table.draw();
                             } else {
                                 $('#PROV_RazonSocial').val(dat.success[0].apellido + ' ' + dat.success[0]
                                     .nombre);
@@ -430,10 +495,10 @@
                                             $("#PROV_RazonSocial").val("");
                                         }
                                     });
-                                    $('#proveedor_form').trigger("reset");
-                                    $('#cargando').hide();
-                                    $('#Buscar_Cliente').show();
-                                    table.draw();
+                                $('#proveedor_form').trigger("reset");
+                                $('#cargando').hide();
+                                $('#Buscar_Cliente').show();
+                                table.draw();
                             } else {
                                 $('#PROV_RazonSocial').val(dat.data.nombre);
                             }

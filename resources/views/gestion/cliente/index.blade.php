@@ -3,6 +3,12 @@
 @section('titulo', 'Clientes')
 
 @section('contenido')
+
+    <head>
+        <!-- Ruta para incluir el archivo CSS -->
+        <link href="{{ asset('css/stylemodal.css') }}" rel="stylesheet">
+
+    </head>
     <div class="container">
         <div class="row ">
             @can('gestion.cliente.create')
@@ -103,59 +109,59 @@
 
 
 
-     <!-- Modal Ver detalles-->
-     <div class="modal fade" id="modalVerDetalle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Modal Ver detalles-->
+    <div class="modal fade" id="modalVerDetalle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Detalles del Proveedor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <p class="col">Id Cliente: </p>
+                        <p id="ver_CLI_Id" class="col"></p>
+                    </div>
+                    <div class="row">
+                        <p class="col">Tipo Documento:</p>
+                        <p id="ver_CLI_TipoDocumento" class="col"></p>
+                    </div>
+                    <div class="row">
+                        <p class="col">Numero Documento:</p>
+                        <p id="ver_CLI_NumDocumento" class="col"></p>
+                    </div>
+                    <div class="row">
+                        <p class="col">Nombre: </p>
+                        <p id="ver_CLI_Nombre" class="col"></p>
+                    </div>
+                    <div class="row">
+                        <p class="col">Dirección: </p>
+                        <p id="ver_CLI_Direccion" class="col"></p>
+                    </div>
+                    <div class="row">
+                        <p class="col">Celular: </p>
+                        <p id="ver_CLI_Celular" class="col"></p>
+                    </div>
+                    <div class="row">
+                        <p class="col">Correo: </p>
+                        <p id="ver_CLI_Correo" class="col"></p>
+                    </div>
+                    <div class="row">
+                        <p class="col">Fecha de registro: </p>
+                        <p id="ver_fecha_registro" class="col"></p>
+                    </div>
+                    <div class="row">
+                        <p class="col">Fecha de actualización: </p>
+                        <p id="ver_fecha_update" class="col"></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <p class="col">Id Cliente: </p>
-                    <p id="ver_CLI_Id" class="col"></p>
-                </div>
-                <div class="row">
-                    <p class="col">Tipo Documento:</p>
-                    <p id="ver_CLI_TipoDocumento" class="col"></p>
-                </div>
-                <div class="row">
-                    <p class="col">Numero Documento:</p>
-                    <p id="ver_CLI_NumDocumento" class="col"></p>
-                </div>
-                <div class="row">
-                    <p class="col">Nombre: </p>
-                    <p id="ver_CLI_Nombre" class="col"></p>
-                </div>
-                <div class="row">
-                    <p class="col">Dirección: </p>
-                    <p id="ver_CLI_Direccion" class="col"></p>
-                </div>
-                <div class="row">
-                    <p class="col">Celular: </p>
-                    <p id="ver_CLI_Celular" class="col"></p>
-                </div>
-                <div class="row">
-                    <p class="col">Correo: </p>
-                    <p id="ver_CLI_Correo" class="col"></p>
-                </div>
-                <div class="row">
-                    <p class="col">Fecha de registro: </p>
-                    <p id="ver_fecha_registro" class="col"></p>
-                </div>
-                <div class="row">
-                    <p class="col">Fecha de actualización: </p>
-                    <p id="ver_fecha_update" class="col"></p>
-                </div>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
         </div>
     </div>
-</div>
+    </div>
 
 @endsection
 @section('script')
@@ -214,9 +220,17 @@
                         data: null,
                         name: '',
                         'render': function(data, type, row) {
-                            return @can('gestion.cliente.show') data.action3 + ' ' +@endcan ''
-                            @can('gestion.cliente.edit') + data.action1 + ' ' +@endcan ''
-                            @can('gestion.cliente.destroy') + data.action2 @endcan ;
+                            return  @can('gestion.cliente.show')
+                                    data.action3 + ' ' +
+                                @endcan
+                            ''
+                            @can('gestion.cliente.edit')
+                                +data.action1 + ' ' +
+                            @endcan
+                            ''
+                            @can('gestion.cliente.destroy')
+                                +data.action2
+                            @endcan ;
                         }
                     }
                 ]
@@ -282,8 +296,9 @@
                     Cliente_id_update = $('#cliente_id_edit').val();
                     $.ajax({
                         data: $('#cliente_form').serialize(),
-                        url: '{{ route('gestion.cliente.update', ['cliente' => ':cliente']) }}'.replace(
-                            ':cliente', Cliente_id_update),
+                        url: '{{ route('gestion.cliente.update', ['cliente' => ':cliente']) }}'
+                            .replace(
+                                ':cliente', Cliente_id_update),
                         type: "PUT",
                         dataType: 'json',
                         success: function(data) {
@@ -303,15 +318,16 @@
                             })
                         }
                     });
-                }else {
-                    form.reportValidity();                    
+                } else {
+                    form.reportValidity();
                 }
             });
 
             $('body').on('click', '.eyeCliente', function() {
                 var Cliente_id_ver = $(this).data('id');
                 $('#modalVerDetalle').modal('show');
-                $.get('{{ route('gestion.cliente.show', ['cliente' => ':cliente']) }}'.replace(':cliente', Cliente_id_ver),
+                $.get('{{ route('gestion.cliente.show', ['cliente' => ':cliente']) }}'.replace(':cliente',
+                        Cliente_id_ver),
                     function(data) {
                         $('#ver_CLI_Id').text(data.data.CLI_Id);
                         $('#ver_CLI_TipoDocumento').text(data.data.CLI_TipoDocumento);
@@ -320,9 +336,11 @@
                         $('#ver_CLI_Direccion').text(data.data.CLI_Direccion);
                         $('#ver_CLI_Celular').text(data.data.CLI_Celular);
                         $('#ver_CLI_Correo').text(data.data.CLI_Correo);
-                        $('#ver_fecha_registro').text(moment(data.data.created_at).format('YYYY-MM-DD HH:mm:ss'));
-                        $('#ver_fecha_update').text(moment(data.data.updated_at).format('YYYY-MM-DD HH:mm:ss'));
-                    })            
+                        $('#ver_fecha_registro').text(moment(data.data.created_at).format(
+                            'YYYY-MM-DD HH:mm:ss'));
+                        $('#ver_fecha_update').text(moment(data.data.updated_at).format(
+                            'YYYY-MM-DD HH:mm:ss'));
+                    })
             });
 
             $('#btncancelar').click(function(e) {

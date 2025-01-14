@@ -29,8 +29,13 @@ class ProveedorController extends Controller
 
                     return $btn;
                 })
+                ->addColumn('action3', function ($row) {
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->PROV_Id . '" data-original-title="Ver" class="btn btn-warning btn-sm eyeProveedor"><i class="fa fa-eye" aria-hidden="true"></i></a>';
 
-                ->rawColumns(['action1', 'action2'])
+                    return $btn;
+                })
+
+                ->rawColumns(['action1', 'action2','action3'])
                 ->make(true);
         }
         return view('administracion.proveedor.index');
@@ -74,7 +79,9 @@ class ProveedorController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $Proveedor = Proveedor::find($id);
+
+        return response()->json(['data' => $Proveedor]);
     }
 
     /**
