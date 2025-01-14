@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-01-2025 a las 23:10:38
+-- Tiempo de generación: 14-01-2025 a las 01:12:06
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `gestion_vehiculo`
+-- Base de datos: `bd_fresidulce`
 --
 
 -- --------------------------------------------------------
@@ -51,6 +51,14 @@ CREATE TABLE `almacen` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `almacen`
+--
+
+INSERT INTO `almacen` (`ALM_Id`, `ALM_Nombre`, `ALM_Direccion`, `ALM_Ruc`, `ALM_Celular`, `ALM_Status`, `created_at`, `updated_at`) VALUES
+(2, 'asdfg', 'asdfg', '23451234567', '1234567', 1, NULL, NULL),
+(4, 'SALAZAR TERAN DALILA KATHERINE', '1234', '10712857973', '123456', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -97,26 +105,6 @@ CREATE TABLE `asistencia` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
-CREATE TABLE
-  `cliente` (
-    `CLI_Id` int (11) UNSIGNED NOT NULL,
-    `CLI_TipoDocumento` varchar(5) NOT NULL,
-    `CLI_NumDocumento` varchar(12) NOT NULL,
-    `CLI_Nombre` varchar(150) NOT NULL,
-    `CLI_Direccion` varchar(150) DEFAULT NULL,
-    `CLI_Celular` varchar(12) DEFAULT NULL,
-    `CLI_Correo` varchar(50) DEFAULT NULL,
-    `CLI_Status` tinyint(1) NOT NULL DEFAULT 1,
-    `created_at` timestamp NULL DEFAULT NULL,
-    `updated_at` timestamp NULL DEFAULT NULL
-  ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
-
-ALTER TABLE `cliente` ADD PRIMARY KEY (`CLI_Id`);
-
-ALTER TABLE `cliente` MODIFY `CLI_Id` int (20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
-
 -- --------------------------------------------------------
 
 --
@@ -160,6 +148,32 @@ CREATE TABLE `clase` (
 INSERT INTO `clase` (`CLA_Id`, `CLA_Nombre`, `created_at`, `updated_at`) VALUES
 (1, 'Postres', NULL, NULL),
 (2, 'Agregados', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cliente`
+--
+
+CREATE TABLE `cliente` (
+  `CLI_Id` int(20) UNSIGNED NOT NULL,
+  `CLI_TipoDocumento` varchar(5) NOT NULL,
+  `CLI_NumDocumento` varchar(12) NOT NULL,
+  `CLI_Nombre` varchar(150) NOT NULL,
+  `CLI_Direccion` varchar(150) DEFAULT NULL,
+  `CLI_Celular` varchar(12) DEFAULT NULL,
+  `CLI_Correo` varchar(50) DEFAULT NULL,
+  `CLI_Status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`CLI_Id`, `CLI_TipoDocumento`, `CLI_NumDocumento`, `CLI_Nombre`, `CLI_Direccion`, `CLI_Celular`, `CLI_Correo`, `CLI_Status`, `created_at`, `updated_at`) VALUES
+(1, 'DNI', '73662777', 'MERLO ALVITES  ABNER ELIAS', 'fcvgbh', '34567', 'fghj@gmail.com', 1, '2025-01-13 18:21:00', '2025-01-13 18:21:00');
 
 -- --------------------------------------------------------
 
@@ -295,6 +309,13 @@ CREATE TABLE `metodo_pago` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `metodo_pago`
+--
+
+INSERT INTO `metodo_pago` (`MEP_Id`, `MEP_Pago`, `MEP_Status`, `created_at`, `updated_at`) VALUES
+(2, 'plin', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -553,6 +574,13 @@ CREATE TABLE `proveedor` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `proveedor`
+--
+
+INSERT INTO `proveedor` (`PROV_Id`, `PROV_TipoDocumento`, `PROV_NumDocumento`, `PROV_RazonSocial`, `PROV_Direccion`, `PROV_Descripcion`, `PROV_Celular`, `PROV_Correo`, `PROV_Status`, `created_at`, `updated_at`) VALUES
+(2, 'DNI', '71285797', 'SALAZAR TERAN  DALILA KATHERINE', 'asdfg', 'asdfg', '23456', 'qwd@gmail.com', 1, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -752,7 +780,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `photo_extension`, `provider`, `provider_id`, `remember_token`, `created_at`, `updated_at`, `estadousuario`, `avatar`, `tipousuario`, `numerodocumento`, `PER_Id`) VALUES
 (1, 'Abner Elias Merlo Alvites', 'merloalviteselias@gmail.com', NULL, '$2y$10$QIRp4TJ1IyW4WHxUZnCd3eOmNqpldLkUUepaedJP/lMcNpIQTQCsa', NULL, NULL, NULL, 'v6GbOTVXfxpiKud9IFub1q6KIXC5h1J75N6pYz8M0jBYlQZwj0rA5W1tl1Ke', '2023-11-02 02:23:21', '2024-04-03 22:02:46', 1, '', 0, NULL, 1),
-(2, 'Dalila Katherine Salazar Teran', 'katherineteran06@gmail.com', NULL, '$2y$10$dhmXJkshrLc/fyo.99zst.Tsi8WWDA3XsY5BM16MBpYowMva8dtp2', NULL, NULL, NULL, '3HzaPl8ZCUKAqVkSGqEcJfMKvPFJeE0Ehm2rp5BPGu6tNTS8vUUVoli2vteD', '2024-04-01 23:07:44', '2024-04-01 23:07:44', 1, NULL, 0, NULL, 0),
+(2, 'Dalila Katherine Salazar Teran', 'katherineteran06@gmail.com', NULL, '$2y$10$QIRp4TJ1IyW4WHxUZnCd3eOmNqpldLkUUepaedJP/lMcNpIQTQCsa', NULL, NULL, NULL, '3HzaPl8ZCUKAqVkSGqEcJfMKvPFJeE0Ehm2rp5BPGu6tNTS8vUUVoli2vteD', '2024-04-01 23:07:44', '2024-04-01 23:07:44', 1, NULL, 0, NULL, 0),
 (3, 'Maria Saavedra Chalan', 'maria@gmail.com', NULL, '$2y$10$ABQomQ0BTGNDqv96p78YKupnd7HHEf421iwGiaxEOxyfzuNmbtuFa', NULL, NULL, NULL, 'qxtZXnDr2S', '2024-04-02 06:19:48', '2024-04-02 06:19:48', 1, NULL, 0, NULL, 0),
 (4, 'Carlos Puemape', 'carlos@gmail.com', NULL, '$2y$10$dpwR75v8GipiCmzFA73iMuGG2cfPRPO0zZQjg5AioZULIpTuMPRm6', NULL, NULL, NULL, 'M4EbcYXsNMSZV4RkRuJfzOBuaiGslH92SBQwUT2VoKG9t8G6dEDU03sadaty', '2024-04-02 06:45:51', '2024-04-03 23:22:11', 1, NULL, 0, NULL, 0),
 (5, 'Carla Sanchez', 'carla@gmail.com', NULL, '$2y$10$8ZSq.GwYld3nprqw5fNnquVp8IVSBIYMiP.PtQmuUW5PfTNZm9lyG', NULL, NULL, NULL, '6h1ylhmzfD', '2024-04-03 20:52:26', '2024-04-03 23:20:57', 1, NULL, 0, NULL, 0);
@@ -798,6 +826,12 @@ ALTER TABLE `categoria`
 --
 ALTER TABLE `clase`
   ADD PRIMARY KEY (`CLA_Id`);
+
+--
+-- Indices de la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  ADD PRIMARY KEY (`CLI_Id`);
 
 --
 -- Indices de la tabla `compra`
@@ -944,7 +978,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `almacen`
 --
 ALTER TABLE `almacen`
-  MODIFY `ALM_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ALM_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `area`
@@ -969,6 +1003,12 @@ ALTER TABLE `categoria`
 --
 ALTER TABLE `clase`
   MODIFY `CLA_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  MODIFY `CLI_Id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `compra`
@@ -998,7 +1038,7 @@ ALTER TABLE `lote`
 -- AUTO_INCREMENT de la tabla `metodo_pago`
 --
 ALTER TABLE `metodo_pago`
-  MODIFY `MEP_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `MEP_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -1010,7 +1050,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `personal`
@@ -1034,7 +1074,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `PROV_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `PROV_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `puesto`
