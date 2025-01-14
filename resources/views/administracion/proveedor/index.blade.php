@@ -107,10 +107,7 @@
                                         <th scope="col">Tipo de documento</th>
                                         <th scope="col">Número de documento</th>
                                         <th scope="col">Razón social</th>
-                                        <th scope="col">Dirección</th>
-                                        <th scope="col">Descripción</th>
-                                        <th scope="col">Celular</th>
-                                        <th scope="col">E-mail</th>
+                                        
                                         <th scope="col">Opciones</th>
                                     </tr>
                                 </thead>
@@ -180,22 +177,7 @@
                         data: 'PROV_RazonSocial',
                         name: 'PROV_RazonSocial'
                     },
-                    {
-                        data: 'PROV_Direccion',
-                        name: 'PROV_Direccion'
-                    },
-                    {
-                        data: 'PROV_Descripcion',
-                        name: 'PROV_Descripcion'
-                    },
-                    {
-                        data: 'PROV_Celular',
-                        name: 'PROV_Celular'
-                    },
-                    {
-                        data: 'PROV_Correo',
-                        name: 'PROV_Correo'
-                    },
+                    
                     {
                         data: null,
                         name: '',
