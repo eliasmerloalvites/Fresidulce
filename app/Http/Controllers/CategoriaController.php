@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
 use App\Models\Clase;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -53,19 +54,45 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        $query=Categoria::where('CAT_Nombre','=',$request->get('CAT_Nombre'))->get();
-        if($query->count()!=0) //si lo encuentra, osea si no esta vacia
+        try {
+            DB::beginTransaction();
+
+            $query=Categoria::where('CAT_Nombre','=',$request->get('CAT_Nombre'))->get();
+            if($query->count()!=0) //si lo encuentra, osea si no esta vacia
+            {
+                
+                return response()->json(['error' => 'Categoria ya registrado'], 401);                   
+            }
+            else{
+                $categoria=new Categoria();
+                $categoria->CAT_Nombre=$request->CAT_Nombre;
+                $categoria->CLA_Id=$request->CLA_Id;
+                $categoria->save();
+
+                $path = 'archivos/categoria/';
+                $file = $request->file('file');
+                if($file){
+                    $extension = $file->getClientOriginalExtension();
+                    $fileName =  $categoria->CAT_Id . '.' . $extension;
+                    $upload = $file->move($path, $fileName);
+                    
+                    $updatecategoria = DB::table('categoria')
+                    ->where('CAT_Id', $categoria->CAT_Id)
+                    ->update(['CAT_Imagen' => $fileName]);
+
+                }
+                   
+            }
+
+            DB::commit();
+        } catch (Exception $e)
         {
-            
-            return response()->json(['error' => 'Categoria ya registrado'], 401);                   
+            DB::rollback();
         }
-        else{
-            $categoria=new Categoria();
-            $categoria->CAT_Nombre=$request->CAT_Nombre;
-            $categoria->CLA_Id=$request->CLA_Id;
-            $categoria->save();
-            return response()->json(['success' => 'Categoria Registrado Exitosamente!',compact('categoria')]);    
-        }
+
+        
+        return response()->json(['success' => 'Categoria Registrado Exitosamente!',compact('categoria')]); 
+        
     }
 
     /**
@@ -90,10 +117,31 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $categoria = Categoria::find($id);
-        $categoria->CAT_Nombre = $request->CAT_Nombre;
-        $categoria->CLA_Id = $request->CLA_Id;
-		$categoria->update();
+        try {
+            DB::beginTransaction();
+
+            $categoria = Categoria::find($id);
+            $categoria->CAT_Nombre = $request->CAT_Nombre;
+            $categoria->CLA_Id = $request->CLA_Id;
+            $categoria->update();
+
+            $path = 'archivos/categoria/';
+            $file = $request->file('file');
+            if($file){
+                $extension = $file->getClientOriginalExtension();
+                $fileName =  $categoria->CAT_Id . '.' . $extension;
+                $upload = $file->move($path, $fileName);
+                
+                $updatecategoria = DB::table('categoria')
+                ->where('CAT_Id', $categoria->CAT_Id)
+                ->update(['CAT_Imagen' => $fileName]);
+            }
+        
+            DB::commit();
+        } catch (Exception $e)
+        {
+            DB::rollback();
+        }
 
         return response()->json(['success' => 'Categoria Editado Exitosamente.',compact('categoria')]);
     }

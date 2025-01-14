@@ -19,25 +19,31 @@
                         <p class="card-text"></p>
                         <form method="POST" id="cat_form" action="{{ route('categoria.store') }}">
                             @csrf
+                            <input type="hidden" id="_method" name="_method" value="" style="display: none;">
                             <input type="text" id="categoria_id_edit" hidden>
-                            <div class="form-group row">
-                                <div class="col-12">
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <label class="control-label"  style=" text-align: left; display: block;">Clase:</label>
                                     <select class="form-control select2 select2-info" id="CLA_Id" name="CLA_Id"
                                         data-dropdown-css-class="select2-info" style="width: 100%;">
-                                        <option value="">Seleccionar ...</option>
+                                        <option value="">Seleccionar Clase</option>
                                         @foreach ($clases as $itemClase)
                                             <option value="{{ $itemClase->CLA_Id }}"> {{ $itemClase->CLA_Nombre }}
                                             </option>
                                         @endforeach
                                     </select>
-                                </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-12">
-                                    <label class="control-label"  style=" text-align: left; display: block;">Nombre:</label>
-                                    <input type="text" id="CAT_Nombre" name="CAT_Nombre" class="form-control "
-                                        placeholder="Nombre" required>
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <label class="control-label"  style=" text-align: left; display: block;">Nombre:</label>
+                                <input type="text" id="CAT_Nombre" name="CAT_Nombre" class="form-control "
+                                    placeholder="Nombre" required>
+                            </div>
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: left;">
+                                <label>Añadir Imagen </label>
+                                <div class="custom-file center">
+                                    <input type="file" class="custom-file-input"
+                                        accept="image/*"
+                                        name="file" id="fileImagen">
+                                    <label class="custom-file-label" id="idFileImagen">Añadir Imagen</label>
                                 </div>
                             </div>
                             <p></p>
@@ -90,6 +96,11 @@
             $('.select2bs4').select2({
                 theme: 'bootstrap4'
             })
+
+            $("#fileImagen").change(function() {
+                $nombre = document.getElementById('fileImagen').files[0].name;
+                document.querySelector('#idFileImagen').innerText = $nombre;
+            });
 
             const Toast = Swal.mixin({
                 toast: true,
@@ -161,20 +172,21 @@
                     })
                     return false;
                 }
+                let formData = new FormData($('#cat_form')[0]);
+
                 $.ajax({
-                    data: $('#cat_form').serialize(),
                     url: "{{ route('categoria.store') }}",
                     type: "POST",
-                    dataType: 'json',
+                    data: formData,
+                    processData: false, // Evitar que jQuery procese el FormData
+                    contentType: false, // Evitar que jQuery establezca el tipo de contenido
                     success: function(data) {
                         console.log('Success:', data);
                         Toast.fire({
                             type: 'success',
                             title: data.success
                         })
-                        $('#CLA_Id').val('');
-                        $('#CLA_Id').change();
-                        $('#cat_form').trigger("reset");
+                        cancelarUpdate()
                         table.draw();
                     },
                     error: function(data) {
@@ -197,8 +209,10 @@
                         $('#CAT_Nombre').val(result.data.CAT_Nombre);
                         $('#CLA_Id').val(result.data.CLA_Id);
                         $('#CLA_Id').change();
+                        
 
                         // Mostrar botón Actualizar y ocultar botón Guardar
+                        $('#_method').val('PUT').show();
                         $("#saveCategoria").hide();
                         $("#updateBtn").show();
                     })
@@ -207,12 +221,14 @@
             $('#updateBtn').click(function(e) {
                 e.preventDefault();
                 Categoria_id_update = $('#categoria_id_edit').val();
+                let formData = new FormData($('#cat_form')[0]);
                 $.ajax({
-                    data: $('#cat_form').serialize(),
                     url: '{{ route('categoria.update', ':categoria') }}'.replace(':categoria',
                         Categoria_id_update),
-                    type: "PUT",
-                    dataType: 'json',
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function(data) {
                         console.log('Success:', data);
                         Toast.fire({
@@ -248,8 +264,11 @@
             function cancelarUpdate() {
                 $('#cat_form').trigger("reset");
                 $('#CLA_Id').val('');
-                $('#CLA_Id').change();
+                $('#CLA_Id').change();                
+                $('#fileImagen').val("")
+                document.querySelector('#idFileImagen').innerText = "Añadir Imagen";
                 $("#categoria_id_edit").val('');
+                $('#_method').val('').hide();
                 $("#saveCategoria").show(); // Mostrar botón Guardar
                 $("#updateBtn").hide();
             }

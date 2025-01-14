@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-01-2025 a las 01:12:06
+-- Tiempo de generación: 11-01-2025 a las 23:10:38
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -51,14 +51,6 @@ CREATE TABLE `almacen` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `almacen`
---
-
-INSERT INTO `almacen` (`ALM_Id`, `ALM_Nombre`, `ALM_Direccion`, `ALM_Ruc`, `ALM_Celular`, `ALM_Status`, `created_at`, `updated_at`) VALUES
-(2, 'asdfg', 'asdfg', '23451234567', '1234567', 1, NULL, NULL),
-(4, 'SALAZAR TERAN DALILA KATHERINE', '1234', '10712857973', '123456', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -114,6 +106,7 @@ CREATE TABLE `asistencia` (
 CREATE TABLE `categoria` (
   `CAT_Id` int(10) UNSIGNED NOT NULL,
   `CAT_Nombre` varchar(20) DEFAULT NULL,
+  `CAT_Imagen` varchar(10) DEFAULT NULL,
   `CLA_Id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -123,10 +116,10 @@ CREATE TABLE `categoria` (
 -- Volcado de datos para la tabla `categoria`
 --
 
-INSERT INTO `categoria` (`CAT_Id`, `CAT_Nombre`, `CLA_Id`, `created_at`, `updated_at`) VALUES
-(1, 'DONAS', 1, NULL, NULL),
-(2, 'FRESI DULCE', 1, NULL, NULL),
-(3, 'WAFFLES', 1, NULL, NULL);
+INSERT INTO `categoria` (`CAT_Id`, `CAT_Nombre`, `CAT_Imagen`, `CLA_Id`, `created_at`, `updated_at`) VALUES
+(1, 'DONAS', '1.jpg', 1, NULL, NULL),
+(2, 'FRESAS', '2.jpg', 1, NULL, NULL),
+(3, 'WAFFLES', '3.jpg', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -148,32 +141,6 @@ CREATE TABLE `clase` (
 INSERT INTO `clase` (`CLA_Id`, `CLA_Nombre`, `created_at`, `updated_at`) VALUES
 (1, 'Postres', NULL, NULL),
 (2, 'Agregados', NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `cliente`
---
-
-CREATE TABLE `cliente` (
-  `CLI_Id` int(20) UNSIGNED NOT NULL,
-  `CLI_TipoDocumento` varchar(5) NOT NULL,
-  `CLI_NumDocumento` varchar(12) NOT NULL,
-  `CLI_Nombre` varchar(150) NOT NULL,
-  `CLI_Direccion` varchar(150) DEFAULT NULL,
-  `CLI_Celular` varchar(12) DEFAULT NULL,
-  `CLI_Correo` varchar(50) DEFAULT NULL,
-  `CLI_Status` tinyint(1) NOT NULL DEFAULT 1,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `cliente`
---
-
-INSERT INTO `cliente` (`CLI_Id`, `CLI_TipoDocumento`, `CLI_NumDocumento`, `CLI_Nombre`, `CLI_Direccion`, `CLI_Celular`, `CLI_Correo`, `CLI_Status`, `created_at`, `updated_at`) VALUES
-(1, 'DNI', '73662777', 'MERLO ALVITES  ABNER ELIAS', 'fcvgbh', '34567', 'fghj@gmail.com', 1, '2025-01-13 18:21:00', '2025-01-13 18:21:00');
 
 -- --------------------------------------------------------
 
@@ -296,6 +263,20 @@ CREATE TABLE `lote` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `lote`
+--
+
+INSERT INTO `lote` (`LOT_Id`, `ALM_Id`, `PRO_Id`, `LOT_TipoIngreso`, `LOT_IdIngreso`, `LOT_CantidadReal`, `LOT_CantidadIngreso`, `LOT_PrecioCompra`, `LOT_PrecioVenta`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'COMPRA', 1, 50.00, 50, 7.00, 6.00, NULL, NULL),
+(2, 1, 2, 'COMPRA', 1, 50.00, 50, 5.00, 10.00, NULL, NULL),
+(3, 1, 3, 'COMPRA', 1, 50.00, 50, 3.00, 6.00, NULL, NULL),
+(4, 1, 4, 'COMPRA', 1, 50.00, 50, 4.00, 8.00, NULL, NULL),
+(5, 1, 5, 'COMPRA', 1, 50.00, 50, 8.00, 13.00, NULL, NULL),
+(6, 1, 6, 'COMPRA', 1, 50.00, 50, 5.00, 7.00, NULL, NULL),
+(7, 1, 7, 'COMPRA', 1, 50.00, 50, 7.00, 10.00, NULL, NULL),
+(8, 1, 8, 'COMPRA', 1, 50.00, 50, 10.00, 15.00, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -309,13 +290,6 @@ CREATE TABLE `metodo_pago` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `metodo_pago`
---
-
-INSERT INTO `metodo_pago` (`MEP_Id`, `MEP_Pago`, `MEP_Status`, `created_at`, `updated_at`) VALUES
-(2, 'plin', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -978,7 +952,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `almacen`
 --
 ALTER TABLE `almacen`
-  MODIFY `ALM_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ALM_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `area`
@@ -996,7 +970,7 @@ ALTER TABLE `asistencia`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `CAT_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `CAT_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `clase`
@@ -1032,13 +1006,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de la tabla `lote`
 --
 ALTER TABLE `lote`
-  MODIFY `LOT_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `LOT_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `metodo_pago`
 --
 ALTER TABLE `metodo_pago`
-  MODIFY `MEP_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `MEP_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`

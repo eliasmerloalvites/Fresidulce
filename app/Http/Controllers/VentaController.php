@@ -45,8 +45,10 @@ class VentaController extends Controller
      */
     public function create()
     {
-        $clase = DB::table('clase')->select('*')->orderBy('CLA_Nombre', 'asc')->get();
-        $categoria = DB::table('categoria')->select('*')->orderBy('CAT_Nombre', 'asc')->get();
+        $clase = DB::table('clase')->orderBy('CLA_Nombre', 'asc')->get();
+        $categoria = DB::table('categoria')->orderBy('CAT_Nombre', 'asc')->get();
+        $clientes = DB::table('cliente')->orderBy('CLI_NumDocumento', 'asc')->get();
+        $metodo_pago = DB::table('metodo_pago')->orderBy('MEP_Pago', 'asc')->get();
 
 
         $lotesproductos = DB::table('lote as lt')
@@ -63,7 +65,7 @@ class VentaController extends Controller
         Cache::put('listaProductos', $lotesproductos);
         $lotesuni = Cache::get('listaProductos');
 
-        return view('gestion.venta.create', compact('clase','categoria','lotesuni'));
+        return view('gestion.venta.create', compact('clase','categoria','clientes','metodo_pago','lotesuni'));
     }
 
     /**
