@@ -26,8 +26,7 @@
                                         data-dropdown-css-class="select2-info"  style="width: 100%; ">
                                         <option value="">Seleccionar ...</option>
                                         @foreach ($categorias as $itemCategoria)
-                                            <option value="{{ $itemCategoria->CAT_Id }}">
-                                                {{ $itemCategoria->CAT_Nombre }}
+                                            <option value="{{ $itemCategoria->CAT_Id }}">{{ $itemCategoria->CAT_Nombre }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -174,8 +173,8 @@
                         name: 'PRO_Marca'
                     },
                     {
-                        data: 'CAT_Id',
-                        name: 'CAT_Id'
+                        data: 'CAT_Nombre',
+                        name: 'CAT_Nombre'
                     },
                     {
                         data: null,
