@@ -209,7 +209,7 @@
         background: #96BC1F;
         line-height: 14px;
         text-align: center;
-        width: 130px;
+        width: 150px;
         height: 50px;
     }
 
@@ -224,7 +224,7 @@
         background: #ED9200;
         line-height: 11px;
         text-align: center;
-        width: 130px;
+        width: 150px;
         height: 50px;
     }
 
@@ -239,7 +239,7 @@
         background: #8F8F8F;
         line-height: 14px;
         text-align: center;
-        width: 130px;
+        width: 150px;
         height: 50px;
     }
 
@@ -254,7 +254,7 @@
         background: #EF295A;
         line-height: 11px;
         text-align: center;
-        width: 130px;
+        width: 150px;
         height: 50px;
     }
 
@@ -269,7 +269,7 @@
         background: #F8F801;
         line-height: 11px;
         text-align: center;
-        width: 130px;
+        width: 150px;
         height: 50px;
     }
 
@@ -284,7 +284,7 @@
         background: #22F819;
         line-height: 11px;
         text-align: center;
-        width: 130px;
+        width: 150px;
         height: 50px;
     }
 
@@ -299,7 +299,7 @@
         background: #379CC7;
         line-height: 11px;
         text-align: center;
-        width: 130px;
+        width: 150px;
         height: 50px;
     }
 
@@ -314,7 +314,7 @@
         background: #01EEE5;
         line-height: 11px;
         text-align: center;
-        width: 130px;
+        width: 150px;
         height: 50px;
     }
 
@@ -329,7 +329,7 @@
         background: #EE33B5;
         line-height: 11px;
         text-align: center;
-        width: 130px;
+        width: 150px;
         height: 50px;
     }
 
@@ -344,7 +344,7 @@
         background: #F4D22B;
         line-height: 11px;
         text-align: center;
-        width: 130px;
+        width: 150px;
         height: 50px;
     }
 
@@ -355,86 +355,8 @@
 </style>
 <div class="contenedor-general">
     <div class="row panel-group">
-        <div class="col-lg-6  col-md-12 col-sm-12 col-xs-12 ">
-            <div class="row">
-                <div class="col-lg-9  col-md-9 col-sm-9 col-xs-12 ">
-                    <div class="table" style="height: calc(30vh - 10px)">
-                        <table id="detallesCalculadora" class="table table-sm table-bordered table-condensed table-hover ; padding:0px;margin:0px">
-                            <thead hidden style="background: #ade9ff;">
-                            </thead>
-
-                            <tr style="padding:0px;margin:0px">
-                                <td style=" text-align: center; padding:0px;margin:0px; font-size: 30px; width: 15%;  font-weight: bold;  "><button class="btn-calculadora" style="width: 100%; padding:0px;margin:0px; height:50px;" title="1" type="button" id="idn1" onclick="Editar('1')">1</button></td>
-                                <td style=" text-align: center; padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; padding:0px;margin:0px; height:50px; " title="2" type="button" id="idn2" onclick="Editar('2')">2</button></td>
-                                <td style=" text-align: center; padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; padding:0px;margin:0px; height:50px; " title="3" type="button" id="idn3" onclick="Editar('3')">3</button></td>
-                                <td style=" text-align: center; padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; padding:0px;margin:0px; height:50px; " title="Cantidad" type="button" id="idn4" onclick="Metodo('CANTIDAD')">Cant</button></td>
-
-
-                            </tr>
-                            <tr>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="4" type="button" id="idn5" onclick="Editar('4')">4</button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="5" type="button" id="idn6" onclick="Editar('5')">5</button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="6" type="button" id="idn7" onclick="Editar('6')">6</button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="Descuento" type="button" id="idn8" onclick="Metodo('DESCUENTO')">Desc.</button></td>
-                            </tr>
-                            <tr>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="7" type="button" id="idn9" onclick="Editar('7')">7</button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="8" type="button" id="idn10" onclick="Editar('8')">8</button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="9" type="button" id="idn11" onclick="Editar('9')">9</button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="Precio Venta" type="button" onclick="Metodo('PRECIO')" id="idn12">Prec.</button></td>
-                            </tr>
-                            <tr>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="Eliminar Producto" type="button" id="idn13" onclick="eliminar()"><i class="fa fa-trash" style="color: #FF0000"></button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="0" type="button" id="idn14" onclick="Editar('0')">0</button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="." type="button" id="idn15" onclick="Editar('.')">.</button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="Eliminar" type="button" id="idn4" onclick="elimi('.')"><i class="fa fa-times"></button></td>
-
-                            </tr>
-
-                        </table>
-                    </div>
-                </div>
-                <div class="col-lg-3  col-md-3 col-sm-3 col-xs-12 ">
-                    <div class="table" style="height: calc(28vh - 10px);   overflow-y:scroll">
-                        <table id="detallesClase" class="table table-sm table-bordered table-condensed table-hover ; padding:0px;margin:0px">
-                            <thead hidden style="background: #ade9ff;">
-                            </thead>
-                            @foreach ($clase as $t => $val)
-                            <tr>
-                                <td style=" text-align: center;  font-size: 30px;"><button class="btn4" id="btnidc{{$t+1}}" onclick="Tabla_Categoria({{$t+1}});" style="text-align:center;" value="{{$val->CLA_Id}}" type="button">{{$val->CLA_Nombre}}</button></td>
-                            </tr>
-                            @endforeach
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 ">
-                <table id="detallesCategoria" class="table  table-bordered table-condensed table-hover">
-                    <thead hidden style="background: #ade9ff;">
-                    </thead>
-                    <tr>
-                        @foreach ($categoria as $t => $val)
-                        <td style=" text-align: center;"><button class="btn2" id="btnidt{{$t+1}}" onclick="Tabla_Producto({{$t+1}});" style="text-align:center;" value="{{$val->CAT_Id}}" type="button">{{$val->CAT_Nombre}}</button></td>
-                        @endforeach
-                    </tr>
-                </table>
-            </div>
-            <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 ">
-                <div class="table" style="height: calc(50vh - 90px);   overflow-y:scroll">
-                    <table id="detalles" class="table table-bordered table-condensed table-hover">
-                        <thead hidden style="background: #ade9ff;">
-                            <th style="text-align: center; width: 33%;">1</th>
-                            <th style="text-align: center; width: 33%;">2</th>
-                            <th style="text-align: center; width: 34%;">3</th>
-                        </thead>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-
-
-        <div class="col-lg-6  col-md-12 col-sm-12 col-xs-12 ">
+        
+        <div class="col-lg-5  col-md-12 col-sm-12 col-xs-12 ">
 
             {!!Form::open(['route' => 'gestion.venta.store','id' => 'form1'])!!}
             {{Form::token()}}
@@ -442,10 +364,27 @@
             <input class="form-control" hidden id="VentaTipo" name="VentaTipo" value="VENTA" />
             <input class="form-control" hidden name="EMP_Codigo" value="{{ Auth::user()->id }}" />
             <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 " controls id="contenedor1">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 1px">
+                        <select class="form-control" style="width: 100%;">
+                            @foreach ($clase as $t => $val)                            
+                                <option value="{{$val->CLA_Id}}" >{{$val->CLA_Nombre}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-top: 1px">
+                        <select id="icon-select" class="form-control" style="width: 100%;">
+                            @foreach ($categoria as $t => $val)                            
+                                <option value="{{$val->CAT_Id}}" data-img-src="/archivos/categoria/{{$val->CAT_Imagen}}"> {{$val->CAT_Nombre}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 1px">
                     <div class="table-responsive" style="height: calc(45vh - 90px);  overflow-y:scroll;">
                         <table id="detallesVenta" class="table table-sm table-bordered table-condensed table-hover">
-                            <thead style="background: #ade9ff;">
+                            <thead style="background: #f36ad1;">
                                 <th style="text-align: left;  width: 80%;">PRODUCTO</th>
                                 <th style="text-align: left;  width: 5%;">PU</th>
                                 <th style="text-align: left;  width: 5%;">CNT</th>
@@ -462,8 +401,8 @@
                     </div>
                 </div>
                 <div class="table-responsive col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <table id="detallesInformacion" class="table table-sm table-bordered table-condensed table-hover hide">
-                        <thead hidden style="background: #dddddd;">
+                    <table id="detallesInformacion" class="table table-sm table-bordered table-condensed table-hover" hidden>
+                        <thead  style="background: #dddddd;">
                             <th style="text-align: left; font-size: 12px; width: 80%;font-weight: bold;"><label>PRODUCTO</label> </th>
                             <th style="text-align: left; font-size: 12px; width: 20%;font-weight: bold;"><label>STOCK</label> </th>
                         </thead>
@@ -472,8 +411,8 @@
 
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="input-group">
-                        <span class="form-control" style="background: #EDEDED; border-bottom-left-radius:10px; border-top-left-radius: 10px;">Tipo PAGO</span>
+                    <div class="input-group" hidden>
+                        <span class="form-control" style="background: #EDEDED; border-bottom-left-radius:10px; border-top-left-radius: 10px;">TIPO PAGO</span>
                         <select class="form-control " id="VEN_TipoPago" name="VEN_TipoPago">
                             <option value="1" selected>CONTADO</option>
                             <!--<option value="3" >TARJETA</option>-->
@@ -486,14 +425,16 @@
                     <div class="input-group">
                         <span class="form-control" style="background: #EDEDED; border-bottom-left-radius:10px; border-top-left-radius: 10px;">CLIENTE</span>
                         <select class="form-control " id="CLI_Cod" name="CLI_Cod">
-
+                            @foreach ($clientes as $cli)
+								<option value="{{$cli->CLI_Id}}">{{ $cli->CLI_TipoDocumento}} - {{ $cli->CLI_NumDocumento}} - {{ $cli->CLI_Nombre}}</option>
+							@endforeach
                         </select>
-                        <span title="Nuevo Cliente" type="button" id="btnNuevoCliea" class="btn btn-primary btn-sm " onclick="mostrarformulario()" style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"><i class="fa fa-plus"></i> <i class="fa fa-user"></i></span>
+                        <span title="Nuevo Cliente" type="button" id="btnNuevoCliea" class="btn btn-success btn-sm " onclick="mostrarformulario()" style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"><i class="fa fa-plus"></i> <i class="fa fa-user"></i></span>
                     </div>
                 </div>
 
                 <div class="modal-body panel-body" style="max-height: calc(60vh - 90px);padding-bottom: 0px;padding-top: 0px;">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 hide" id="idfrmCliente" style="border-color: #02D399; margin-bottom: 20px; border-width: 3px; border-style: double; background: #F1F1F1;">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" id="idfrmCliente" style="border-color: #02D399; margin-bottom: 20px; border-width: 3px; border-style: double; background: #F1F1F1;display: none;">
                         <div class="row" style="padding-top : 1%">
                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="input-group input-group-sm">
@@ -570,12 +511,24 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
+                    <div class="input-group">
+                        <span class="form-control" style="background: #EDEDED; border-bottom-left-radius:10px; border-top-left-radius: 10px;">METODO DE PAGO</span>
+                        <select class="form-control " id="CLI_Cod" name="CLI_Cod">
+                            @foreach ($metodo_pago as $mep)
+								<option value="{{$mep->MEP_Id}}">{{ $mep->MEP_Pago}}</option>
+							@endforeach
+                        </select>
+                        <span title="Nuevo Cliente" type="button" id="btnNuevoCliea" class="btn btn-success btn-sm " onclick="mostrarformulario()" style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"><i class="fa fa-plus"></i> <i class="fa fa-user"></i></span>
+                    </div>
+                </div>
 
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
                     <div class="input-group">
-                        <span type="button" id="btnPago" class="btn btn-primary btn-sm " onclick="PagoCalculadora()" style="border-bottom-left-radius:10px; border-top-left-radius: 10px; border-bottom-right-radius:10px; border-top-right-radius: 10px;"><i class="fa fa-plus"></i></span>
+                        <span type="button" id="btnPago" class="btn btn-primary btn-sm " hidden onclick="PagoCalculadora()" style="border-bottom-left-radius:10px; border-top-left-radius: 10px; border-bottom-right-radius:10px; border-top-right-radius: 10px;"><i class="fa fa-plus"></i></span>
                         <span class="form-control" style="background: #EDEDED; border-bottom-left-radius:10px; border-top-left-radius: 10px;">PAGO</span>
-                        <input type="text" class="form-control input-sm" readonly="true" value="0" name="VEN_Pagado" id="idPagado">
+                        <input onclick="PagoCalculadora()" type="text" class="form-control input-sm" readonly="true" value="0" name="VEN_Pagado" id="idPagado">
                         <span class="form-control" style="background: #EDEDED; ">VUELTO</span>
                         <input type="text" class="form-control input-sm" readonly="true" value="0" name="VEN_Vuelto" id="idVuelto" style="border-bottom-right-radius:10px; border-top-right-radius: 10px;">
 
@@ -608,6 +561,88 @@
 
         </div>
 
+        <div class="col-lg-7  col-md-12 col-sm-12 col-xs-12 ">
+            <div class="row">
+                <div class="col-lg-9  col-md-9 col-sm-9 col-xs-12 ">
+                    <div class="table" style="height: calc(30vh - 10px)">
+                        <table id="detallesCalculadora" class="table table-sm table-bordered table-condensed table-hover ; padding:0px;margin:0px">
+                            <thead hidden style="background: #ade9ff;">
+                            </thead>
+
+                            <tr style="padding:0px;margin:0px">
+                                <td style=" text-align: center; padding:0px;margin:0px; font-size: 30px; width: 15%;  font-weight: bold;  "><button class="btn-calculadora" style="width: 100%; padding:0px;margin:0px; height:50px;" title="1" type="button" id="idn1" onclick="Editar('1')">1</button></td>
+                                <td style=" text-align: center; padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; padding:0px;margin:0px; height:50px; " title="2" type="button" id="idn2" onclick="Editar('2')">2</button></td>
+                                <td style=" text-align: center; padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; padding:0px;margin:0px; height:50px; " title="3" type="button" id="idn3" onclick="Editar('3')">3</button></td>
+                                <td style=" text-align: center; padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; padding:0px;margin:0px; height:50px; " title="Cantidad" type="button" id="idn4" onclick="Metodo('CANTIDAD')">Cant</button></td>
+
+
+                            </tr>
+                            <tr>
+                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="4" type="button" id="idn5" onclick="Editar('4')">4</button></td>
+                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="5" type="button" id="idn6" onclick="Editar('5')">5</button></td>
+                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="6" type="button" id="idn7" onclick="Editar('6')">6</button></td>
+                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="Descuento" type="button" id="idn8" onclick="Metodo('DESCUENTO')">Desc.</button></td>
+                            </tr>
+                            <tr>
+                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="7" type="button" id="idn9" onclick="Editar('7')">7</button></td>
+                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="8" type="button" id="idn10" onclick="Editar('8')">8</button></td>
+                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="9" type="button" id="idn11" onclick="Editar('9')">9</button></td>
+                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="Precio Venta" type="button" onclick="Metodo('PRECIO')" id="idn12">Prec.</button></td>
+                            </tr>
+                            <tr>
+                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="Eliminar Producto" type="button" id="idn13" onclick="eliminar()"><i class="fa fa-trash" style="color: #FF0000"></button></td>
+                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="0" type="button" id="idn14" onclick="Editar('0')">0</button></td>
+                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="." type="button" id="idn15" onclick="Editar('.')">.</button></td>
+                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="Eliminar" type="button" id="idn4" onclick="elimi('.')"><i class="fa fa-times"></button></td>
+
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-3  col-md-3 col-sm-3 col-xs-12 ">
+                    <div class="table" style="height: calc(28vh - 10px);   overflow-y:scroll">
+                        <table id="detallesClase" class="table table-sm table-bordered table-condensed table-hover ; padding:0px;margin:0px">
+                            <thead hidden style="background: #ade9ff;">
+                            </thead>
+                            @foreach ($clase as $t => $val)
+                            <tr>
+                                <td style=" text-align: center;  font-size: 30px;"><button class="btn4" id="btnidc{{$t+1}}" onclick="Tabla_Categoria({{$t+1}});" style="text-align:center;" value="{{$val->CLA_Id}}" type="button">{{$val->CLA_Nombre}}</button></td>
+                            </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 ">
+                <div class="table-responsive" style="background:#FFF;">
+                    <table id="detallesCategoria" class="table  table-bordered table-condensed table-hover">
+                        <thead hidden style="background: #ade9ff;">
+                        </thead>
+                        <tr>
+                            @foreach ($categoria as $t => $val)
+                            <td style=" text-align: center;"><button class="btn2" id="btnidt{{$t+1}}" onclick="Tabla_Producto({{$t+1}});" style="text-align:center;" value="{{$val->CAT_Id}}" type="button">{{$val->CAT_Nombre}}</button></td>
+                            @endforeach
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 ">
+                <div class="table" style="height: calc(50vh - 90px);   overflow-y:scroll">
+                    <table id="detalles" class="table table-bordered table-condensed table-hover">
+                        <thead hidden style="background: #ade9ff;">
+                            <th style="text-align: center; width: 33%;">1</th>
+                            <th style="text-align: center; width: 33%;">2</th>
+                            <th style="text-align: center; width: 34%;">3</th>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+
     </div>
 
 
@@ -616,7 +651,8 @@
 </div>
 
 <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script>
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
 
 @push ('scripts')
 <script>
@@ -626,6 +662,19 @@
             habilitar();
         });
 
+        $('#icon-select').select2({
+            minimumResultsForSearch: Infinity,
+            templateResult: formatState,
+            templateSelection: formatState
+        });
+
+        function formatState(state) {
+            if (!state.id) {
+                return state.text;
+            }
+            const img = $(state.element).data('img-src');
+            return $(`<span><img src="${img}" style="width: 30px; height: 30px; margin-right: 10px;" />${state.text}</span>`);
+        }
 
         window.addEventListener("keydown", function(e) {
             if (e.keyCode == 13) {
@@ -651,6 +700,7 @@
         var idcla = $('#btnidc' + id).val();
 
         $("#detallesCategoria tbody").remove();
+        $("#detalles tbody").remove();
         $con = 0;
         $fin = 0;
         $ind = 1;
@@ -659,13 +709,7 @@
             $cla = "<?php echo $val->CLA_Id; ?>";
             $idtipo = "<?php echo $val->CAT_Id; ?>";
             $cate = "<?php echo $val->CAT_Nombre; ?>";
-
-
-
-
             if (idcla == $cla) {
-
-                /*fila += '<td style=" text-align: center;"><button class="btn'+$ind+'" id="btnidt'+$ind+'" onclick="Tabla_Producto('+$ind+');" value="'+$idtipo+'" style="text-align:center;" value="1" type="button">'+$cate+'</button></td>';*/
                 fila += '<td style=" text-align: center;"><button class="btn2" id="btnidt' + $ind + '" onclick="Tabla_Producto(' + $ind + ');" value="' + $idtipo + '" style="text-align:center;" value="1" type="button">' + $cate + '</button></td>';
 
                 $ind = $ind + 1;
@@ -735,7 +779,7 @@
 
             $("#detallesVenta tbody").remove();
             for (var i = 0; i < ListPedido.length; i++) {
-                var fila = '<tr  id="fila' + i + '" onclick="posicionamiento(' + i + ');"><td><input readonly="true"   hidden name="PRO_Id[]" value="' + ListPedido[i][0] + '"><label style="font-size: 11px;font-weight: bold; ">' + ListPedido[i][1] + '</label></td><td><input readonly="true" hidden  type="number"   name="DEV_PrecioUnitario[]" id="precioUnit' + i + '" value="' + ListPedido[i][2] + '" ><label id="precioUnitLabel' + i + '" style="font-size: 11px;">' + ListPedido[i][2] + '</label></td><td style="text-align: center;" ><input readonly="true" type="number" onkeyup="Valida2(' +
+                var fila = '<tr  id="fila' + i + '" onclick="posicionamiento(' + i + ');"><td style="text-align: left;" ><input readonly="true"   hidden name="PRO_Id[]" value="' + ListPedido[i][0] + '"><label style="font-size: 11px;font-weight: bold;align ">' + ListPedido[i][1] + '</label></td><td><input readonly="true" hidden  type="number"   name="DEV_PrecioUnitario[]" id="precioUnit' + i + '" value="' + ListPedido[i][2] + '" ><label id="precioUnitLabel' + i + '" style="font-size: 11px;">' + ListPedido[i][2] + '</label></td><td style="text-align: center;" ><input readonly="true" type="number" onkeyup="Valida2(' +
                     i + ');" name="DEV_Cantidad[]" hidden id="cantidad' + i + '"  value="' + ListPedido[i][3] + '"><label id="cantidadLabel' + i + '" style="font-size: 11px;">' + ListPedido[i][3] + '</label></td><td style="text-align: right;"><input readonly="true" hidden name="DEV_Descuento[]" onkeyup="Valida2(' + i + ');" id="descuento' + i + '"  value="' + ListPedido[i][5] + '"><label id="descuentoLabel' + i + '" style="font-size: 11px;">' + ListPedido[i][5] + '</label></td><td style="text-align: right;"><input disabled name="subTot' + i + '" hidden id="subTot' + i + '"  value="' + ListPedido[i][4] + '"><label id="subTotLabel' + i + '" style="font-size: 11px;">' + ListPedido[i][4] + '</label></td></tr>';
                 $("#detallesVenta").append(fila);
                 $POS = i;
@@ -856,10 +900,10 @@
 
     function mostrarformulario() {
         if ($ACTCLI == "NO") {
-            $("#idfrmCliente").removeClass('hide');
+            $("#idfrmCliente").show();
             $ACTCLI = "SI"
         } else {
-            $("#idfrmCliente").addClass('hide');
+            $("#idfrmCliente").hide();
             $ACTCLI = "NO"
         }
     }
@@ -1185,13 +1229,15 @@
         $('#fila' + $POS).remove();
         ListPedido.splice($POS, 1);
         $POS = $POS - 1
-
         total1 = 0;
         for (var i = 0; i < ListPedido.length; i++) {
-            total1 = (parseFloat(total1) + parseFloat(ListPedido[i][5])).toFixed(1);
+            total1 = (parseFloat(total1) + parseFloat(ListPedido[i][4])).toFixed(1);
         }
         $("#total").html("S/. " + total1);
         $("#total").val(total1);
+        $pagado = $("#idPagado").val();
+        $vuelto = ($pagado - total1).toFixed(1)
+        $("#idVuelto").val($vuelto);
 
     }
 </script>

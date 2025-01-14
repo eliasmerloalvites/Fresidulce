@@ -12,6 +12,7 @@ class Categoria extends Model
     public $timestamps=false;
     protected $fillable=[
         'CAT_Nombre',
+        'CAT_Imagen',
         'CLA_Id'
     ]  ;
     protected $guarded=[];
