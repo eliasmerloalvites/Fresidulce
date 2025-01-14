@@ -94,10 +94,10 @@
                                         <th scope="col">Id</th>
                                         <th scope="col">Nombre</th>
                                         <th scope="col">Descripción</th>
-                                        <th scope="col">Precio de Compra</th>
+                                        <th scope="col">Categoria</th>
                                         <th scope="col">Precio de Venta</th>
                                         <th scope="col">Marca</th>
-                                        <th scope="col">Categoria</th>
+                                        <th scope="col">Precio de Compra</th>
                                         <th scope="col">Opciones</th>
                                     </tr>
                                 </thead>
@@ -161,8 +161,8 @@
                         name: 'PRO_Descripcion'
                     },
                     {
-                        data: 'PRO_PrecioCompra',
-                        name: 'PRO_PrecioCompra'
+                        data: 'CAT_Nombre',
+                        name: 'CAT_Nombre'
                     },
                     {
                         data: 'PRO_PrecioVenta',
@@ -173,8 +173,8 @@
                         name: 'PRO_Marca'
                     },
                     {
-                        data: 'CAT_Nombre',
-                        name: 'CAT_Nombre'
+                        data: 'PRO_PrecioCompra',
+                        name: 'PRO_PrecioCompra'
                     },
                     {
                         data: null,

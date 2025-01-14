@@ -49,15 +49,19 @@ class AlmacenController extends Controller
      */
     public function store(Request $request)
     {
-        $query=Almacen::where('ALM_Ruc','=',$request->get('ALM_Ruc'))->get();
-        if($query->count()!=0) //si lo encuentra, osea si no esta vacia
+        $query=Almacen::where('ALM_Ruc','=',$request->get('ALM_Ruc'))
+        ->where('ALM_NombreAlmacen', $request->get('ALM_NombreAlmacen'))
+        ->where('ALM_Nombre', $request->get('ALM_Nombre'))
+        ->first();
+
+        if($query) //si lo encuentra, osea si no esta vacia
         {
-            
-            return response()->json(['error' => 'Almacen ya registrado'], 401);                   
+            return response()->json(['error' => 'Ya se encuentra registrado este almacen en la empresa ingresada'], 422);                   
         }
         else{
             $Almacen= new Almacen();
             $Almacen->ALM_Nombre=$request->ALM_Nombre;
+            $Almacen->ALM_NombreAlmacen=$request->ALM_NombreAlmacen;
             $Almacen->ALM_Direccion=$request->ALM_Direccion;
             $Almacen->ALM_Ruc=$request->ALM_Ruc;
             $Almacen->ALM_Celular=$request->ALM_Celular;
@@ -91,6 +95,7 @@ class AlmacenController extends Controller
     {
         $almacen = Almacen::find($id);
         $almacen->ALM_Nombre=$request->ALM_Nombre;
+        $almacen->ALM_NombreAlmacen=$request->ALM_NombreAlmacen;
         $almacen->ALM_Direccion=$request->ALM_Direccion;
         $almacen->ALM_Ruc=$request->ALM_Ruc;
         $almacen->ALM_Celular=$request->ALM_Celular;

@@ -12,6 +12,7 @@ class Almacen extends Model
     public $timestamps=false;
     protected $fillable=[
         'ALM_Nombre',
+        'ALM_NombreAlmacen',
         'ALM_Direccion',
         'ALM_Ruc',
         'ALM_Celular',

@@ -41,17 +41,24 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-12">
+                                    <label class="control-label" style=" text-align: left; display: block;">Almacen:</label>
+                                    <input type="text" id="ALM_NombreAlmacen" name="ALM_NombreAlmacen"
+                                        class="form-control " placeholder="Almacen" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12">
                                     <label class="control-label"
                                         style=" text-align: left; display: block;">Direccion:</label>
                                     <input type="text" id="ALM_Direccion" name="ALM_Direccion" class="form-control "
-                                        placeholder="Dirección" required>
+                                        placeholder="Dirección" >
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-12">
                                     <label class="control-label" style=" text-align: left; display: block;">CELULAR:</label>
                                     <input type="number" id="ALM_Celular" name="ALM_Celular" class="form-control "
-                                        placeholder="Celular" required>
+                                        placeholder="Celular" >
                                 </div>
                             </div>
                             <p></p>
@@ -76,7 +83,8 @@
                                     <tr>
                                         <th scope="col">N°</th>
                                         <th scope="col">RUC</th>
-                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Empresa</th>
+                                        <th scope="col">Almacen</th>
                                         <th scope="col">Dirección</th>
                                         <th scope="col">N° celular</th>
                                         <th scope="col">Opciones</th>
@@ -136,16 +144,20 @@
                         name: 'ALM_Id'
                     },
                     {
+                        data: 'ALM_Ruc',
+                        name: 'ALM_Ruc'
+                    },
+                    {
                         data: 'ALM_Nombre',
                         name: 'ALM_Nombre'
                     },
                     {
-                        data: 'ALM_Direccion',
-                        name: 'ALM_Direccion'
+                        data: 'ALM_NombreAlmacen',
+                        name: 'ALM_Nombrelmacen'
                     },
                     {
-                        data: 'ALM_Ruc',
-                        name: 'ALM_Ruc'
+                        data: 'ALM_Direccion',
+                        name: 'ALM_Direccion'
                     },
                     {
                         data: 'ALM_Celular',
@@ -164,11 +176,12 @@
             $('#saveBtn').click(function(e) {
                 e.preventDefault();
                 nombre = $("#ALM_Nombre").val();
+                nombreAlmacen = $("#ALM_NombreAlmacen").val();
                 direccion = $("#ALM_Direccion").val();
                 ruc = $("#ALM_Ruc").val();
                 celular = $("#ALM_Celular").val();
 
-                if (nombre == '' || direccion == '' || ruc == '' || celular == '') {
+                if (nombre == '' || nombreAlmacen == '' || ruc == '') {
                     Toast.fire({
                         type: 'error',
                         title: 'Complete todos los campos por favor'
@@ -193,9 +206,10 @@
                         console.log('Error:', data);
                         Toast.fire({
                             type: 'error',
-                            title: 'Almacen fallo al Registrarse.'
+                            title: 'Ya se encuentra registrado este almacen con la misma empresa.'
                         })
                     }
+
                 });
             });
 
@@ -205,9 +219,10 @@
                     function(result) {
                         console.log(result);
                         $('#almacen_id_edit').val(result.data.ALM_Id);
-                        $('#ALM_Nombre').val(result.data.ALM_Nombre).prop('disabled', true);
-                        $('#ALM_Direccion').val(result.data.ALM_Direccion);
                         $('#ALM_Ruc').val(result.data.ALM_Ruc).prop('disabled', true);
+                        $('#ALM_Nombre').val(result.data.ALM_Nombre).prop('disabled', true);
+                        $('#ALM_NombreAlmacen').val(result.data.ALM_NombreAlmacen);
+                        $('#ALM_Direccion').val(result.data.ALM_Direccion);
                         $('#ALM_Celular').val(result.data.ALM_Celular);
 
 

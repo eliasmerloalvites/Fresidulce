@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-01-2025 a las 23:10:38
+-- Tiempo de generación: 14-01-2025 a las 21:52:55
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -44,13 +44,25 @@ CREATE TABLE `actas_personal` (
 CREATE TABLE `almacen` (
   `ALM_Id` int(10) UNSIGNED NOT NULL,
   `ALM_Nombre` varchar(50) NOT NULL,
-  `ALM_Direccion` varchar(50) NOT NULL,
-  `ALM_Ruc` varchar(12) DEFAULT NULL,
+  `ALM_NombreAlmacen` varchar(50) NOT NULL,
+  `ALM_Direccion` varchar(50) DEFAULT NULL,
+  `ALM_Ruc` varchar(12) NOT NULL,
   `ALM_Celular` varchar(9) DEFAULT NULL,
   `ALM_Status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `almacen`
+--
+
+INSERT INTO `almacen` (`ALM_Id`, `ALM_Nombre`, `ALM_NombreAlmacen`, `ALM_Direccion`, `ALM_Ruc`, `ALM_Celular`, `ALM_Status`, `created_at`, `updated_at`) VALUES
+(5, 'dalila', 'xd', 'd', '123456', '4', 1, NULL, NULL),
+(6, 'dalilas', 'xd', 'fgh', '123456', '87', 1, NULL, NULL),
+(7, 'fghh', 'hfh', 'dgh', '76576543456', '987654', 1, NULL, NULL),
+(8, 'sdfg', 'dfgh', 'sdfgh', '123456', '1234567', 1, NULL, NULL),
+(9, 'dalila', 'xd', 'sdfgh', '12345687', '234567', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -141,6 +153,32 @@ CREATE TABLE `clase` (
 INSERT INTO `clase` (`CLA_Id`, `CLA_Nombre`, `created_at`, `updated_at`) VALUES
 (1, 'Postres', NULL, NULL),
 (2, 'Agregados', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cliente`
+--
+
+CREATE TABLE `cliente` (
+  `CLI_Id` int(20) UNSIGNED NOT NULL,
+  `CLI_TipoDocumento` varchar(5) NOT NULL,
+  `CLI_NumDocumento` varchar(12) NOT NULL,
+  `CLI_Nombre` varchar(150) NOT NULL,
+  `CLI_Direccion` varchar(150) DEFAULT NULL,
+  `CLI_Celular` varchar(12) DEFAULT NULL,
+  `CLI_Correo` varchar(50) DEFAULT NULL,
+  `CLI_Status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`CLI_Id`, `CLI_TipoDocumento`, `CLI_NumDocumento`, `CLI_Nombre`, `CLI_Direccion`, `CLI_Celular`, `CLI_Correo`, `CLI_Status`, `created_at`, `updated_at`) VALUES
+(1, 'DNI', '00000000', 'SIN NOMBRE', '-', NULL, NULL, 1, '2025-01-13 23:52:20', '2025-01-13 23:52:20');
 
 -- --------------------------------------------------------
 
@@ -263,20 +301,6 @@ CREATE TABLE `lote` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Volcado de datos para la tabla `lote`
---
-
-INSERT INTO `lote` (`LOT_Id`, `ALM_Id`, `PRO_Id`, `LOT_TipoIngreso`, `LOT_IdIngreso`, `LOT_CantidadReal`, `LOT_CantidadIngreso`, `LOT_PrecioCompra`, `LOT_PrecioVenta`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'COMPRA', 1, 50.00, 50, 7.00, 6.00, NULL, NULL),
-(2, 1, 2, 'COMPRA', 1, 50.00, 50, 5.00, 10.00, NULL, NULL),
-(3, 1, 3, 'COMPRA', 1, 50.00, 50, 3.00, 6.00, NULL, NULL),
-(4, 1, 4, 'COMPRA', 1, 50.00, 50, 4.00, 8.00, NULL, NULL),
-(5, 1, 5, 'COMPRA', 1, 50.00, 50, 8.00, 13.00, NULL, NULL),
-(6, 1, 6, 'COMPRA', 1, 50.00, 50, 5.00, 7.00, NULL, NULL),
-(7, 1, 7, 'COMPRA', 1, 50.00, 50, 7.00, 10.00, NULL, NULL),
-(8, 1, 8, 'COMPRA', 1, 50.00, 50, 10.00, 15.00, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -290,6 +314,16 @@ CREATE TABLE `metodo_pago` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `metodo_pago`
+--
+
+INSERT INTO `metodo_pago` (`MEP_Id`, `MEP_Pago`, `MEP_Status`, `created_at`, `updated_at`) VALUES
+(1, 'EFECTIVO', 1, NULL, NULL),
+(2, 'TARJETA', 1, NULL, NULL),
+(3, 'YAPE', 1, NULL, NULL),
+(4, 'PLIN', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -548,13 +582,6 @@ CREATE TABLE `proveedor` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Volcado de datos para la tabla `proveedor`
---
-
-INSERT INTO `proveedor` (`PROV_Id`, `PROV_TipoDocumento`, `PROV_NumDocumento`, `PROV_RazonSocial`, `PROV_Direccion`, `PROV_Descripcion`, `PROV_Celular`, `PROV_Correo`, `PROV_Status`, `created_at`, `updated_at`) VALUES
-(2, 'DNI', '71285797', 'SALAZAR TERAN  DALILA KATHERINE', 'asdfg', 'asdfg', '23456', 'qwd@gmail.com', 1, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -754,7 +781,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `photo_extension`, `provider`, `provider_id`, `remember_token`, `created_at`, `updated_at`, `estadousuario`, `avatar`, `tipousuario`, `numerodocumento`, `PER_Id`) VALUES
 (1, 'Abner Elias Merlo Alvites', 'merloalviteselias@gmail.com', NULL, '$2y$10$QIRp4TJ1IyW4WHxUZnCd3eOmNqpldLkUUepaedJP/lMcNpIQTQCsa', NULL, NULL, NULL, 'v6GbOTVXfxpiKud9IFub1q6KIXC5h1J75N6pYz8M0jBYlQZwj0rA5W1tl1Ke', '2023-11-02 02:23:21', '2024-04-03 22:02:46', 1, '', 0, NULL, 1),
-(2, 'Dalila Katherine Salazar Teran', 'katherineteran06@gmail.com', NULL, '$2y$10$QIRp4TJ1IyW4WHxUZnCd3eOmNqpldLkUUepaedJP/lMcNpIQTQCsa', NULL, NULL, NULL, '3HzaPl8ZCUKAqVkSGqEcJfMKvPFJeE0Ehm2rp5BPGu6tNTS8vUUVoli2vteD', '2024-04-01 23:07:44', '2024-04-01 23:07:44', 1, NULL, 0, NULL, 0),
+(2, 'Dalila Katherine Salazar Teran', 'katherineteran06@gmail.com', NULL, '$2y$10$dhmXJkshrLc/fyo.99zst.Tsi8WWDA3XsY5BM16MBpYowMva8dtp2', NULL, NULL, NULL, '3HzaPl8ZCUKAqVkSGqEcJfMKvPFJeE0Ehm2rp5BPGu6tNTS8vUUVoli2vteD', '2024-04-01 23:07:44', '2024-04-01 23:07:44', 1, NULL, 0, NULL, 0),
 (3, 'Maria Saavedra Chalan', 'maria@gmail.com', NULL, '$2y$10$ABQomQ0BTGNDqv96p78YKupnd7HHEf421iwGiaxEOxyfzuNmbtuFa', NULL, NULL, NULL, 'qxtZXnDr2S', '2024-04-02 06:19:48', '2024-04-02 06:19:48', 1, NULL, 0, NULL, 0),
 (4, 'Carlos Puemape', 'carlos@gmail.com', NULL, '$2y$10$dpwR75v8GipiCmzFA73iMuGG2cfPRPO0zZQjg5AioZULIpTuMPRm6', NULL, NULL, NULL, 'M4EbcYXsNMSZV4RkRuJfzOBuaiGslH92SBQwUT2VoKG9t8G6dEDU03sadaty', '2024-04-02 06:45:51', '2024-04-03 23:22:11', 1, NULL, 0, NULL, 0),
 (5, 'Carla Sanchez', 'carla@gmail.com', NULL, '$2y$10$8ZSq.GwYld3nprqw5fNnquVp8IVSBIYMiP.PtQmuUW5PfTNZm9lyG', NULL, NULL, NULL, '6h1ylhmzfD', '2024-04-03 20:52:26', '2024-04-03 23:20:57', 1, NULL, 0, NULL, 0);
@@ -952,7 +979,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `almacen`
 --
 ALTER TABLE `almacen`
-  MODIFY `ALM_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ALM_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `area`
@@ -1012,7 +1039,7 @@ ALTER TABLE `lote`
 -- AUTO_INCREMENT de la tabla `metodo_pago`
 --
 ALTER TABLE `metodo_pago`
-  MODIFY `MEP_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `MEP_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -1048,7 +1075,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `PROV_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `PROV_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `puesto`
