@@ -203,6 +203,69 @@
             background-color: #ffffff
         }
 
+        .btnGenerar {
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            margin-top: 5px;
+            /* Asegura el centrado horizontal del botón */
+            color: #ffffff;
+            background: #96BC1F;
+            line-height: 20px;
+            text-align: center;
+            width: 100%;
+            /* Mantiene el ancho fijo */
+            height: 60px;
+            /* Mantiene la altura fija */
+            display: flex;
+            /* Necesario para organizar el contenido interno */
+            align-items: center;
+            /* Centra verticalmente el contenido interno */
+            justify-content: center;
+            /* Centra horizontalmente el contenido interno */
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .btnGenerar:hover {
+            color: #ffffff;
+            background-color: #809b2e
+            /* color: #96BC1F;
+            background-color: #ffffff */
+        }
+
+        .btnCliente {
+            font-size: 14px;
+            padding: 10px;
+            margin-top: 5px;
+            /* Asegura el centrado horizontal del botón */
+            color: #050505;
+            background: #f5f4f4;
+            line-height: 20px;
+            text-align: center;
+            width: 100%;
+            /* Mantiene el ancho fijo */
+            height: 60px;
+            /* Mantiene la altura fija */
+            display: flex;
+            /* Necesario para organizar el contenido interno */
+            align-items: center;
+            /* Centra verticalmente el contenido interno */
+            justify-content: center;
+            /* Centra horizontalmente el contenido interno */
+            border: 1px solid rgb(129, 127, 127);
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .btnCliente:hover {
+            color: #ffffff;
+            background-color: #809b2e
+            /* color: #96BC1F;
+            background-color: #ffffff */
+        }
+
         .btntipo1 {
             font-size: 13px;
             padding: 0;
@@ -385,7 +448,9 @@
 
 .btn-select {
   background-color: #f0f0f0;
+  margin-top: 5px;
   color: #333;
+  width: 100%;
   padding: 10px 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -478,13 +543,15 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
                                 <div class="dropdown">
                                     <input type="hidden" id="hiddenSelectedId" name="selectedId" value="">
-                                    <button type="button" class="btn-select">TipoPago: <span id="selectedOption"> EFECTIVO</span></button>
+                                    <button type="button" class="btn-select"><b>TipoPago: </b><span id="selectedOption"> EFECTIVO</span></button>
                                     <div class="dropdown-menu">
                                         @foreach ($metodo_pago as $mep)
                                             <div class="dropdown-item" data-id="{{ $mep->MEP_Id }}" >{{ $mep->MEP_Pago }}</div>
                                         @endforeach
                                     </div>
                                 </div>
+                                <button type="button"  class="btn-select" ><b>Cliente: </b><span id="selectedCliente"> ELIAS MERLO ALVITES PAMPACHÑSA </span></button>
+                                <button type="button"  target="_blank" class="btnGenerar" onclick="aceptar();" >GENERAR PAGO</button>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
                                 <input hidden name="_token" value="{{ csrf_token() }}">
@@ -492,10 +559,7 @@
                                     <button title="Vaciar Carrito" onclick="vaciar()" target="_blank" type="button"
                                         class="btn btn-danger" style="border-radius: 10px;">VACIAR </button>
                                 </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <button type="button"  target="_blank" class="btn" onclick="aceptar();"
-                                        style="background:#96BC1F; color: #fff; border-radius: 10px;width: 100%; height:80px">GENERAR PAGO</button>
-                                </div>
+                                
                             </div>
                         </div>
                         <div class="col-lg-8  col-md-8 col-sm-12 col-xs-12 ">
