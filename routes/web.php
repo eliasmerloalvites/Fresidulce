@@ -4,6 +4,7 @@ use App\Http\Controllers\AlmacenController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ClaseController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\CompraController;
 use App\Http\Controllers\ConsultaDocumentoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MetodoPagoController;
@@ -84,5 +85,7 @@ Route::middleware(['auth'])->group(function(){
   Route::resource('almacen', AlmacenController::class);
 
   Route::resource('metodoPago',  MetodoPagoController::class);
+
+  Route::resource('compra', CompraController::class);
 });
 

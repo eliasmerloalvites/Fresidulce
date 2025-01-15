@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-01-2025 a las 21:52:55
+-- Tiempo de generación: 15-01-2025 a las 01:07:24
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -58,7 +58,7 @@ CREATE TABLE `almacen` (
 --
 
 INSERT INTO `almacen` (`ALM_Id`, `ALM_Nombre`, `ALM_NombreAlmacen`, `ALM_Direccion`, `ALM_Ruc`, `ALM_Celular`, `ALM_Status`, `created_at`, `updated_at`) VALUES
-(5, 'dalila', 'xd', 'd', '123456', '4', 1, NULL, NULL),
+(1, 'dalila', 'xd', 'd', '123456', '4', 1, NULL, NULL),
 (6, 'dalilas', 'xd', 'fgh', '123456', '87', 1, NULL, NULL),
 (7, 'fghh', 'hfh', 'dgh', '76576543456', '987654', 1, NULL, NULL),
 (8, 'sdfg', 'dfgh', 'sdfgh', '123456', '1234567', 1, NULL, NULL),
@@ -301,6 +301,20 @@ CREATE TABLE `lote` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `lote`
+--
+
+INSERT INTO `lote` (`LOT_Id`, `ALM_Id`, `PRO_Id`, `LOT_TipoIngreso`, `LOT_IdIngreso`, `LOT_CantidadReal`, `LOT_CantidadIngreso`, `LOT_PrecioCompra`, `LOT_PrecioVenta`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 'COMPRA', 1, 50.00, 50, 7.00, 6.00, NULL, NULL),
+(2, 1, 2, 'COMPRA', 1, 50.00, 50, 5.00, 10.00, NULL, NULL),
+(3, 1, 3, 'COMPRA', 1, 50.00, 50, 3.00, 6.00, NULL, NULL),
+(4, 1, 4, 'COMPRA', 1, 50.00, 50, 4.00, 8.00, NULL, NULL),
+(5, 1, 5, 'COMPRA', 1, 50.00, 50, 8.00, 13.00, NULL, NULL),
+(6, 1, 6, 'COMPRA', 1, 50.00, 50, 5.00, 7.00, NULL, NULL),
+(7, 1, 7, 'COMPRA', 1, 50.00, 50, 7.00, 10.00, NULL, NULL),
+(8, 1, 8, 'COMPRA', 1, 50.00, 50, 10.00, 15.00, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -542,6 +556,7 @@ CREATE TABLE `producto` (
   `PRO_PrecioCompra` decimal(10,2) NOT NULL,
   `PRO_PrecioVenta` decimal(10,2) NOT NULL,
   `PRO_Marca` varchar(50) DEFAULT NULL,
+  `PRO_Imagen` varchar(10) DEFAULT NULL,
   `CAT_Id` int(10) UNSIGNED NOT NULL,
   `PRO_Status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -552,15 +567,16 @@ CREATE TABLE `producto` (
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`PRO_Id`, `PRO_Nombre`, `PRO_Descripcion`, `PRO_PrecioCompra`, `PRO_PrecioVenta`, `PRO_Marca`, `CAT_Id`, `PRO_Status`, `created_at`, `updated_at`) VALUES
-(1, 'GRANDE', '4 WAFFLES + 4 TOPPINGS', 10.00, 15.00, '-', 3, 1, NULL, NULL),
-(2, 'MEDIANO', '3 WAFFLES', 5.00, 10.00, '-', 3, 1, NULL, NULL),
-(3, 'MINI PLACER', 'ELECCION A TOPPINGS + 1 JALEAS', 3.00, 6.00, '-', 2, 1, NULL, NULL),
-(4, 'FRESURA MEDIA', 'ELECION A 3 TOPPINGS + 2 JALEAS', 4.00, 8.00, '-', 2, 1, NULL, NULL),
-(5, 'MEGA FRESA SUPREMA', 'ELECCION 3 TOPPINGS + 3 JALEAS', 8.00, 13.00, '-', 2, 1, NULL, NULL),
-(6, 'DUO DULCES', '-', 5.00, 7.00, '-', 1, 1, NULL, NULL),
-(7, 'TRI DONAS', '-', 7.00, 10.00, '-', 1, 1, NULL, NULL),
-(8, 'DONAS FAMILIAR', '-', 10.00, 15.00, '-', 1, 1, NULL, NULL);
+INSERT INTO `producto` (`PRO_Id`, `PRO_Nombre`, `PRO_Descripcion`, `PRO_PrecioCompra`, `PRO_PrecioVenta`, `PRO_Marca`, `PRO_Imagen`, `CAT_Id`, `PRO_Status`, `created_at`, `updated_at`) VALUES
+(1, 'GRANDE', '4 WAFFLES + 4 TOPPINGS', 10.00, 15.00, '-', '1.jpg', 3, 1, NULL, NULL),
+(2, 'MEDIANO', '3 WAFFLES', 5.00, 10.00, '-', NULL, 3, 1, NULL, NULL),
+(3, 'MINI PLACER', 'ELECCION A TOPPINGS + 1 JALEAS', 3.00, 6.00, '-', NULL, 2, 1, NULL, NULL),
+(4, 'FRESURA MEDIA', 'ELECION A 3 TOPPINGS + 2 JALEAS', 4.00, 8.00, '-', NULL, 2, 1, NULL, NULL),
+(5, 'MEGA FRESA SUPREMA', 'ELECCION 3 TOPPINGS + 3 JALEAS', 8.00, 13.00, '-', NULL, 2, 1, NULL, NULL),
+(6, 'DUO DULCES', '-', 5.00, 7.00, '-', NULL, 1, 1, NULL, NULL),
+(7, 'TRI DONAS', '-', 7.00, 10.00, '-', NULL, 1, 1, NULL, NULL),
+(8, 'DONAS FAMILIAR', '-', 10.00, 15.00, '-', NULL, 1, 1, NULL, NULL),
+(9, 'DONA CANDY', '6 DONAS CON DISTINTO SABORES', 10.00, 20.00, '-', '9.jpg', 1, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1069,7 +1085,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `PRO_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `PRO_Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
