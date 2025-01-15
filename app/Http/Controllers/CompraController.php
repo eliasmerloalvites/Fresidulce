@@ -22,7 +22,8 @@ class CompraController extends Controller
                 ->join('compra as com', 'com.COM_Id', '=', 'dcom.COM_Id')
                 ->join('proveedor as prov', 'prov.PROV_Id', '=', 'com.PROV_Id')
                 ->join('metodo_pago as mep', 'mep.MEP_Id', '=', 'com.MEP_Id')
-                ->select('dcom.*','pro.PRO_Nombre','alm.ALM_Nombre','com.COM_Nombre','prov.PROV_Nombre','mep.MEP_Nombre')
+                ->join('categoria as cat', 'pro.CAT_Id', '=', 'cat.CAT_Id')
+                ->select('dcom.*','pro.PRO_Nombre','alm.ALM_Nombre','com.COM_Nombre','prov.PROV_Nombre','mep.MEP_Nombre','cat.CAT_Nombre')
                 ->get();
             return datatables()::of($data)
                 ->addIndexColumn()
@@ -49,7 +50,8 @@ class CompraController extends Controller
         $compra= DB::table('compra')->get();
         $proveedor= DB::table('proveedor')->get();
         $metodo_pago= DB::table('metodo_pago')->get();
-        return view('gestion.compra.index',compact('producto','almacen','compra','proveedor','metodo_pago'));
+        $categoria= DB::table('categoria')->get();
+        return view('gestion.compra.index',compact('producto','almacen','compra','proveedor','metodo_pago','categoria'));
     }
 
     /**
@@ -61,9 +63,10 @@ class CompraController extends Controller
         $producto = DB::table('producto')->get();
         $almacen = DB::table('almacen')->get();
         $proveedor = DB::table('proveedor')->get();
+        $categoria = DB::table('categoria')->get();
     
         // Pasar las variables a la vista
-        return view('gestion.compra.create', compact('metodo_pago', 'producto', 'almacen', 'proveedor'));
+        return view('gestion.compra.create', compact('metodo_pago', 'producto', 'almacen', 'proveedor','categoria'));
     }
 
     /**

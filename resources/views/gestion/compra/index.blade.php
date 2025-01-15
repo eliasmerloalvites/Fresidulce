@@ -15,10 +15,11 @@
                 </button>
                 <p class="card-text">
                 <div class="table-responsive" style="background:#FFF;">
-                    <table class="table" id="tabla_dcompra">
+                    <table class="table" id="tabla_detalle_compra">
                         <thead style="background-color:#FF5F67;color: #fff;">
                             <tr>
                                 <th scope="col">ID</th>
+                                <th scope="col">CÓDIGO COMPRA</th>
                                 <th scope="col">ALMACEN</th>
                                 <th scope="col">NOMBRE DE PROVEEDOR</th>
                                 <th scope="col">CANTIDAD</th>
@@ -46,7 +47,7 @@
                 timer: 3000
             });
 
-            var table = $('#tabla_dcompra').DataTable({
+            var table = $('#tabla_detalle_compra').DataTable({
                 responsive: true, // Habilitar la opción responsive
                 autoWidth: false,
                 searchDelay: 2000,
