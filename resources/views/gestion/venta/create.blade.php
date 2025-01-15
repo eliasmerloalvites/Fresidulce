@@ -364,27 +364,11 @@
             <input class="form-control" hidden id="VentaTipo" name="VentaTipo" value="VENTA" />
             <input class="form-control" hidden name="EMP_Codigo" value="{{ Auth::user()->id }}" />
             <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 " controls id="contenedor1">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 1px">
-                        <select class="form-control" style="width: 100%;">
-                            @foreach ($clase as $t => $val)                            
-                                <option value="{{$val->CLA_Id}}" >{{$val->CLA_Nombre}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-top: 1px">
-                        <select id="icon-select" class="form-control" style="width: 100%;">
-                            @foreach ($categoria as $t => $val)                            
-                                <option value="{{$val->CAT_Id}}" data-img-src="/archivos/categoria/{{$val->CAT_Imagen}}"> {{$val->CAT_Nombre}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
 
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 1px">
                     <div class="table-responsive" style="height: calc(45vh - 90px);  overflow-y:scroll;">
-                        <table id="detallesVenta" class="table table-sm table-bordered table-condensed table-hover">
-                            <thead style="background: #f36ad1;">
+                        <table id="detallesVenta" class=" table-sm table-bordered table-condensed ">
+                            <thead style="background: #f36ad1">
                                 <th style="text-align: left;  width: 80%;">PRODUCTO</th>
                                 <th style="text-align: left;  width: 5%;">PU</th>
                                 <th style="text-align: left;  width: 5%;">CNT</th>
@@ -563,44 +547,27 @@
 
         <div class="col-lg-7  col-md-12 col-sm-12 col-xs-12 ">
             <div class="row">
-                <div class="col-lg-9  col-md-9 col-sm-9 col-xs-12 ">
-                    <div class="table" style="height: calc(30vh - 10px)">
-                        <table id="detallesCalculadora" class="table table-sm table-bordered table-condensed table-hover ; padding:0px;margin:0px">
-                            <thead hidden style="background: #ade9ff;">
-                            </thead>
-
-                            <tr style="padding:0px;margin:0px">
-                                <td style=" text-align: center; padding:0px;margin:0px; font-size: 30px; width: 15%;  font-weight: bold;  "><button class="btn-calculadora" style="width: 100%; padding:0px;margin:0px; height:50px;" title="1" type="button" id="idn1" onclick="Editar('1')">1</button></td>
-                                <td style=" text-align: center; padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; padding:0px;margin:0px; height:50px; " title="2" type="button" id="idn2" onclick="Editar('2')">2</button></td>
-                                <td style=" text-align: center; padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; padding:0px;margin:0px; height:50px; " title="3" type="button" id="idn3" onclick="Editar('3')">3</button></td>
-                                <td style=" text-align: center; padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; padding:0px;margin:0px; height:50px; " title="Cantidad" type="button" id="idn4" onclick="Metodo('CANTIDAD')">Cant</button></td>
-
-
-                            </tr>
-                            <tr>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="4" type="button" id="idn5" onclick="Editar('4')">4</button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="5" type="button" id="idn6" onclick="Editar('5')">5</button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="6" type="button" id="idn7" onclick="Editar('6')">6</button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="Descuento" type="button" id="idn8" onclick="Metodo('DESCUENTO')">Desc.</button></td>
-                            </tr>
-                            <tr>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="7" type="button" id="idn9" onclick="Editar('7')">7</button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="8" type="button" id="idn10" onclick="Editar('8')">8</button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="9" type="button" id="idn11" onclick="Editar('9')">9</button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="Precio Venta" type="button" onclick="Metodo('PRECIO')" id="idn12">Prec.</button></td>
-                            </tr>
-                            <tr>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="Eliminar Producto" type="button" id="idn13" onclick="eliminar()"><i class="fa fa-trash" style="color: #FF0000"></button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="0" type="button" id="idn14" onclick="Editar('0')">0</button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="." type="button" id="idn15" onclick="Editar('.')">.</button></td>
-                                <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="Eliminar" type="button" id="idn4" onclick="elimi('.')"><i class="fa fa-times"></button></td>
-
-                            </tr>
-
-                        </table>
+                <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 ">
+                    <div class="row">
+                        {{-- <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="margin-top: 1px">
+                            <select class="form-control" id="idClase" style="width: 100%;" onchange="FiltrarCategoria()" >
+                                @foreach ($clase as $t => $val)                            
+                                    <option value="{{$val->CLA_Id}}" >{{$val->CLA_Nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div> --}}
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="margin-top: 1px; margin-left:10px">
+                            <select id="idCategoria-icon" class="form-control"  style="width: 100%;" onchange="Tabla_Producto2();">
+                                @foreach ($categoria as $t => $val)                            
+                                    <option value="{{$val->CAT_Id}}" data-img-src="/archivos/categoria/{{$val->CAT_Imagen}}"> {{$val->CAT_Nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
+
+                    
                 </div>
-                <div class="col-lg-3  col-md-3 col-sm-3 col-xs-12 ">
+                {{-- <div class="col-lg-3  col-md-3 col-sm-3 col-xs-12 ">
                     <div class="table" style="height: calc(28vh - 10px);   overflow-y:scroll">
                         <table id="detallesClase" class="table table-sm table-bordered table-condensed table-hover ; padding:0px;margin:0px">
                             <thead hidden style="background: #ade9ff;">
@@ -612,10 +579,10 @@
                             @endforeach
                         </table>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 ">
-                <div class="table-responsive" style="background:#FFF;">
+                {{-- <div class="table-responsive" style="background:#FFF;">
                     <table id="detallesCategoria" class="table  table-bordered table-condensed table-hover">
                         <thead hidden style="background: #ade9ff;">
                         </thead>
@@ -625,10 +592,10 @@
                             @endforeach
                         </tr>
                     </table>
-                </div>
+                </div> --}}
             </div>
             <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 ">
-                <div class="table" style="height: calc(50vh - 90px);   overflow-y:scroll">
+                <div class="table" style="height: calc(50vh - 90px); background: #c2c2c2;  overflow-y:scroll">
                     <table id="detalles" class="table table-bordered table-condensed table-hover">
                         <thead hidden style="background: #ade9ff;">
                             <th style="text-align: center; width: 33%;">1</th>
@@ -638,6 +605,52 @@
                     </table>
                 </div>
             </div>
+
+            <div class="row">
+                
+                <div class="col-lg-4  col-md-4 col-sm-12 col-xs-12 ">
+                    
+                </div>
+                <div class="col-lg-8  col-md-8 col-sm-12 col-xs-12 ">
+                    
+            <div class="table" style="height: calc(30vh - 10px)">
+                <table id="detallesCalculadora" class="table table-sm table-bordered table-condensed table-hover ; padding:0px;margin:0px">
+                    <thead hidden style="background: #ade9ff;">
+                    </thead>
+
+                    <tr style="padding:0px;margin:0px">
+                        <td style=" text-align: center; padding:0px;margin:0px; font-size: 30px; width: 15%;  font-weight: bold;  "><button class="btn-calculadora" style="width: 100%; padding:0px;margin:0px; height:50px;" title="1" type="button" id="idn1" onclick="Editar('1')">1</button></td>
+                        <td style=" text-align: center; padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; padding:0px;margin:0px; height:50px; " title="2" type="button" id="idn2" onclick="Editar('2')">2</button></td>
+                        <td style=" text-align: center; padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; padding:0px;margin:0px; height:50px; " title="3" type="button" id="idn3" onclick="Editar('3')">3</button></td>
+                        <td style=" text-align: center; padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; padding:0px;margin:0px; height:50px; " title="Cantidad" type="button" id="idn4" onclick="Metodo('CANTIDAD')">Cant</button></td>
+
+
+                    </tr>
+                    <tr>
+                        <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="4" type="button" id="idn5" onclick="Editar('4')">4</button></td>
+                        <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="5" type="button" id="idn6" onclick="Editar('5')">5</button></td>
+                        <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="6" type="button" id="idn7" onclick="Editar('6')">6</button></td>
+                        <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="Descuento" type="button" id="idn8" onclick="Metodo('DESCUENTO')">Desc.</button></td>
+                    </tr>
+                    <tr>
+                        <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="7" type="button" id="idn9" onclick="Editar('7')">7</button></td>
+                        <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="8" type="button" id="idn10" onclick="Editar('8')">8</button></td>
+                        <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="9" type="button" id="idn11" onclick="Editar('9')">9</button></td>
+                        <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="Precio Venta" type="button" onclick="Metodo('PRECIO')" id="idn12">Prec.</button></td>
+                    </tr>
+                    <tr>
+                        <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="Eliminar Producto" type="button" id="idn13" onclick="eliminar()"><i class="fa fa-trash" style="color: #FF0000"></button></td>
+                        <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="0" type="button" id="idn14" onclick="Editar('0')">0</button></td>
+                        <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="." type="button" id="idn15" onclick="Editar('.')">.</button></td>
+                        <td style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; "><button class="btn-calculadora" style="width: 100%; height:50px; " title="Eliminar" type="button" id="idn4" onclick="elimi('.')"><i class="fa fa-times"></button></td>
+
+                    </tr>
+
+                </table>
+            </div>
+                </div>
+            </div>
+
 
         </div>
 
@@ -662,7 +675,7 @@
             habilitar();
         });
 
-        $('#icon-select').select2({
+        $('#idCategoria-icon').select2({
             minimumResultsForSearch: Infinity,
             templateResult: formatState,
             templateSelection: formatState
@@ -809,6 +822,11 @@
         }
     }
 
+    function FiltrarCategoria(){
+        $valor =  $('#idClase').val();
+
+    }
+
     function Tabla_Producto(id){
 			var idTipo = $('#btnidt'+id).val();
 			//alert(idTipo)
@@ -818,7 +836,7 @@
 			$ind = 1;
 
 			<?php foreach ($lotesuni as $lot): ?>	
-				$tipo = '<?php echo $lot->TIPO; ?>';			
+				$tipo = '<?php echo $lot->CATEGORIA; ?>';			
 				$Producto = '<?php echo $lot->PRO_Nombre; ?>';
 				$idProducto = '<?php echo $lot->PRO_Id; ?>';
 				$stock = '<?php echo $lot->PRO_Cantidad; ?>';
@@ -882,7 +900,82 @@
 						$fin = $fin +1;
 			}
 			
-		}
+	}
+
+    function Tabla_Producto2(){
+			var idTipo = $('#idCategoria-icon').val();
+			alert(idTipo)
+			$("#detalles tbody").remove();
+			$con = 0;
+			$fin = 0;
+			$ind = 1;
+
+			<?php foreach ($lotesuni as $lot): ?>	
+				$categoriaid = '<?php echo $lot->CATEGORIA; ?>';			
+				$Producto = '<?php echo $lot->PRO_Nombre; ?>';
+				$idProducto = '<?php echo $lot->PRO_Id; ?>';
+				$stock = '<?php echo $lot->PRO_Cantidad; ?>';
+				$preventa = '<?php echo $lot->PRO_PrecioBaseVenta; ?>';
+				if (idTipo==$categoriaid) 
+				{
+					$con = $con + 1;
+					if ($con==1 ) 
+					{
+						var fila = "<tr>";
+						if ($stock>0) 
+						{
+							fila += '<td style=" text-align: center;"><button class="btntipo1" id="btnidp'+$ind+'" onclick="agregar('+$ind+');" value="'+$idProducto+'_'+$stock+'_'+$preventa+'" style="text-align:center;" value="1" type="button">'+$Producto+'</button></td>';
+						}
+						else
+						{
+							fila += '<td style=" text-align: center;"><button class="btntipo3" disabled id="btnidp'+$ind+'" onclick="agregar('+$ind+');" value="'+$idProducto+'_'+$stock+'_'+$preventa+'" style="text-align:center;" value="1" type="button">'+$Producto+'</button></td>';
+						}
+						
+					}
+					else if($con==2)
+					{
+						if ($stock>0) 
+						{
+							fila += '<td style=" text-align: center;"><button class="btntipo1" id="btnidp'+$ind+'" onclick="agregar('+$ind+');" value="'+$idProducto+'_'+$stock+'_'+$preventa+'" style="text-align:center;" value="1" type="button">'+$Producto+'</button></td>';
+						}
+						else
+						{
+							fila += '<td style=" text-align: center;"><button class="btntipo3" disabled id="btnidp'+$ind+'" onclick="agregar('+$ind+');" value="'+$idProducto+'_'+$stock+'_'+$preventa+'" style="text-align:center;" value="1" type="button">'+$Producto+'</button></td>';
+						}
+						
+					}
+					else if ($con==3) 
+					{
+						if ($stock>0) 
+						{
+							fila += '<td style=" text-align: center;"><button class="btntipo1" id="btnidp'+$ind+'" onclick="agregar('+$ind+');" value="'+$idProducto+'_'+$stock+'_'+$preventa+'" style="text-align:center;" value="1" type="button">'+$Producto+'</button></td>';
+						}
+						else
+						{
+							fila += '<td style=" text-align: center;"><button class="btntipo3" disabled id="btnidp'+$ind+'" onclick="agregar('+$ind+');" value="'+$idProducto+'_'+$stock+'_'+$preventa+'" style="text-align:center;" value="1" type="button">'+$Producto+'</button></td>';
+						}
+
+						fila += '</tr>';
+						$("#detalles").append(fila);
+						$con = 0;
+						$fin = $fin +1;
+						
+					}
+
+					$ind  = $ind  + 1 ;
+
+				}			
+			<?php endforeach ?>
+
+			if ($con==1 || $con==2) 
+			{
+				fila += '</tr>';
+						$("#detalles").append(fila);
+						$con = 0;
+						$fin = $fin +1;
+			}
+			
+	}
 
     function aceptar() {
         $('#VentaTipo').val('VENTA');

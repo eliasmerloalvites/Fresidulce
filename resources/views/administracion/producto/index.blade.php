@@ -19,6 +19,7 @@
                         <form method="POST" id="product_form" action="{{route('producto.store')}}">
                             @csrf
                             <input type="text" id="producto_id_edit" hidden>
+                            <input type="hidden" id="_method" name="_method" value="" style="display: none;">
                             <div class="form-group row">
                                 <div class="col-12">
                                     <label class="control-label" style=" text-align: left; display: block;">Categoria:</label>
@@ -72,6 +73,15 @@
                                         placeholder="Marca" required>
                                 </div>
                             </div>
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: left;">
+                                <label>Añadir Imagen </label>
+                                <div class="custom-file center">
+                                    <input type="file" class="custom-file-input"
+                                        accept="image/*"
+                                        name="file" id="fileImagen">
+                                    <label class="custom-file-label" id="idFileImagen">Añadir Imagen</label>
+                                </div>
+                            </div>
                             <p></p>
                             <button id="productosave" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
                             <button id="updateBtn" class="btn btn-info" style="display: none;"><i
@@ -93,11 +103,9 @@
                                     <tr>
                                         <th scope="col">Id</th>
                                         <th scope="col">Nombre</th>
-                                        <th scope="col">Descripción</th>
                                         <th scope="col">Categoria</th>
-                                        <th scope="col">Precio de Venta</th>
-                                        <th scope="col">Marca</th>
-                                        <th scope="col">Precio de Compra</th>
+                                        <th scope="col">P. Venta</th>
+                                        <th scope="col">P. Compra</th>
                                         <th scope="col">Opciones</th>
                                     </tr>
                                 </thead>
@@ -108,6 +116,88 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalVerDetalle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Detalles del Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4" style="text-align: left;" >
+                            <p >Id Producto: </p>
+                        </div>
+                        <div class="col-8" style="text-align: left;" >
+                            <p id="ver_PRO_Id"></p>
+                        </div>                        
+                    </div>
+                    <div class="row">
+                        <div class="col-4" style="text-align: left;" >
+                            <p>Categoria:</p>
+                        </div>
+                        <div class="col-8" style="text-align: left;" >
+                            <p id="ver_CAT_Nombre"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4" style="text-align: left;" >
+                            <p>Nombre Producto:</p>
+                        </div>
+                        <div class="col-8" style="text-align: left;" >
+                            <p id="ver_PRO_Nombre"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4" style="text-align: left;" >
+                            <p>Descripcion:</p>
+                        </div>
+                        <div class="col-8" style="text-align: left;" >
+                            <p id="ver_PRO_Descripcion"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4" style="text-align: left;" >
+                            <p>Marca:</p>
+                        </div>
+                        <div class="col-8" style="text-align: left;" >
+                            <p id="ver_PRO_Marca"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4" style="text-align: left;" >
+                            <p>Precio Compra:</p>
+                        </div>
+                        <div class="col-8" style="text-align: left;" >
+                            <p id="ver_PRO_PrecioCompra"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4" style="text-align: left;" >
+                            <p>Precio Venta:</p>
+                        </div>
+                        <div class="col-8" style="text-align: left;" >
+                            <p id="ver_PRO_PrecioVenta"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4" style="text-align: left;" >
+                            <p>Imagen: </p>
+                        </div>
+                        <div class="col-8" style="text-align: left;" >
+                            <img id="ver_Imagen"  style="width: 120px; height: 120px; margin-right: 10px;" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @section('script')
     <script>
@@ -124,6 +214,11 @@
             $('.select2bs4').select2({
               theme: 'bootstrap4'
             })
+
+            $("#fileImagen").change(function() {
+                $nombre = document.getElementById('fileImagen').files[0].name;
+                document.querySelector('#idFileImagen').innerText = $nombre;
+            });
 
             var table = $('#lista_productos').DataTable({
                 responsive: true, // Habilitar la opción responsive
@@ -150,38 +245,39 @@
                 ajax: "{{ route('producto.index') }}",
                 columns: [{
                         data: 'PRO_Id',
-                        name: 'PRO_Id'
+                        name: 'PRO_Id',
+                        className: 'text-start'
                     },
                     {
                         data: 'PRO_Nombre',
-                        name: 'PRO_Nombre'
-                    },
-                    {
-                        data: 'PRO_Descripcion',
-                        name: 'PRO_Descripcion'
+                        name: 'PRO_Nombre',
+                        className: 'text-start'
                     },
                     {
                         data: 'CAT_Nombre',
-                        name: 'CAT_Nombre'
+                        name: 'CAT_Nombre',
+                        className: 'text-start'
                     },
                     {
                         data: 'PRO_PrecioVenta',
-                        name: 'PRO_PrecioVenta'
+                        name: 'PRO_PrecioVenta',
+                        className: 'text-start'
                     }, 
                     {
-                        data: 'PRO_Marca',
-                        name: 'PRO_Marca'
-                    },
-                    {
                         data: 'PRO_PrecioCompra',
-                        name: 'PRO_PrecioCompra'
+                        name: 'PRO_PrecioCompra',
+                        className: 'text-start'
                     },
                     {
                         data: null,
                         name: '',
                         'render': function(data, type, row) {
-                            return @can('producto.edit')
-                                data.action1 + ' ' +
+                            return @can('producto.show')
+                                    data.action3 + ' ' +
+                                @endcan
+                            '' 
+                            @can('producto.edit')
+                                + data.action1 + ' ' +
                             @endcan
                             ''
                             @can('producto.destroy')
@@ -189,7 +285,7 @@
                             @endcan ;
                         }
                     }
-                ]
+                ],
             });
 
             $('#productosave').click(function(e) {
@@ -208,20 +304,20 @@
                     })
                     return false;
                 }
+                let formData = new FormData($('#product_form')[0]);
                 $.ajax({
-                    data: $('#product_form').serialize(),
                     url: "{{ route('producto.store') }}",
                     type: "POST",
-                    dataType: 'json',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function(data) {
                         console.log('Success:', data);
                         Toast.fire({
                             type: 'success',
                             title: data.success
                         })
-                        $("#CAT_Id").val('');
-                        $('#CAT_Id').change();
-                        $('#product_form').trigger("reset");
+                        cancelarUpdate();
                         table.draw();
                     },
                     error: function(data) {
@@ -250,20 +346,41 @@
 
 
                         // Mostrar botón Actualizar y ocultar botón Guardar
+                        $('#_method').val('PUT').show();
                         $("#productosave").hide();
                         $("#updateBtn").show();
+                    })
+            });
+
+            $('body').on('click', '.eyeProducto', function() {
+                var Producto_id_ver = $(this).data('id');
+                $('#modalVerDetalle').modal('show');
+                $.get('{{ route('producto.show', ':producto') }}'.replace(':producto',
+                        Producto_id_ver),
+                    function(data) {
+                        console.log(data)
+                        $('#ver_PRO_Id').text(data.data.PRO_Id);
+                        $('#ver_CAT_Nombre').text(data.data.CAT_Nombre);
+                        $('#ver_PRO_Descripcion').text(data.data.PRO_Descripcion);
+                        $('#ver_PRO_Marca').text(data.data.PRO_Marca);
+                        $('#ver_PRO_PrecioCompra').text(data.data.PRO_PrecioCompra);
+                        $('#ver_PRO_PrecioVenta').text(data.data.PRO_PrecioVenta);
+                        $('#ver_Imagen').attr('src', data.imagen);
                     })
             });
 
             $('#updateBtn').click(function(e) {
                 e.preventDefault();
                 Producto_id_update = $('#producto_id_edit').val();
+                let formData = new FormData($('#product_form')[0]);
                 $.ajax({
                     data: $('#product_form').serialize(),
                     url: '{{ route('producto.update',  ':producto') }}'.replace(
                         ':producto', Producto_id_update),
-                    type: "PUT",
-                    dataType: 'json',
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function(data) {
                         console.log('Success:', data);
                         Toast.fire({
@@ -300,6 +417,10 @@
                 $('#product_form').trigger("reset");
                 $("#CAT_Id").val('');
                 $('#CAT_Id').change();
+                $('#fileImagen').val("")
+                document.querySelector('#idFileImagen').innerText = "Añadir Imagen";
+                $('#_method').val('').hide();
+                $("#producto_id_edit").val('');
                 $("#productosave").show(); // Mostrar botón Guardar
                 $("#updateBtn").hide();
             }

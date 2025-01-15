@@ -56,7 +56,7 @@ class VentaController extends Controller
             ->join('producto as p', 'p.PRO_Id', '=', 'lt.PRO_Id')
             ->join('categoria as cat', 'cat.CAT_Id', '=', 'p.CAT_Id')
             ->join('clase as cl', 'cl.CLA_Id', '=', 'cat.CLA_Id')
-            ->select('a.ALM_Id', 'p.PRO_Id', 'p.PRO_Nombre', 'p.CAT_Id as TIPO', 'cl.CLA_Nombre as Clase', 'cat.CAT_Nombre as Clase', DB::raw('sum(lt.LOT_CantidadReal) as PRO_Cantidad'), DB::raw('max(lt.LOT_PrecioVenta) as PRO_PrecioBaseVenta'), DB::raw('max(lt.LOT_PrecioCompra)'), 'a.ALM_Id', 'a.ALM_Nombre', DB::raw('SUM(lt.LOT_CantidadReal) as LOT_CantidadReal'))
+            ->select('a.ALM_Id', 'p.PRO_Id', 'p.PRO_Nombre', 'p.CAT_Id as CATEGORIA', 'cl.CLA_Nombre as Clase', 'cat.CAT_Nombre as Clase', DB::raw('sum(lt.LOT_CantidadReal) as PRO_Cantidad'), DB::raw('max(lt.LOT_PrecioVenta) as PRO_PrecioBaseVenta'), DB::raw('max(lt.LOT_PrecioCompra)'), 'a.ALM_Id', 'a.ALM_Nombre', DB::raw('SUM(lt.LOT_CantidadReal) as LOT_CantidadReal'))
             ->where('lt.LOT_CantidadReal', '>', 0)
             ->where('p.PRO_Status', '=', 1)
             ->groupBy('a.ALM_Id', 'p.PRO_Id', 'p.PRO_Nombre', 'p.PRO_Marca', 'p.CAT_Id', 'cat.CAT_Nombre', 'cl.CLA_Nombre','a.ALM_Id', 'a.ALM_Nombre')

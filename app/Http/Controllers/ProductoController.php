@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Producto;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -30,8 +31,12 @@ class ProductoController extends Controller
 
                     return $btn;
                 })
+                ->addColumn('action3', function ($row) {
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->PRO_Id . '" data-original-title="Ver" class="btn btn-warning btn-sm eyeProducto"><i class="fa fa-eye" aria-hidden="true"></i></a>';
 
-                ->rawColumns(['action1', 'action2'])
+                    return $btn;
+                })
+                ->rawColumns(['action1', 'action2', 'action3'])
                 ->make(true);
         }
 
@@ -52,22 +57,42 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        $query = Producto::where('PRO_Nombre', '=', $request->get('PRO_Nombre'))->get();
-        if ($query->count() != 0) //si lo encuentra, osea si no esta vacia
+        try {
+            DB::beginTransaction();
+            $query = Producto::where('PRO_Nombre', '=', $request->get('PRO_Nombre'))->get();
+            if ($query->count() != 0) //si lo encuentra, osea si no esta vacia
+            {
+                return response()->json(['error' => 'Producto ya registrado'], 401);
+            } else {
+                $producto = new Producto();
+                $producto->PRO_Nombre = $request->PRO_Nombre;
+                $producto->PRO_Descripcion = $request->PRO_Descripcion;
+                $producto->PRO_PrecioCompra = $request->PRO_PrecioCompra;
+                $producto->PRO_PrecioVenta = $request->PRO_PrecioVenta;
+                $producto->PRO_Marca = $request->PRO_Marca;
+                $producto->PRO_Status = $request->PRO_Status ?? 1;
+                $producto->CAT_Id = $request->CAT_Id;
+                $producto->save();
+
+                $path = 'archivos/producto/';
+                $file = $request->file('file');
+                if($file){
+                    $extension = $file->getClientOriginalExtension();
+                    $fileName =  $producto->PRO_Id . '.' . $extension;
+                    $upload = $file->move($path, $fileName);
+                    
+                    $updateproducto = DB::table('producto')
+                    ->where('PRO_Id', $producto->PRO_Id)
+                    ->update(['PRO_Imagen' => $fileName]);
+
+                }
+            }
+            DB::commit();
+        } catch (Exception $e)
         {
-            return response()->json(['error' => 'Producto ya registrado'], 401);
-        } else {
-            $producto = new Producto();
-            $producto->PRO_Nombre = $request->PRO_Nombre;
-            $producto->PRO_Descripcion = $request->PRO_Descripcion;
-            $producto->PRO_PrecioCompra = $request->PRO_PrecioCompra;
-            $producto->PRO_PrecioVenta = $request->PRO_PrecioVenta;
-            $producto->PRO_Marca = $request->PRO_Marca;
-            $producto->PRO_Status = $request->PRO_Status ?? 1;
-            $producto->CAT_Id = $request->CAT_Id;
-            $producto->save();
-            return response()->json(['success' => 'Producto Registrado Exitosamente!', compact('producto')]);
+            DB::rollback();
         }
+        return response()->json(['success' => 'Producto Registrado Exitosamente!', compact('producto')]);
     }
 
     /**
@@ -75,7 +100,16 @@ class ProductoController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $producto = DB::table('producto as p')
+			->join('categoria as c','p.CAT_Id','=','c.CAT_Id')
+            ->select('p.*','c.CAT_Nombre')
+            ->where('PRO_Id',$id)
+            ->first();
+        $imagen="";
+        if($producto->PRO_Imagen){
+            $imagen = '/archivos/producto/'.$producto->PRO_Imagen.'?' . uniqid();
+        }
+        return response()->json(['data' => $producto,'imagen'=> $imagen]);
     }
 
     /**
@@ -92,15 +126,36 @@ class ProductoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $producto = Producto::find($id);
-        $producto->PRO_Nombre = $request->PRO_Nombre;
-        $producto->PRO_Descripcion = $request->PRO_Descripcion;
-        $producto->PRO_PrecioCompra = $request->PRO_PrecioCompra;
-        $producto->PRO_PrecioVenta = $request->PRO_PrecioVenta;
-        $producto->PRO_Marca = $request->PRO_Marca;
-        $producto->PRO_Status = $request->PRO_Status ?? 1;
-        $producto->CAT_Id = $request->CAT_Id;
-		$producto->update();
+        try {
+            DB::beginTransaction();
+
+            $producto = Producto::find($id);
+            $producto->PRO_Nombre = $request->PRO_Nombre;
+            $producto->PRO_Descripcion = $request->PRO_Descripcion;
+            $producto->PRO_PrecioCompra = $request->PRO_PrecioCompra;
+            $producto->PRO_PrecioVenta = $request->PRO_PrecioVenta;
+            $producto->PRO_Marca = $request->PRO_Marca;
+            $producto->PRO_Status = $request->PRO_Status ?? 1;
+            $producto->CAT_Id = $request->CAT_Id;
+            $producto->update();
+
+            $path = 'archivos/producto/';
+            $file = $request->file('file');
+            if($file){
+                $extension = $file->getClientOriginalExtension();
+                $fileName =  $producto->PRO_Id . '.' . $extension;
+                $upload = $file->move($path, $fileName);
+                
+                $producto = DB::table('producto')
+                ->where('PRO_Id', $producto->PRO_Id)
+                ->update(['PRO_Imagen' => $fileName]);
+            }
+
+            DB::commit();
+        } catch (Exception $e)
+        {
+            DB::rollback();
+        }
 
         return response()->json(['success' => 'Producto Editado Exitosamente.',compact('producto')]);
     }

@@ -81,6 +81,57 @@
 
         </div>
     </div>
+
+    <div class="modal fade" id="modalVerDetalle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Detalles de la Categoria</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4" style="text-align: left;" >
+                            <p class="col">Id Categoria: </p>
+                        </div>
+                        <div class="col-8" style="text-align: left;" >
+                            <p id="ver_CAT_Id" class="col"></p>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-4" style="text-align: left;" >
+                            <p>Clase:</p>
+                        </div>
+                        <div class="col-8" style="text-align: left;" >
+                            <p id="ver_CLA_Nombre"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4" style="text-align: left;" >
+                            <p>Nombre Categoria:</p>
+                        </div>
+                        <div class="col-8" style="text-align: left;" >
+                            <p id="ver_CAT_Nombre"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4" style="text-align: left;" >
+                            <p>Imagen: </p>
+                        </div>
+                        <div class="col-8" style="text-align: left;" >
+                            <img id="ver_Imagen"  style="width: 120px; height: 120px; margin-right: 10px;" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @section('script')
     <script>
@@ -134,22 +185,29 @@
                 ajax: "{{ route('categoria.index') }}",
                 columns: [{
                         data: 'CAT_Id',
-                        name: 'CAT_Id'
+                        name: 'CAT_Id',
+                        className: 'text-start'
                     },
                     {
                         data: 'CAT_Nombre',
-                        name: 'CAT_Nombre'
+                        name: 'CAT_Nombre',
+                        className: 'text-start'
                     },
                     {
                         data: 'CLA_Nombre',
-                        name: 'CLA_Nombre'
+                        name: 'CLA_Nombre',
+                        className: 'text-start'
                     },
                     {
                         data: null,
                         name: '',
                         'render': function(data, type, row) {
-                            return @can('categoria.edit')
-                                    data.action1 + ' ' +
+                            return @can('categoria.show')
+                                    data.action3 + ' ' +
+                                @endcan
+                            '' 
+                            @can('categoria.edit')
+                                   + data.action1 + ' ' +
                                 @endcan
                             ''
                             @can('categoria.destroy')
@@ -157,7 +215,7 @@
                             @endcan ;
                         }
                     }
-                ]
+                ],
             });
 
             $('#saveCategoria').click(function(e) {
@@ -215,6 +273,19 @@
                         $('#_method').val('PUT').show();
                         $("#saveCategoria").hide();
                         $("#updateBtn").show();
+                    })
+            });
+
+            $('body').on('click', '.eyeCategoria', function() {
+                var Categoria_id_ver = $(this).data('id');
+                $('#modalVerDetalle').modal('show');
+                $.get('{{ route('categoria.show', ':categoria') }}'.replace(':categoria',
+                        Categoria_id_ver),
+                    function(data) {
+                        $('#ver_CAT_Id').text(data.data.CAT_Id);
+                        $('#ver_CLA_Nombre').text(data.data.CLA_Nombre);
+                        $('#ver_CAT_Nombre').text(data.data.CAT_Nombre);
+                        $('#ver_Imagen').attr('src', data.imagen);
                     })
             });
 

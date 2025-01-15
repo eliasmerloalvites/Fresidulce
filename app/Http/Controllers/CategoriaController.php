@@ -32,8 +32,12 @@ class CategoriaController extends Controller
 
                     return $btn;
                 })
-               
-                ->rawColumns(['action1','action2'])
+                ->addColumn('action3', function ($row) {
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->CAT_Id . '" data-original-title="Ver" class="btn btn-warning btn-sm eyeCategoria"><i class="fa fa-eye" aria-hidden="true"></i></a>';
+
+                    return $btn;
+                })               
+                ->rawColumns(['action1','action2','action3'])
                 ->make(true);
         }
 
@@ -100,7 +104,16 @@ class CategoriaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $categoria = DB::table('categoria as ct')
+			->join('clase as cl','ct.CLA_Id','=','cl.CLA_Id')
+            ->select('ct.*','cl.CLA_Nombre')
+            ->where('CAT_Id',$id)
+            ->first();
+        $imagen="";
+        if($categoria->CAT_Imagen){
+            $imagen = '/archivos/categoria/'.$categoria->CAT_Imagen.'?' . uniqid();
+        }
+        return response()->json(['data' => $categoria,'imagen'=> $imagen]);
     }
 
     /**
