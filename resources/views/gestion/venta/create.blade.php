@@ -378,6 +378,45 @@
             background-color: #d9d9d9; /* Color más oscuro para la selección */
         }
 
+        .dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.btn-select {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.dropdown-menu div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown-menu div:hover {
+  background-color: #f0f0f0;
+}
+
+/* Mostrar menú al activar */
+.dropdown.open .dropdown-menu {
+  display: block;
+}
+
+
+
     </style>
     <div class="contenedor-general">
         <div class="row panel-group">
@@ -392,7 +431,7 @@
                 <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 " controls id="contenedor1">
 
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 1px">
-                        <div class="table-responsive" style="height: calc(45vh - 90px);  overflow-y:scroll;">
+                        <div class="table-responsive" style="height: calc(60vh - 90px);  overflow-y:scroll;">
                             <table id="detallesVenta" class=" table-sm table-bordered table-condensed ">
                                 <thead style="background: #f36ad1">
                                     <th style="text-align: left;  width: 80%;">PRODUCTO</th>
@@ -435,7 +474,29 @@
                     <div class="row mt-3">
 
                         <div class="col-lg-4  col-md-4 col-sm-12 col-xs-12 ">
-    
+                            
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
+                                <div class="dropdown">
+                                    <input type="hidden" id="hiddenSelectedId" name="selectedId" value="">
+                                    <button type="button" class="btn-select">TipoPago: <span id="selectedOption"> EFECTIVO</span></button>
+                                    <div class="dropdown-menu">
+                                        @foreach ($metodo_pago as $mep)
+                                            <div class="dropdown-item" data-id="{{ $mep->MEP_Id }}" >{{ $mep->MEP_Pago }}</div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
+                                <input hidden name="_token" value="{{ csrf_token() }}">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" hidden>
+                                    <button title="Vaciar Carrito" onclick="vaciar()" target="_blank" type="button"
+                                        class="btn btn-danger" style="border-radius: 10px;">VACIAR </button>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <button type="button"  target="_blank" class="btn" onclick="aceptar();"
+                                        style="background:#96BC1F; color: #fff; border-radius: 10px;width: 100%; height:80px">GENERAR PAGO</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-lg-8  col-md-8 col-sm-12 col-xs-12 ">
     
@@ -726,17 +787,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class=" row col-lg-8 col-md-8 col-sm-8 col-xs-12" style="margin-top: 10px">
-                        <input hidden name="_token" value="{{ csrf_token() }}">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <button title="Vaciar Carrito" onclick="vaciar()" target="_blank" type="button"
-                                class="btn btn-danger" style="border-radius: 10px;">VACIAR </button>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <button type="button" target="_blank" class="btn" onclick="aceptar();"
-                                style="background:#F39C12; color: #000; border-radius: 10px;">GENERAR </button>
-                        </div>
-                    </div>
+                    
 
                 </div>
 
@@ -834,6 +885,30 @@
                     templateResult: formatState,
                     templateSelection: formatState
                 });
+
+                document.querySelector(".btn-select").addEventListener("click", function () {
+                    // Alternar la visibilidad del menú
+                    this.parentNode.classList.toggle("open");
+                });
+
+                document.querySelectorAll(".dropdown-menu div").forEach(option => {
+                    option.addEventListener("click", function () {
+                        const selectedText = this.textContent.trim();
+                        const selectedId = this.getAttribute("data-id"); 
+                        document.getElementById("selectedOption").textContent = selectedText;
+                        document.querySelector("#hiddenSelectedId").value = selectedId;
+                        this.closest(".dropdown").classList.remove("open");
+                    });
+                });
+
+                // Cerrar el menú si se hace clic fuera
+                document.addEventListener("click", function (event) {
+                    const dropdown = document.querySelector(".dropdown");
+                    if (!dropdown.contains(event.target)) {
+                        dropdown.classList.remove("open");
+                    }
+                });
+
 
                 Tabla_Producto2()
 
