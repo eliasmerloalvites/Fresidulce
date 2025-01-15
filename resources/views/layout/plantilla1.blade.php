@@ -137,8 +137,8 @@
                                 </ul>
                             </li>
                             
-                            <li class="nav-item has-treeview {{request()->is('proveedor*') ? 'menu-open' : '' }}" >
-                                <a href="#" class="nav-link {{request()->is('proveedor*')? 'active' : '' }}" >
+                            <li class="nav-item has-treeview {{request()->is('proveedor*')|| request()->is('compra*') ? 'menu-open' : '' }}" >
+                                <a href="#" class="nav-link {{request()->is('proveedor*')|| request()->is('compra*')? 'active' : '' }}" >
                                     <i class="nav-icon fas fa-layer-group"></i>
                                     <p>
                                         COMPRAS
@@ -148,7 +148,7 @@
 
                                 <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="" class="nav-link " >
+                                            <a href="{{route('compra.index')}}" class="nav-link {{request()->is('compra*')? 'active' : '' }}" >
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Compra</p>
                                             </a>
