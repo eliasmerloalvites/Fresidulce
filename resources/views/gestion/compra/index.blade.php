@@ -15,17 +15,17 @@
                 </button>
                 <p class="card-text">
                 <div class="table-responsive" style="background:#FFF;">
-                    <table class="table" id="tabla_detalle_compra">
+                    <table class="table" id="tabla_compra">
                         <thead style="background-color:#FF5F67;color: #fff;">
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">CÓDIGO COMPRA</th>
-                                <th scope="col">ALMACEN</th>
+                                <th scope="col">DOC</th>
+                                <th scope="col">N° DOC.</th>
                                 <th scope="col">NOMBRE DE PROVEEDOR</th>
-                                <th scope="col">CANTIDAD</th>
-                                <th scope="col">PRECIO DE COMPRA</th>
-                                <th scope="col">PRECIO DE VENTA</th>
-                                <th scope="col">Opciones</th>
+                                <th scope="col">TIPO DE PAGO</th>
+                                <th scope="col">MÉTODO DE PAGO</th>
+                                <th scope="col">ESTADO</th>
+                                <th scope="col">OPCIONES</th>
                             </tr>
                         </thead>
                     </table>
@@ -47,7 +47,7 @@
                 timer: 3000
             });
 
-            var table = $('#tabla_detalle_compra').DataTable({
+            var table = $('#tabla_compra').DataTable({
                 responsive: true, // Habilitar la opción responsive
                 autoWidth: false,
                 searchDelay: 2000,
@@ -69,34 +69,40 @@
                 order: [
                     [0, "asc"]
                 ],
-                ajax: "{{ route('compra.index') }}",
+                ajax: {
+                    url: "{{ route('compra.index') }}",
+                    type: "GET",
+                    error: function(xhr, error) {
+                        console.error("Error en la carga de datos:", error);
+                    }
+                },
                 columns: [{
-                        data: 'DCOM_Id',
-                        name: 'DCOM_Id'
-                    },
-                    {
                         data: 'COM_Id',
-                        name: 'COM_Id',
+                        name: 'COM_Id'
                     },
                     {
-                        data: 'ALM_Id',
-                        name: 'ALM_Id',
+                        data: 'COM_TipoDocumento',
+                        name: 'COM_TipoDocumento',
                     },
                     {
-                        data: 'PRO_Id',
-                        name: 'PRO_Id',
+                        data: 'COM_NumDocumento',
+                        name: 'COM_NumDocumento',
                     },
                     {
-                        data: 'DCOM_Cantidad',
-                        name: 'DCOM_Cantidad',
+                        data: 'PROV_Nombre',
+                        name: 'PROV_Nombre',
                     },
                     {
-                        data: 'DCOM_PrecioCompra',
-                        name: 'DCOM_PrecioCompra',
+                        data: 'COM_TipoPago',
+                        name: 'COM_TipoPago',
                     },
                     {
-                        data: 'DCOM_PrecioVenta',
-                        name: 'DCOM_PrecioVenta',
+                        data: 'MEP_Nombre',
+                        name: 'MEP_Nombre',
+                    },
+                    {
+                        data: 'COM_Status',
+                        name: 'COM_Status',
                     },
                     {
                         data: null,
