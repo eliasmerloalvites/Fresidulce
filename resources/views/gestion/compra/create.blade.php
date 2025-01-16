@@ -6,6 +6,13 @@
 
     <head>
         <link href="{{ asset('css/styleCompra.css') }}" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+        <!-- Bootstrap JS -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     </head>
     <div class="">
         <div class="">
@@ -159,136 +166,101 @@
                                                     </button>
                                                 </div>
                                             </div>
-
                                         </div>
-                                        <div class="modal-body panel-body"
-                                            style="max-height: calc(60vh - 90px);padding-bottom: 0px;padding-top: 0px;">
-                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"
-                                                id="idfrmProveedor"
-                                                style="border-color: #02D399; margin-bottom: 20px; border-width: 3px; border-style: double; background: #F1F1F1;display: none;">
-                                                <div class="row" style="padding-top : 1%">
-                                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        
+                                        <!-- Formulario debajo de la fila de proveedor -->
+                                        <div class="row" id="formProveedorRow"
+                                            style="display: none; width: calc(100% + 28px); margin-top: 20px; ">
+                                            <div class="col-12">
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                                    id="idfrmProveedor"
+                                                    style="border-color: #0bd829be; margin-bottom: 20px; margin-left: -9px;  border-width: 2px; border-style: dashed; background: #F1F1F1; ">
+                                                    <!-- Aquí va el contenido del formulario -->
+                                                    <h5>Nuevo Proveedor</h5>
+                                                    <div class="form-group">
                                                         <div class="input-group input-group-sm">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">
-                                                                    Proveedor
-                                                                </span>
+                                                                <span class="input-group-text">Proveedor</span>
                                                             </div>
                                                             <select class="form-control" id="PROV_TipoDocumento"
-                                                                onChange="limitar()" name="PROV_TipoDocumento"
-                                                                style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;">
-                                                                <option value="DNI">
-                                                                    DNI
-                                                                </option>
-                                                                <option value="RUC">
-                                                                    RUC
-                                                                </option>
-                                                                <option value="CE">
-                                                                    Carnet Extranjeria
-                                                                </option>
+                                                                onChange="limitar()" name="PROV_TipoDocumento">
+                                                                <option value="DNI">DNI</option>
+                                                                <option value="RUC">RUC</option>
+                                                                <option value="CE">Carnet Extranjería</option>
                                                             </select>
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group">
                                                         <div class="input-group input-group-sm">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">
-                                                                    Nº Doc
-                                                                </span>
+                                                                <span class="input-group-text">Nº Documento</span>
                                                             </div>
                                                             <input class="form-control input-sm" id="PROV_NumDocumento"
-                                                                maxlength="8" name="PROV_NumDocumento"
+                                                                maxlength="11" name="PROV_NumDocumento"
                                                                 placeholder="Ingresa Numero de Documento" type="text">
-                                                            <span class="input-group-append btn btn-primary btn-sm"
-                                                                id="Buscar_Cliente" onclick="BuscarCliente()"
-                                                                style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"
-                                                                title="Buscar Cliente" type="button">
-                                                                <i class="fa fa-search">
-                                                                </i>
-                                                            </span>
-
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="form-group">
                                                         <div class="input-group input-group-sm">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">
-                                                                    Razon social
-                                                                </span>
+                                                                <span class="input-group-text">Razón Social</span>
                                                             </div>
                                                             <input class="form-control input-sm" id="PROV_RazonSocial"
                                                                 name="PROV_RazonSocial"
                                                                 onkeyup="this.value=this.value.toUpperCase();"
-                                                                placeholder="ingresa nombre"
-                                                                style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"
-                                                                type="text">
+                                                                placeholder="Ingresa razón social" type="text">
                                                         </div>
                                                     </div>
-                                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                                                    <div class="form-group">
                                                         <div class="input-group input-group-sm">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">
-                                                                    Direccion
-                                                                </span>
+                                                                <span class="input-group-text">Dirección</span>
                                                             </div>
                                                             <input class="form-control input-sm" id="PROV_Direccion"
                                                                 name="PROV_Direccion"
                                                                 onkeyup="this.value=this.value.toUpperCase();"
-                                                                placeholder="ingresa direccion"
-                                                                style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"
-                                                                type="text">
+                                                                placeholder="Ingresa dirección" type="text">
                                                         </div>
                                                     </div>
-                                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                                                    <div class="form-group">
                                                         <div class="input-group input-group-sm">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">
-                                                                    Descripcion
-                                                                </span>
+                                                                <span class="input-group-text">Teléfono</span>
                                                             </div>
-                                                            <input class="form-control input-sm" id="PROV_Descripcion"
-                                                                name="PROV_Descripcion"
+                                                            <input class="form-control input-sm" id="PROV_Celular"
+                                                                maxlength="9" name="PROV_Celular"
                                                                 onkeyup="this.value=this.value.toUpperCase();"
-                                                                placeholder="ingresa direccion"
-                                                                style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"
-                                                                type="text">
+                                                                placeholder="Ingresa número" type="text">
                                                         </div>
                                                     </div>
-                                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                                                    <div class="form-group">
                                                         <div class="input-group input-group-sm">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">
-                                                                    Telefono
-                                                                </span>
-                                                            </div>
-                                                            <input class="form-control input-sm" id="PROV_Celular" maxlength="9"
-                                                                name="PROV_Celular"
-                                                                onkeyup="this.value=this.value.toUpperCase();"
-                                                                placeholder="ingresa numero"
-                                                                style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"
-                                                                type="text">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="input-group input-group-sm">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text">
-                                                                    Email
-                                                                </span>
+                                                                <span class="input-group-text">Email</span>
                                                             </div>
                                                             <input class="form-control input-sm" id="PROV_Correo"
                                                                 name="PROV_Correo"
                                                                 onkeyup="this.value=this.value.toUpperCase();"
-                                                                placeholder="ingrese email"
-                                                                style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"
-                                                                type="email">
+                                                                placeholder="Ingresa email" type="email">
                                                         </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <button type="button" class="btn btn-danger btn-sm"
+                                                            onclick="cerrarFormulario()">Cerrar</button>
+                                                        <button type="submit"
+                                                            class="btn btn-primary btn-sm">Guardar</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -351,8 +323,8 @@
                                                     </div>
                                                 </div>
                                                 <div style="width: 65%;">
-                                                    <select id="ALM_Id" name="ALM_Id"
-                                                        class="form-control rounded-0" required
+                                                    <select id="ALM_Id" name="ALM_Id" class="form-control rounded-0"
+                                                        required
                                                         style="font-size: 12px; text-align: left; padding-left: 10px; height: 35px; padding-right: 30px;">
                                                         <option value="">Seleccione Almacén</option>
 
@@ -381,8 +353,7 @@
                                                     </div>
                                                 </div>
                                                 <input type="number" id="DCOM_PrecioCompra" name="DCOM_PrecioCompra"
-                                                    class="form-control rounded-0"
-                                                    placeholder="Precio Compra"
+                                                    class="form-control rounded-0" placeholder="Precio Compra"
                                                     style="height: 40px; font-family: 'Arial', sans-serif; font-size: 12px; font-weight: 400; color: #555; background-color: #f9f9f9; border: 1px solid #ccc; padding-left: 10px; border-radius: 5px; transition: all 0.3s ease;">
                                             </div>
                                             <div class="col-md-4 d-flex align-items-center">
@@ -418,8 +389,8 @@
 
 
                                         <p></p>
-                                        <button id="saveBtn" class="btn btn-primary"><i
-                                                class="fas fa-save"></i>Generar Compra</button>
+                                        <button id="saveBtn" class="btn btn-primary"><i class="fas fa-save"></i>Generar
+                                            Compra</button>
                                         <button id="updateBtn" class="btn btn-info" style="display: none;"><i
                                                 class="fas fa-save"></i>Actualizar</button>
                                         <button type="reset" id="btncancelar" class="btn btn-danger"> <i
@@ -441,31 +412,32 @@
 
             })
 
-            $ACTPROV = "NO"
-
             function mostrarformulario() {
-                if ($ACTPROV == "NO") {
-                    $("#idfrmProveedor").show();
-                    $ACTPROV = "SI"
-                } else {
-                    $("#idfrmProveedor").hide();
-                    $ACTPROV = "NO"
-                }
+                // Muestra el formulario debajo de la fila de proveedor
+                var formulario = document.getElementById('formProveedorRow');
+                formulario.style.display = 'block'; // Muestra el formulario
             }
 
-            function limitar() {
+            function cerrarFormulario() {
+                // Oculta el formulario cuando el usuario hace clic en "Cerrar"
+                var formulario = document.getElementById('formProveedorRow');
+                formulario.style.display = 'none'; // Oculta el formulario
+            }
 
+
+
+            function limitar() {
                 var cod = document.getElementById("ProvTDoc").value;
 
                 if (cod == 'DNI') {
                     $("#ProvNDoc").val("");
                     $("#ProvNDoc").attr('maxlength', '8');
-                } else(cod == 'RUC') {
+                } else if (cod == 'RUC') { // Cambié 'else' por 'else if'
                     $("#ProvNDoc").val("");
                     $("#ProvNDoc").attr('maxlength', '11');
                 }
-
             }
+
 
             function BuscarCliente() {
                 if ($('#ProvTDoc').val() == 'DNI') {
