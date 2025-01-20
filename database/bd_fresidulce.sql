@@ -464,6 +464,11 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (33, 'gestion.cliente.create', 'web', '2025-01-10 02:29:43', '2025-01-10 02:29:43', 1, '-', 'Creacion de cliente'),
 (34, 'gestion.cliente.edit', 'web', '2025-01-10 02:30:11', '2025-01-10 02:30:11', 1, '-', 'Edicion de cliente'),
 (35, 'gestion.cliente.destroy', 'web', '2025-01-10 02:30:42', '2025-01-10 02:30:42', 1, '-', 'Eliminacion de cliente');
+(36, 'gestion.venta.index', 'web', '2025-01-10 02:28:41', '2025-01-10 15:48:37', 1, '-', 'VENTA '),
+(37, 'gestion.venta.show', 'web', '2025-01-10 02:29:25', '2025-01-10 02:29:25', 1, '-', 'Visualizacion de detalles de venta'),
+(38, 'gestion.venta.create', 'web', '2025-01-10 02:29:43', '2025-01-10 02:29:43', 1, '-', 'Creacion de venta'),
+(39, 'gestion.venta.edit', 'web', '2025-01-10 02:30:11', '2025-01-10 02:30:11', 1, '-', 'Edicion de venta'),
+(40, 'gestion.venta.destroy', 'web', '2025-01-10 02:30:42', '2025-01-10 02:30:42', 1, '-', 'Eliminacion de venta');
 
 -- --------------------------------------------------------
 

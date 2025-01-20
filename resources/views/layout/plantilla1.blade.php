@@ -121,7 +121,7 @@
 
                                 <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('gestion.venta.create') }}" class="nav-link {{ request()->is('gestion/venta*') ? 'active' : '' }}" >
+                                            <a href="{{ route('gestion.venta.index') }}" class="nav-link {{ request()->is('gestion/venta*') ? 'active' : '' }}" >
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Ventas</p>
                                             </a>
@@ -269,7 +269,7 @@
                                 </li>
                             @endcan
 
-                            @can('gestion.venta.create')
+                            @can('reporte.ventas')
                                 <li class="nav-item has-treeview" id="idCabReporte1">
                                     <a href="#" class="nav-link" id="idReporte1">
                                         <i class="nav-icon fas fa-chart-bar"></i>
@@ -281,7 +281,7 @@
 
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('rrhh.reporte.ventas') }}" class="nav-link "
+                                            <a href="{{ route('reporte.ventas') }}" class="nav-link "
                                                 id="idReporteVentas">
                                                 <i class="far fa-circle nav-icon"></i>
                                                 <p>Ventas</p>

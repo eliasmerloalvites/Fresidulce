@@ -78,9 +78,11 @@ Route::middleware(['auth'])->group(function(){
     'store' => 'gestion.venta.store',
     'edit' => 'gestion.venta.edit',
     'update' => 'gestion.venta.update',
-    'show' => 'gestion.venta.show'
+    'show' => 'gestion.venta.show',
+    'destroy' => 'gestion.venta.destroy'
   ]);
-
+  Route::get('gestion/venta/{id}/ticket', [VentaController::class,'ticket'] )->name('gestion.venta.ticket');
+  Route::get('gestion/venta/filtro/{filtro}', [VentaController::class,'filtro'] )->name('gestion.venta.filtro');
 
   Route::resource('almacen', AlmacenController::class);
 

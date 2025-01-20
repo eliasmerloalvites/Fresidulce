@@ -9,7 +9,7 @@ class Compra extends Model
 {
     protected $table='compra';
     protected $primaryKey='COM_Id';
-    public $timestamps=false;
+    public $timestamps=true;
     protected $fillable=[
         'COM_TipoDocumento',
         'COM_NumDocumento',

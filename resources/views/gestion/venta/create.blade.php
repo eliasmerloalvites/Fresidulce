@@ -231,8 +231,8 @@
         .btnGenerar:hover {
             color: #ffffff;
             background-color: #809b2e
-            /* color: #96BC1F;
-            background-color: #ffffff */
+                /* color: #96BC1F;
+                background-color: #ffffff */
         }
 
         .btnCliente {
@@ -262,8 +262,8 @@
         .btnCliente:hover {
             color: #ffffff;
             background-color: #809b2e
-            /* color: #96BC1F;
-            background-color: #ffffff */
+                /* color: #96BC1F;
+                background-color: #ffffff */
         }
 
         .btntipo1 {
@@ -432,78 +432,74 @@
 
         /* Sombreado al pasar el mouse */
         #detallesVenta tr:hover {
-            background-color: #f2f2f2; /* Color claro para el hover */
+            background-color: #f2f2f2;
+            /* Color claro para el hover */
             cursor: pointer;
         }
 
         /* Estilo para la fila seleccionada */
         #detallesVenta tr.selected {
-            background-color: #d9d9d9; /* Color más oscuro para la selección */
+            background-color: #d9d9d9;
+            /* Color más oscuro para la selección */
         }
 
         .dropdown {
-  position: relative;
-  display: inline-block;
-}
+            position: relative;
+            display: inline-block;
+        }
 
-.btn-select {
-  background-color: #f0f0f0;
-  margin-top: 5px;
-  color: #333;
-  width: 100%;
-  padding: 10px 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
-}
+        .btn-select {
+            background-color: #f0f0f0;
+            margin-top: 5px;
+            color: #333;
+            width: 100%;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-}
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
 
-.dropdown-menu div {
-  padding: 10px;
-  cursor: pointer;
-}
+        .dropdown-menu div {
+            padding: 10px;
+            cursor: pointer;
+        }
 
-.dropdown-menu div:hover {
-  background-color: #f0f0f0;
-}
+        .dropdown-menu div:hover {
+            background-color: #f0f0f0;
+        }
 
-/* Mostrar menú al activar */
-.dropdown.open .dropdown-menu {
-  display: block;
-}
-
-
-
+        /* Mostrar menú al activar */
+        .dropdown.open .dropdown-menu {
+            display: block;
+        }
     </style>
     <div class="contenedor-general">
         <div class="row panel-group">
 
             <div class="col-lg-5  col-md-12 col-sm-12 col-xs-12 ">
 
-                {!! Form::open(['route' => 'gestion.venta.store', 'id' => 'form1']) !!}
+                {!! Form::open(['route' => 'gestion.venta.store', 'id' => 'venta_form']) !!}
                 {{ Form::token() }}
 
-                <input class="form-control" hidden id="VentaTipo" name="VentaTipo" value="VENTA" />
-                <input class="form-control" hidden name="EMP_Codigo" value="{{ Auth::user()->id }}" />
+                <input class="form-control" hidden id="VentaTipo" name="VentaTipo" value="LIBRE" />
+                <input class="form-control" hidden name="USU_Id" value="{{ Auth::user()->id }}" />
                 <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12 " controls id="contenedor1">
 
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 1px">
                         <div class="table-responsive" style="height: calc(60vh - 90px);  overflow-y:scroll;">
-                            <table id="detallesVenta" class=" table-sm table-bordered table-condensed ">
-                                <thead style="background: #f36ad1">
-                                    <th style="text-align: left;  width: 80%;">PRODUCTO</th>
-                                    <th style="text-align: left;  width: 5%;">PU</th>
-                                    <th style="text-align: left;  width: 5%;">CNT</th>
-                                    <th style="text-align: left;  width: 5%;">DSC</th>
-                                    <th style="text-align: left;  width: 5%;">IMPT</th>
+                            <table id="detallesVenta" class=" table-sm table-condensed " style="width: 100%" >
+                                <thead style="background: #f58489; color:white">
+                                    <th style="text-align: left;  width: 80%;">Detalle</th>
+                                    <th style="text-align: right;  width: 20%;">Importe</th>
                                 </thead>
                             </table>
                         </div>
@@ -516,7 +512,7 @@
                                     id="total_venta"></div>
                             <!--<th hidden="true"><input hidden name="totalVenta" id="totalVenta"></th>-->
                         </div>
-                        
+
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
                             <div class="input-group">
                                 <span type="button" id="btnPago" class="btn btn-primary btn-sm " hidden
@@ -535,23 +531,67 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row mt-3">
 
-                        <div class="col-lg-4  col-md-4 col-sm-12 col-xs-12 ">
-                            
+                        <div class="col-lg-5  col-md-5 col-sm-12 col-xs-12 ">
+                            <div class="table-responsive col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <table id="detallesInformacion"
+                                    class="table table-sm table-bordered table-condensed table-hover" hidden>
+                                    <thead style="background: #dddddd;">
+                                        <th style="text-align: left; font-size: 12px; width: 80%;font-weight: bold;">
+                                            <label>PRODUCTO</label>
+                                        </th>
+                                        <th style="text-align: left; font-size: 12px; width: 20%;font-weight: bold;">
+                                            <label>STOCK</label>
+                                        </th>
+                                    </thead>
+
+                                </table>
+
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="input-group" hidden>
+                                    <span class="form-control"
+                                        style="background: #EDEDED; border-bottom-left-radius:10px; border-top-left-radius: 10px;">TIPO
+                                        PAGO</span>
+                                    <select class="form-control " id="VEN_TipoPago" name="VEN_TipoPago">
+                                        <option value="1" selected>CONTADO</option>
+                                        <!--<option value="2">CREDITO</option>-->
+                                    </select>
+
+                                </div>
+                            </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
-                                <div class="dropdown">
-                                    <input type="hidden" id="hiddenSelectedId" name="selectedId" value="">
-                                    <button type="button" class="btn-select"><b>TipoPago: </b><span id="selectedOption"> EFECTIVO</span></button>
+                                <div class="dropdown" style="width: 100%">
+                                    <input type="hidden" id="hiddenSelectedIdMetodoPago" name="selectedIdMetodoPago"
+                                        value="1">
+                                    <button type="button" class="btn-select"><b>Metodo Pago: </b><span id="selectedOption">
+                                            EFECTIVO</span></button>
                                     <div class="dropdown-menu">
                                         @foreach ($metodo_pago as $mep)
-                                            <div class="dropdown-item" data-id="{{ $mep->MEP_Id }}" >{{ $mep->MEP_Pago }}</div>
+                                            <div class="dropdown-item" data-id="{{ $mep->MEP_Id }}">{{ $mep->MEP_Pago }}
+                                            </div>
                                         @endforeach
                                     </div>
                                 </div>
-                                <button type="button"  class="btn-select" ><b>Cliente: </b><span id="selectedCliente"> ELIAS MERLO ALVITES PAMPACHÑSA </span></button>
-                                <button type="button"  target="_blank" class="btnGenerar" onclick="aceptar();" >GENERAR PAGO</button>
+                                <div class="dropdown" style="width: 100%" hidden>
+                                    <input type="hidden" id="hiddenSelectedIdTipoComprobante"
+                                        name="selectedIdTipoComprobante" value="NOTA VENTA">
+                                    <button type="button" class="btn-select"><b>Comprobante: </b><span
+                                            id="selectedOption">NOTA VENTA</span></button>
+                                    <div class="dropdown-menu">
+                                        <div class="dropdown-item" data-id="NOTA VENTA">NOTA VENTA</div>
+                                        <div class="dropdown-item" data-id="BOLETA">BOLETA</div>
+                                        <div class="dropdown-item" data-id="FACTURA">FACTURA</div>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="hiddenSelectedIdCliente" name="selectedIdCliente"
+                                    value="1">
+                                <button type="button" class="btn-select" onclick="showCliente()"><b>Cliente: </b><span
+                                        id="selectedCliente"> SIN NOMBRE </span></button>
+                                <button type="button" target="_blank" class="btnGenerar" onclick="aceptar();">GENERAR
+                                    PAGO</button>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
                                 <input hidden name="_token" value="{{ csrf_token() }}">
@@ -559,17 +599,17 @@
                                     <button title="Vaciar Carrito" onclick="vaciar()" target="_blank" type="button"
                                         class="btn btn-danger" style="border-radius: 10px;">VACIAR </button>
                                 </div>
-                                
+
                             </div>
                         </div>
-                        <div class="col-lg-8  col-md-8 col-sm-12 col-xs-12 ">
-    
+                        <div class="col-lg-7  col-md-7 col-sm-12 col-xs-12 ">
+
                             <div class="table" style="height: calc(30vh - 10px)">
                                 <table id="detallesCalculadora"
                                     class="table table-sm table-bordered table-condensed table-hover ; padding:0px;margin:0px">
                                     <thead hidden style="background: #ade9ff;">
                                     </thead>
-    
+
                                     <tr style="padding:0px;margin:0px">
                                         <td
                                             style=" text-align: center; padding:0px;margin:0px; font-size: 30px; width: 15%;  font-weight: bold;  ">
@@ -592,27 +632,31 @@
                                         <td
                                             style=" text-align: center; padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; ">
                                             <button class="btn-calculadora"
-                                                style="width: 100%; padding:0px;margin:0px; height:50px; " title="Cantidad"
-                                                type="button" id="idn4" onclick="Metodo('CANTIDAD')">Cant</button>
+                                                style="width: 100%; padding:0px;margin:0px; height:50px; "
+                                                title="Cantidad" type="button" id="idn4"
+                                                onclick="Metodo('CANTIDAD')">Cant</button>
                                         </td>
-    
-    
+
+
                                     </tr>
                                     <tr>
                                         <td
                                             style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; ">
-                                            <button class="btn-calculadora" style="width: 100%; height:50px; " title="4"
-                                                type="button" id="idn5" onclick="Editar('4')">4</button>
+                                            <button class="btn-calculadora" style="width: 100%; height:50px; "
+                                                title="4" type="button" id="idn5"
+                                                onclick="Editar('4')">4</button>
                                         </td>
                                         <td
                                             style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; ">
-                                            <button class="btn-calculadora" style="width: 100%; height:50px; " title="5"
-                                                type="button" id="idn6" onclick="Editar('5')">5</button>
+                                            <button class="btn-calculadora" style="width: 100%; height:50px; "
+                                                title="5" type="button" id="idn6"
+                                                onclick="Editar('5')">5</button>
                                         </td>
                                         <td
                                             style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; ">
-                                            <button class="btn-calculadora" style="width: 100%; height:50px; " title="6"
-                                                type="button" id="idn7" onclick="Editar('6')">6</button>
+                                            <button class="btn-calculadora" style="width: 100%; height:50px; "
+                                                title="6" type="button" id="idn7"
+                                                onclick="Editar('6')">6</button>
                                         </td>
                                         <td
                                             style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; ">
@@ -624,18 +668,21 @@
                                     <tr>
                                         <td
                                             style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; ">
-                                            <button class="btn-calculadora" style="width: 100%; height:50px; " title="7"
-                                                type="button" id="idn9" onclick="Editar('7')">7</button>
+                                            <button class="btn-calculadora" style="width: 100%; height:50px; "
+                                                title="7" type="button" id="idn9"
+                                                onclick="Editar('7')">7</button>
                                         </td>
                                         <td
                                             style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; ">
-                                            <button class="btn-calculadora" style="width: 100%; height:50px; " title="8"
-                                                type="button" id="idn10" onclick="Editar('8')">8</button>
+                                            <button class="btn-calculadora" style="width: 100%; height:50px; "
+                                                title="8" type="button" id="idn10"
+                                                onclick="Editar('8')">8</button>
                                         </td>
                                         <td
                                             style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; ">
-                                            <button class="btn-calculadora" style="width: 100%; height:50px; " title="9"
-                                                type="button" id="idn11" onclick="Editar('9')">9</button>
+                                            <button class="btn-calculadora" style="width: 100%; height:50px; "
+                                                title="9" type="button" id="idn11"
+                                                onclick="Editar('9')">9</button>
                                         </td>
                                         <td
                                             style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; ">
@@ -649,192 +696,32 @@
                                             style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; ">
                                             <button class="btn-calculadora" style="width: 100%; height:50px; "
                                                 title="Eliminar Producto" type="button" id="idn13"
-                                                onclick="eliminar()"><i class="fa fa-trash" style="color: #FF0000"></i></button>
+                                                onclick="eliminar()"><i class="fa fa-trash"
+                                                    style="color: #FF0000"></i></button>
                                         </td>
                                         <td
                                             style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; ">
-                                            <button class="btn-calculadora" style="width: 100%; height:50px; " title="0"
-                                                type="button" id="idn14" onclick="Editar('0')">0</button>
+                                            <button class="btn-calculadora" style="width: 100%; height:50px; "
+                                                title="0" type="button" id="idn14"
+                                                onclick="Editar('0')">0</button>
                                         </td>
                                         <td
                                             style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; ">
-                                            <button class="btn-calculadora" style="width: 100%; height:50px; " title="."
-                                                type="button" id="idn15" onclick="Editar('.')">.</button>
+                                            <button class="btn-calculadora" style="width: 100%; height:50px; "
+                                                title="." type="button" id="idn15"
+                                                onclick="Editar('.')">.</button>
                                         </td>
                                         <td
                                             style=" text-align: center;padding:0px;margin:0px;  font-size: 30px; width: 15%;  font-weight: bold; ">
                                             <button class="btn-calculadora" style="width: 100%; height:50px; "
                                                 title="Eliminar" type="button" id="idn4" onclick="elimi('.')"><i
-                                                class="fa fa-times"></i></button>
+                                                    class="fa fa-times"></i></button>
                                         </td>
-    
+
                                     </tr>
-    
+
                                 </table>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <div class="table-responsive col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <table id="detallesInformacion" class="table table-sm table-bordered table-condensed table-hover"
-                            hidden>
-                            <thead style="background: #dddddd;">
-                                <th style="text-align: left; font-size: 12px; width: 80%;font-weight: bold;">
-                                    <label>PRODUCTO</label>
-                                </th>
-                                <th style="text-align: left; font-size: 12px; width: 20%;font-weight: bold;">
-                                    <label>STOCK</label>
-                                </th>
-                            </thead>
-
-                        </table>
-
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="input-group" hidden>
-                            <span class="form-control"
-                                style="background: #EDEDED; border-bottom-left-radius:10px; border-top-left-radius: 10px;">TIPO
-                                PAGO</span>
-                            <select class="form-control " id="VEN_TipoPago" name="VEN_TipoPago">
-                                <option value="1" selected>CONTADO</option>
-                                <!--<option value="3" >TARJETA</option>-->
-                                <!--<option value="2">CREDITO</option>-->
-                            </select>
-                            <span class="btn btn-primary btn-sm " data-dismiss="modal-dialog"
-                                style="border-bottom-right-radius:10px; border-top-right-radius: 10px;"><i
-                                    class="fa fa-credit-card"></i></span>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
-                        <div class="input-group">
-                            <span class="form-control"
-                                style="background: #EDEDED; border-bottom-left-radius:10px; border-top-left-radius: 10px;">CLIENTE</span>
-                            <select class="form-control " id="CLI_Cod" name="CLI_Cod">
-                                @foreach ($clientes as $cli)
-                                    <option value="{{ $cli->CLI_Id }}">{{ $cli->CLI_TipoDocumento }} -
-                                        {{ $cli->CLI_NumDocumento }} - {{ $cli->CLI_Nombre }}</option>
-                                @endforeach
-                            </select>
-                            <span title="Nuevo Cliente" type="button" id="btnNuevoCliea" class="btn btn-success btn-sm "
-                                onclick="mostrarformulario()"
-                                style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"><i
-                                    class="fa fa-plus"></i> <i class="fa fa-user"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="modal-body panel-body"
-                        style="max-height: calc(60vh - 90px);padding-bottom: 0px;padding-top: 0px;">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" id="idfrmCliente"
-                            style="border-color: #02D399; margin-bottom: 20px; border-width: 3px; border-style: double; background: #F1F1F1;display: none;">
-                            <div class="row" style="padding-top : 1%">
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="input-group input-group-sm">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                Cliente
-                                            </span>
-                                        </div>
-                                        <select class="form-control" id="CliTDoc" onChange="limitar()"
-                                            name="CLI_TipoDocumento"
-                                            style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;">
-                                            <option value="DNI">
-                                                DNI
-                                            </option>
-                                            <option value="RUC">
-                                                RUC
-                                            </option>
-                                            <option value="CE">
-                                                Carnet Extrangeria
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="input-group input-group-sm">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                Nº Doc
-                                            </span>
-                                        </div>
-                                        <input class="form-control input-sm" id="CliNDoc" maxlength="8"
-                                            name="CLI_NumDocumento" placeholder="Ingresa Numero de Documento"
-                                            type="text">
-                                        <span class="input-group-append btn btn-primary btn-sm" id="Buscar_Cliente"
-                                            onclick="BuscarCliente()"
-                                            style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"
-                                            title="Buscar Cliente" type="button">
-                                            <i class="fa fa-search">
-                                            </i>
-                                        </span>
-                                        <span class=" input-group-append btn btn-primary btn-sm hide" id="cargando"
-                                            style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"
-                                            title="Cargando" type="button">
-                                            <i>
-                                                <img src="{{ asset('imagenes/articulos/cargando1.gif') }}" width="15px">
-
-                                            </i>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="input-group input-group-sm">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                Razon social
-                                            </span>
-                                        </div>
-                                        <input class="form-control input-sm" id="CliNom" name="CLI_Nombres"
-                                            onkeyup="this.value=this.value.toUpperCase();" placeholder="ingresa nombre"
-                                            style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"
-                                            type="text">
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="input-group input-group-sm">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                Direccion
-                                            </span>
-                                        </div>
-                                        <input class="form-control input-sm" id="CliDir" name="CLI_Direccion"
-                                            onkeyup="this.value=this.value.toUpperCase();" placeholder="ingresa direccion"
-                                            style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"
-                                            type="text">
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="input-group input-group-sm">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                Telefono
-                                            </span>
-                                        </div>
-                                        <input class="form-control input-sm" maxlength="9" name="CLI_Telefono"
-                                            onkeyup="this.value=this.value.toUpperCase();" placeholder="ingresa numero"
-                                            style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"
-                                            type="text">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
-                        <div class="input-group">
-                            <span class="form-control"
-                                style="background: #EDEDED; border-bottom-left-radius:10px; border-top-left-radius: 10px;">METODO
-                                DE PAGO</span>
-                            <select class="form-control " id="CLI_Cod" name="CLI_Cod">
-                                @foreach ($metodo_pago as $mep)
-                                    <option value="{{ $mep->MEP_Id }}">{{ $mep->MEP_Pago }}</option>
-                                @endforeach
-                            </select>
-                            <span title="Nuevo Cliente" type="button" id="btnNuevoCliea"
-                                class="btn btn-success btn-sm " onclick="mostrarformulario()"
-                                style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"><i
-                                    class="fa fa-plus"></i> <i class="fa fa-user"></i></span>
                         </div>
                     </div>
 
@@ -851,7 +738,7 @@
                             </table>
                         </div>
                     </div>
-                    
+
 
                 </div>
 
@@ -932,14 +819,171 @@
 
     </div>
 
+    <div class="modal fade" id="modalSelectCliente" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11" style="margin-top: 10px">
+                            <label class="control-label" style=" text-align: left; display: block;">Seleccionar
+                                Cliente:</label>
+                            <select class="form-control select2" onchange="onSelectCliente()" id="idCliente"
+                                style="width: 100%">
+                                @foreach ($clientes as $cli)
+                                    <option value="{{ $cli->CLI_Id }}">({{ $cli->CLI_NumDocumento }})
+                                        {{ $cli->CLI_Nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" style="margin-top: 38px">
+                            <span title="Nuevo Cliente" type="button" id="btnNuevoCliea" class="btn btn-success"
+                                onclick="mostrarformulario()"
+                                style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"><i
+                                    class="fa fa-plus"></i> <i class="fa fa-user"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="card mt-2" id="idfrmCliente" style="display: none;">
+                        <div class="card-body">
+                            <h5 class="card-title">CREAR CLIENTE</h5>
+                            <p class="card-text"></p>
+                            <form method="POST" id="cliente_form" action="{{ route('gestion.cliente.store') }}">
+                                @csrf
+                                <input type="text" id="cliente_id_edit" hidden>
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                Cliente
+                                            </span>
+                                        </div>
+                                        <select class="form-control" onChange="Limitar()" id="idCLI_TipoDocumento"
+                                            name="CLI_TipoDocumento"
+                                            style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;">
+                                            <option value="DNI">
+                                                DNI
+                                            </option>
+                                            <option value="RUC">
+                                                RUC
+                                            </option>
+                                            <option value="CE">
+                                                Carnet Extrangeria
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                Nº Doc
+                                            </span>
+                                        </div>
+                                        <input class="form-control input-sm" maxlength="8" id="idCLI_NumDocumento"
+                                            name="CLI_NumDocumento" placeholder="Ingresa Numero de Documento"
+                                            type="text">
+                                        <span class="input-group-append btn btn-primary btn-sm" id="Buscar_Cliente"
+                                            style="display: block; border-bottom-right-radius:10px; border-top-right-radius: 10px;"
+                                            onclick="buscarCliente()"><i class="fas fa-search"></i></span>
+                                        <span class="input-group-append btn btn-primary btn-sm hide" id="cargando"
+                                            style="display: none; border-bottom-right-radius:10px; border-top-right-radius: 10px;"><img
+                                                width="15px" src="{{ asset('images/gif/cargando1.gif') }}"></span>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                Razon social
+                                            </span>
+                                        </div>
+                                        <input class="form-control input-sm" id="idCLI_Nombre" name="CLI_Nombre"
+                                            onkeyup="this.value=this.value.toUpperCase();" placeholder="ingresa nombre"
+                                            style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"
+                                            type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                Direccion
+                                            </span>
+                                        </div>
+                                        <input class="form-control input-sm" id="idCLI_Direccion" name="CLI_Direccion"
+                                            onkeyup="this.value=this.value.toUpperCase();" placeholder="ingresa direccion"
+                                            style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"
+                                            type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                Telefono
+                                            </span>
+                                        </div>
+                                        <input class="form-control input-sm" maxlength="9" name="CLI_Telefono"
+                                            onkeyup="this.value=this.value.toUpperCase();" placeholder="ingresa numero"
+                                            style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"
+                                            type="text">
+                                    </div>
+                                </div>
+                                <p></p>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="saveBtn" class="btn btn-primary"><i class="fas fa-save"></i>Guardar</button>
+                            <button id="updateBtn" class="btn btn-info" style="display: none;"><i
+                                    class="fas fa-save"></i>Actualizar</button>
+                            <button type="reset" id="btncancelar" class="btn btn-danger"> <i
+                                    class="fas fa-ban"></i>Cancelar </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
     <script src="https://unpkg.com/sweetalert2@9.5.3/dist/sweetalert2.all.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js"></script>
+
+    <head>
+        <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+        <link href="{{ asset('plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}" rel="stylesheet">
+        <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+    </head>
 
     @push('scripts')
         <script>
             $(document).ready(function() {
-                $('#CLI_Cod').select2();
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    icon: 'info'
+                });
+
+                $('.select2').select2()
+
+                $('.select2bs4').select2({
+                    theme: 'bootstrap4'
+                })
+
                 $('#btnNuevo').click(function() {
                     habilitar();
                 });
@@ -950,23 +994,23 @@
                     templateSelection: formatState
                 });
 
-                document.querySelector(".btn-select").addEventListener("click", function () {
+                document.querySelector(".btn-select").addEventListener("click", function() {
                     // Alternar la visibilidad del menú
                     this.parentNode.classList.toggle("open");
                 });
 
                 document.querySelectorAll(".dropdown-menu div").forEach(option => {
-                    option.addEventListener("click", function () {
+                    option.addEventListener("click", function() {
                         const selectedText = this.textContent.trim();
-                        const selectedId = this.getAttribute("data-id"); 
+                        const selectedId = this.getAttribute("data-id");
                         document.getElementById("selectedOption").textContent = selectedText;
-                        document.querySelector("#hiddenSelectedId").value = selectedId;
+                        document.querySelector("#hiddenSelectedIdMetodoPago").value = selectedId;
                         this.closest(".dropdown").classList.remove("open");
                     });
                 });
 
                 // Cerrar el menú si se hace clic fuera
-                document.addEventListener("click", function (event) {
+                document.addEventListener("click", function(event) {
                     const dropdown = document.querySelector(".dropdown");
                     if (!dropdown.contains(event.target)) {
                         dropdown.classList.remove("open");
@@ -991,6 +1035,39 @@
                         toggleFullScreen();
                     }
                 }, false);
+
+                $('#saveBtn').click(function(e) {
+                    e.preventDefault();
+                    const form = document.getElementById('cliente_form');
+                    if (form.checkValidity()) {
+                        $.ajax({
+                            data: $('#cliente_form').serialize(),
+                            url: "{{ route('gestion.cliente.store') }}",
+                            type: "POST",
+                            dataType: 'json',
+                            success: function(data) {
+                                console.log('Success:', data);
+                                Toast.fire({
+                                    type: 'success',
+                                    title: data.success
+                                })
+                                vaciarCampos();
+                                table.draw();
+                            },
+                            error: function(data) {
+                                console.log('Error:', data);
+                                Toast.fire({
+                                    type: 'error',
+                                    title: 'cliente fallo al Registrarse.'
+                                })
+                            }
+                        });
+                    } else {
+                        form.reportValidity();
+                    }
+
+                });
+
 
             });
 
@@ -1052,9 +1129,9 @@
 
                 idProducto = datosArticulo[0];
                 //alert(idProducto);
-                producto = $("#btnidp" + ind + "").text();
-                stock = datosArticulo[1];
-                pVenta = datosArticulo[2];
+                producto = datosArticulo[1];
+                stock = datosArticulo[2];
+                pVenta = datosArticulo[3];
                 cantidad = 1;
                 $editar = 0
                 for (var i = 0; i < ListPedido.length; i++) {
@@ -1092,25 +1169,26 @@
                     $("#detallesVenta tbody").remove();
                     for (var i = 0; i < ListPedido.length; i++) {
                         var fila = '<tr  id="fila' + i + '" onclick="posicionamiento(' + i +
-                            ');"><td style="text-align: left;" ><input readonly="true"   hidden name="PRO_Id[]" value="' +
-                            ListPedido[i][0] + '"><label style="font-size: 11px;font-weight: bold;align ">' + ListPedido[i][1] +
-                            '</label></td><td><input readonly="true" hidden  type="number"   name="DEV_PrecioUnitario[]" id="precioUnit' +
-                            i + '" value="' + ListPedido[i][2] + '" ><label id="precioUnitLabel' + i +
-                            '" style="font-size: 11px;">' + ListPedido[i][2] +
-                            '</label></td><td style="text-align: center;" ><input readonly="true" type="number" onkeyup="Valida2(' +
-                            i + ');" name="DEV_Cantidad[]" hidden id="cantidad' + i + '"  value="' + ListPedido[i][3] +
-                            '"><label id="cantidadLabel' + i + '" style="font-size: 11px;">' + ListPedido[i][3] +
-                            '</label></td><td style="text-align: right;"><input readonly="true" hidden name="DEV_Descuento[]" onkeyup="Valida2(' +
-                            i + ');" id="descuento' + i + '"  value="' + ListPedido[i][5] + '"><label id="descuentoLabel' + i +
-                            '" style="font-size: 11px;">' + ListPedido[i][5] +
-                            '</label></td><td style="text-align: right;"><input disabled name="subTot' + i +
-                            '" hidden id="subTot' + i + '"  value="' + ListPedido[i][4] + '"><label id="subTotLabel' + i +
-                            '" style="font-size: 11px;">' + ListPedido[i][4] + '</label></td></tr>';
+                            ');"><td style="text-align: left; padding:0px 7px" >'+
+                            '<div style="display: flex; flex-direction: column; align-items: flex-start; width: 100%;">'+
+                                '<input readonly="true"   hidden name="PRO_Id[]" value="' +ListPedido[i][0] + '">'+
+                                '<span style="font-weight: bold;">' + ListPedido[i][1] +'</span>'+
+                                '<div style="display: flex; gap: 10px; align-items: center;">'+
+                                '<input readonly="true" type="number" onkeyup="Valida2('+i+');" name="DEV_Cantidad[]" hidden id="cantidad'+i+'" value="'+ListPedido[i][3]+'">'+
+                                '<label id="cantidadLabel' + i + '" style="font-size: 11px;display: inline;">' + ListPedido[i][3] + '</label><small style="color: gray;display: inline; "> Unit x S/ <label id="precioUnitLabel' + i +'" style="font-size: 11px;">' + ListPedido[i][2] +'</label></small> ';                            
+                            fila += '<label id="descuentoLabel' + i + '" style="font-size: 11px;"></label> ';
+                            fila += '<input readonly="true" hidden  type="number"   name="DEV_PrecioUnitario[]" id="precioUnit'+ i +'" value="' + ListPedido[i][2] + '" >'+
+                                '<input readonly="true" hidden name="DEV_Descuento[]" onkeyup="Valida2('+i+ ');" id="descuento'+i+'"  value="' + ListPedido[i][5] + '">'+
+                            '</div></div></td><td style="vertical-align: top; text-align: right;">'+
+                            '<input disabled name="subTot' + i + '" hidden id="subTot' + i + '"  value="' + ListPedido[i][4] + '">'+
+                            '<label id="subTotLabel' + i +
+                            '" style="font-size: 13px; font-weight: bold;"> S/ ' + ListPedido[i][4] + '</label>'+
+                            '</td></tr>';
                         $("#detallesVenta").append(fila);
                         $POS = i;
                     }
 
-                    $("#detallesVenta").on("click", "tr", function () {
+                    $("#detallesVenta").on("click", "tr", function() {
                         // Remueve la clase 'selected' de todas las filas
                         $("#detallesVenta tr").removeClass("selected");
                         // Añade la clase 'selected' a la fila clickeada
@@ -1147,77 +1225,6 @@
 
             }
 
-            function Tabla_Producto(id) {
-                var idTipo = $('#btnidt' + id).val();
-                //alert(idTipo)
-                $("#detalles tbody").remove();
-                $con = 0;
-                $fin = 0;
-                $ind = 1;
-
-                <?php foreach ($lotesuni as $lot): ?>
-                $tipo = '<?php echo $lot->CATEGORIA; ?>';
-                $Producto = '<?php echo $lot->PRO_Nombre; ?>';
-                $idProducto = '<?php echo $lot->PRO_Id; ?>';
-                $stock = '<?php echo $lot->PRO_Cantidad; ?>';
-                $preventa = '<?php echo $lot->PRO_PrecioBaseVenta; ?>';
-                if (idTipo == $tipo) {
-                    $con = $con + 1;
-                    if ($con == 1) {
-                        var fila = "<tr>";
-                        if ($stock > 0) {
-                            fila += '<td style=" text-align: center;"><button class="btntipo1" id="btnidp' + $ind +
-                                '" onclick="agregar(' + $ind + ');" value="' + $idProducto + '_' + $stock + '_' + $preventa +
-                                '" style="text-align:center;" value="1" type="button">' + $Producto + '</button></td>';
-                        } else {
-                            fila += '<td style=" text-align: center;"><button class="btntipo3" disabled id="btnidp' + $ind +
-                                '" onclick="agregar(' + $ind + ');" value="' + $idProducto + '_' + $stock + '_' + $preventa +
-                                '" style="text-align:center;" value="1" type="button">' + $Producto + '</button></td>';
-                        }
-
-                    } else if ($con == 2) {
-                        if ($stock > 0) {
-                            fila += '<td style=" text-align: center;"><button class="btntipo1" id="btnidp' + $ind +
-                                '" onclick="agregar(' + $ind + ');" value="' + $idProducto + '_' + $stock + '_' + $preventa +
-                                '" style="text-align:center;" value="1" type="button">' + $Producto + '</button></td>';
-                        } else {
-                            fila += '<td style=" text-align: center;"><button class="btntipo3" disabled id="btnidp' + $ind +
-                                '" onclick="agregar(' + $ind + ');" value="' + $idProducto + '_' + $stock + '_' + $preventa +
-                                '" style="text-align:center;" value="1" type="button">' + $Producto + '</button></td>';
-                        }
-
-                    } else if ($con == 3) {
-                        if ($stock > 0) {
-                            fila += '<td style=" text-align: center;"><button class="btntipo1" id="btnidp' + $ind +
-                                '" onclick="agregar(' + $ind + ');" value="' + $idProducto + '_' + $stock + '_' + $preventa +
-                                '" style="text-align:center;" value="1" type="button">' + $Producto + '</button></td>';
-                        } else {
-                            fila += '<td style=" text-align: center;"><button class="btntipo3" disabled id="btnidp' + $ind +
-                                '" onclick="agregar(' + $ind + ');" value="' + $idProducto + '_' + $stock + '_' + $preventa +
-                                '" style="text-align:center;" value="1" type="button">' + $Producto + '</button></td>';
-                        }
-
-                        fila += '</tr>';
-                        $("#detalles").append(fila);
-                        $con = 0;
-                        $fin = $fin + 1;
-
-                    }
-
-                    $ind = $ind + 1;
-
-                }
-                <?php endforeach ?>
-
-                if ($con == 1 || $con == 2) {
-                    fila += '</tr>';
-                    $("#detalles").append(fila);
-                    $con = 0;
-                    $fin = $fin + 1;
-                }
-
-            }
-
             function Tabla_Producto2() {
                 var idTipo = $('#idCategoria-icon').val();
                 $("#detalles tbody").remove();
@@ -1244,7 +1251,7 @@
                                     <button class="btntipo1" 
                                             id="btnidp${$ind}" 
                                             onclick="agregar(${$ind});" 
-                                            value="${$idProducto}_${$stock}_${$preventa}" 
+                                            value="${$idProducto}_${$Producto}_${$stock}_${$preventa}" 
                                             style="text-align: left; padding: 5px; display: flex; align-items: center; border: 1px solid #ccc; border-radius: 5px;" 
                                             type="button">
                                     <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
@@ -1271,7 +1278,7 @@
                                     <button class="btntipo1" 
                                             id="btnidp${$ind}" 
                                             onclick="agregar(${$ind});" 
-                                            value="${$idProducto}_${$stock}_${$preventa}" 
+                                            value="${$idProducto}_${$Producto}_${$stock}_${$preventa}" 
                                             style="text-align: left; padding: 5px; display: flex; align-items: center; border: 1px solid #ccc; border-radius: 5px;" 
                                             type="button">
                                     <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
@@ -1298,7 +1305,7 @@
                                     <button class="btntipo1" 
                                             id="btnidp${$ind}" 
                                             onclick="agregar(${$ind});" 
-                                            value="${$idProducto}_${$stock}_${$preventa}" 
+                                            value="${$idProducto}_${$Producto}_${$stock}_${$preventa}" 
                                             style="text-align: left; padding: 5px; display: flex; align-items: center; border: 1px solid #ccc; border-radius: 5px;" 
                                             type="button">
                                     <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
@@ -1340,9 +1347,43 @@
             }
 
             function aceptar() {
-                $('#VentaTipo').val('VENTA');
-                var formulario = document.getElementById("form1");
-                formulario.submit();
+                $('#VentaTipo').val('LIBRE');
+                var formulario = document.getElementById("venta_form");
+                $.ajax({
+                    data: $('#venta_form').serialize(),
+                    url: "{{ route('gestion.venta.store') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log('Success:', data);
+                        Swal.fire({
+                            icon: "success",
+                            title: "Venta Generada",
+                            text: "Se realizo el pago correctamente!",
+                            confirmButtonText: "Aceptar",
+                            footer: '<a title="TICKET" target="_blank"  href="/gestion/venta/' + data[0]
+                                .ventagenerado.VEN_Id +
+                                '/ticket" class="btn btn-danger btn-sm" style="margin-left: 5px;"><i class="fa fa fa-print"></i> ¿Desea imprimir documento?</a>',
+                            allowOutsideClick: false, // Deshabilita clics fuera del alert
+                            allowEscapeKey: false
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            } else if (result.isDenied) {
+                                // Swal.fire("Changes are not saved", "", "info");
+                            }
+                        });
+                        cancelarUpdate();
+                        table.draw();
+                    },
+                    error: function(data) {
+                        console.log('Error:', data);
+                        Toast.fire({
+                            type: 'error',
+                            title: 'cliente fallo al Registrarse.'
+                        })
+                    }
+                });
             }
 
             function PagoCalculadora() {
@@ -1363,48 +1404,17 @@
                 }
             }
 
-            function BuscarCliente() {
-                if ($('#CliTDoc').val() == 'DNI') {
-
-                    var cod = document.getElementById("CliTDoc").value;
-
-
-                    $numero = $("#CliNDoc").val();
-
-
-                    if ($numero.length < 8) {
-                        Swal
-                            .fire({
-                                title: "Falta Números en el DNI",
-                                icon: 'error',
-                                confirmButtonColor: "#26BA9A",
-                                confirmButtonText: "Ok"
-                            })
-                            .then(resultado => {
-                                if (resultado.value) {
-                                    $("#CliNDoc").val("");
-                                } else {
-
-                                }
-                            });
-                    } else {
-                        $('#Buscar_Cliente').addClass('hide');
-                        $('#cargando').removeClass('hide');
-
-                        var numdni = $('#CliNDoc').val();
-                        var url = 'https://www.buqkly.com/api/consultadni/' + numdni + '?';
-
+            function buscarCliente() {
+                if ($('#idCLI_TipoDocumento').val() == 'DNI') {
+                    var numdni = $('#idCLI_NumDocumento').val();
+                    if (numdni != '') {
+                        ocultar()
+                        var url = '/consultardni/' + numdni + '?';
                         $.ajax({
                             type: 'GET',
                             url: url,
-                            //data: { "_token": "{{ csrf_token() }}"},
-                            // headers: {  'Access-Control-Allow-Origin': 'https://www.buqkly.com' },
                             success: function(dat) {
-
                                 if (dat.success[1] == false) {
-                                    $('#Buscar_Cliente').removeClass('hide');
-                                    $('#cargando').addClass('hide');
-
                                     Swal
                                         .fire({
                                             title: "DNI Inválido",
@@ -1415,120 +1425,91 @@
                                         })
                                         .then(resultado => {
                                             if (resultado.value) {
-                                                $("#CliNDoc").val("");
-                                            } else {
-
-                                            }
+                                                $("#idCLI_Nombre").val("");
+                                            } else {}
                                         });
                                 } else {
-
-                                    $('#CliNom').val(dat.success[0]);
-
-
-                                    $('#Buscar_Cliente').removeClass('hide');
-                                    $('#cargando').addClass('hide');
-
+                                    $('#idCLI_Nombre').val(dat.success[0].apellido + ' ' + dat.success[0].nombre);
                                 }
                             }
 
                         });
-
-
-
-                    }
-
-                } else {
-
-                    var cod = document.getElementById("CliTDoc").value;
-
-
-                    $numero = $("#CliNDoc").val();
-
-
-                    if ($numero.length < 11) {
-                        Swal
-                            .fire({
-                                title: "Falta Números en el RUC",
-                                icon: 'error',
-                                confirmButtonColor: "#26BA9A",
-                                confirmButtonText: "Ok"
-                            })
-                            .then(resultado => {
-                                if (resultado.value) {
-                                    $("#CliNDoc").val("");
-                                } else {
-
-                                }
-                            });
                     } else {
-
-
-                        $('#Buscar_Cliente').addClass('hide');
-                        $('#cargando').removeClass('hide');
-
-                        var numdni = $('#CliNDoc').val();
-                        var url = 'https://www.buqkly.com/api/consultaruc/' + numdni + '?';
-
+                        //mostrar()
+                        alert('Escriba el DNI.!');
+                        $('#idCLI_NumDocumento').focus();
+                    }
+                } else if ($('#idCLI_TipoDocumento').val() == 'RUC') {
+                    var numdni = $('#idCLI_NumDocumento').val();
+                    if (numdni != '') {
+                        ocultar()
+                        var url = '/consultarruc/' + numdni + '?';
                         $.ajax({
                             type: 'GET',
                             url: url,
-                            //data: { "_token": "{{ csrf_token() }}"},
-                            // headers: {  'Access-Control-Allow-Origin': 'https://www.buqkly.com' },
                             success: function(dat) {
-                                //console.log(dat);
-
-
-                                if (dat.success[1] == null) {
-                                    $('#Buscar_Cliente').removeClass('hide');
-                                    $('#cargando').addClass('hide');
-                                    Swal
-                                        .fire({
-                                            title: "Ruc Inválido",
-                                            icon: 'error',
-                                            confirmButtonColor: "#26BA9A",
-                                            width: '350px',
-                                            heigth: '100px',
-                                            confirmButtonText: "Ok"
-                                        })
-                                        .then(resultado => {
-                                            if (resultado.value) {
-                                                $("#CliNDoc").val("");
-                                            } else {
-
-                                            }
-                                        });
+                                console.log(dat)
+                                if (dat.success[0] == "") {
+                                    $('#idCLI_Nombre').val(dat.success[1]);
+                                    $('#idCLI_Direccion').val(dat.success[2] + ' ' + dat.success[3]);
                                 } else {
-
-                                    $('#CliNom').val(dat.success[1]);
-                                    $('#CliDir').val(dat.success[2]);
-
-                                    $('#Buscar_Cliente').removeClass('hide');
-                                    $('#cargando').addClass('hide');
-
+                                    $('#idCLI_Nombre').val(dat.success[0].apellido + ' ' + dat.success[0].nombre);
                                 }
+
                             }
 
                         });
-
+                    } else {
+                        alert('Escriba el RUC.!');
+                        $('#idCLI_NumDocumento').focus();
                     }
                 }
             }
 
-            function limitar() {
+            function onSelectCliente() {
+                const selectedValue = $('#idCliente').val(); // Obtiene el ID del cliente
+                const selectedLabel = $('#idCliente option:selected').text();
 
-                var cod = document.getElementById("CliTDoc").value;
+                document.getElementById("selectedCliente").textContent = selectedLabel;
+                document.querySelector("#hiddenSelectedIdCliente").value = selectedValue;
+                $('#modalSelectCliente').modal('hide');
+            }
 
+            function vaciarCampos() {
+                $('#cliente_form').trigger("reset");
+                $("#cliente_id_edit").val('');
+                $('#modalSelectCliente').modal('hide');
+                $("#saveBtn").show();
+            }
+
+            function showCliente() {
+                $('#modalSelectCliente').modal('show');
+            }
+
+            function Limitar() {
+                var cod = document.getElementById("idCLI_TipoDocumento").value;
                 if (cod == 'DNI') {
-                    $("#CliNDoc").val("");
-                    $("#CliNDoc").attr('maxlength', '8');
+                    $("#idCLI_NumDocumento").val("");
+                    $("#idCLI_NumDocumento").attr('maxlength', '8');
                 } else {
-
-
-
-                    $("#CliNDoc").val("");
-                    $("#CliNDoc").attr('maxlength', '11');
+                    $("#idCLI_NumDocumento").val("");
+                    $("#idCLI_NumDocumento").attr('maxlength', '11');
                 }
+            }
 
+            function ocultar() {
+                document.getElementById('Buscar_Cliente').style.display = 'none';
+                document.getElementById('cargando').style.display = 'block';
+                setInterval('mostrar()', 1000);
+            }
+
+            function mostrar() {
+                $valorcito = $('#idCLI_Nombre').val();
+                $valor = $valorcito.length;
+                if ($valor > 0) {
+                    document.getElementById('Buscar_Cliente').style.display = 'block';
+                    document.getElementById('cargando').style.display = 'none';
+                }
             }
 
             function posicionamiento(index) {
@@ -1604,7 +1585,7 @@
                         document.querySelector('#precioUnitLabel' + $POS).innerText = num;
                     } else if ($MET == "DESCUENTO") {
                         $('#descuento' + $POS).val(num);
-                        document.querySelector('#descuentoLabel' + $POS).innerText = num;
+                        document.querySelector('#descuentoLabel' + $POS).innerText = " - Descuento S/ "+num;
                     }
 
                     var cantid = $('#cantidad' + $POS).val();
