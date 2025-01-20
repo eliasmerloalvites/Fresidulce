@@ -19,5 +19,14 @@ class DetalleCompra extends Model
         'DCOM_PrecioVenta'
     ];
     protected $guarded=[];
+    public function compra(){
+        return $this->belongsTo(Compra::class,'COM_Id','COM_Id');
+    }
+    public function almacen(){
+        return $this->belongsTo(Almacen::class,'ALM_Id','ALM_Id');
+    }
+    public function producto(){
+        return $this->belongsTo(Producto::class,'PRO_Id','PRO_Id');
+    }
 
 }

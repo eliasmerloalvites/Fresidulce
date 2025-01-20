@@ -21,4 +21,8 @@ class Producto extends Model
         'PRO_Status'
     ];
     protected $guarded=[];
+
+    public function categoria(){
+        return $this->belongsTo(Categoria::class,'CAT_Id','CAT_Id');
+    }
 }

@@ -19,4 +19,18 @@ class Compra extends Model
         'COM_Status'
     ];
     protected $guarded=[];
+
+    public function metodo_pago(){
+        return $this->belongsTo(MetodoPago::class,'MEP_Id','MEP_Id');
+    }
+
+    public function proveedor(){
+        return $this->belongsTo(Proveedor::class,'PROV_Id','PROV_Id');
+    }
+
+    public function detalle_compra(){
+        return $this->hasMany(DetalleCompra::class,'COM_Id','COM_Id');
+    }
+
+
 }
