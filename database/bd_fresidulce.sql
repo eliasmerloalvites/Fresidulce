@@ -468,7 +468,12 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (37, 'gestion.venta.show', 'web', '2025-01-10 02:29:25', '2025-01-10 02:29:25', 1, '-', 'Visualizacion de detalles de venta'),
 (38, 'gestion.venta.create', 'web', '2025-01-10 02:29:43', '2025-01-10 02:29:43', 1, '-', 'Creacion de venta'),
 (39, 'gestion.venta.edit', 'web', '2025-01-10 02:30:11', '2025-01-10 02:30:11', 1, '-', 'Edicion de venta'),
-(40, 'gestion.venta.destroy', 'web', '2025-01-10 02:30:42', '2025-01-10 02:30:42', 1, '-', 'Eliminacion de venta');
+(40, 'gestion.venta.destroy', 'web', '2025-01-10 02:30:42', '2025-01-10 02:30:42', 1, '-', 'Eliminacion de venta'),
+(41, 'tipogasto.index', 'web', '2025-01-10 02:28:41', '2025-01-10 15:48:37', 1, '-', 'TIPO GASTO '),
+(42, 'tipogasto.show', 'web', '2025-01-10 02:29:25', '2025-01-10 02:29:25', 1, '-', 'Visualizacion de detalles de tipogasto'),
+(43, 'tipogasto.create', 'web', '2025-01-10 02:29:43', '2025-01-10 02:29:43', 1, '-', 'Creacion de tipogasto'),
+(44, 'tipogasto.edit', 'web', '2025-01-10 02:30:11', '2025-01-10 02:30:11', 1, '-', 'Edicion de tipogasto'),
+(45, 'tipogasto.destroy', 'web', '2025-01-10 02:30:42', '2025-01-10 02:30:42', 1, '-', 'Eliminacion de tipogasto')
 
 -- --------------------------------------------------------
 

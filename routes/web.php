@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TipoGastoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,7 @@ Route::middleware(['auth'])->group(function(){
   Route::resource('role', RoleController::class);  
   Route::resource('permiso', PermisoController::class);
   Route::resource('clase',ClaseController::class);
+  Route::resource('tipogasto',TipoGastoController::class);
   
   Route::resource('categoria', CategoriaController::class);
   

@@ -112,7 +112,7 @@
                             </li>
                             <li class="nav-item has-treeview {{ request()->is('gestion/venta*') || request()->is('gestion/cliente*') ? 'menu-open' : '' }}" >
                                 <a href="#" class="nav-link {{ request()->is('gestion/venta*') || request()->is('gestion/cliente*') ? 'active' : '' }} ">
-                                    <i class="nav-icon fas fa-layer-group"></i>
+                                    <i class="nav-icon fas fa-shopping-cart"></i>
                                     <p>
                                         VENTAS
                                         <i class="fas fa-angle-left right"></i>
@@ -139,7 +139,7 @@
                             
                             <li class="nav-item has-treeview {{request()->is('proveedor*')|| request()->is('compra*') ? 'menu-open' : '' }}" >
                                 <a href="#" class="nav-link {{request()->is('proveedor*')|| request()->is('compra*')? 'active' : '' }}" >
-                                    <i class="nav-icon fas fa-layer-group"></i>
+                                    <i class="nav-icon fas fa-cart-arrow-down"></i>
                                     <p>
                                         COMPRAS
                                         <i class="fas fa-angle-left right"></i>
@@ -162,112 +162,30 @@
                                 </ul>
                             </li>
 
-                            @can('rrhh.personal.index')
-                                <li class="nav-item has-treeview" id="idCabGestion">
-                                    <a href="#" class="nav-link" id="idGestion">
-                                        <i class="nav-icon fas fa-edit"></i>
-                                        <p>
-                                            GESTIÓN ADMINISTRATIVA
-                                            <i class="fas fa-angle-left right"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        @can('rrhh.personal.index')
-                                            <li class="nav-item has-treeview">
-                                                <a href="{{ route('rrhh.personal.create') }}" class="nav-link "
-                                                    id="idGesPersonalN">
-                                                    <i class="nav-icon far fa-circle"></i>
-                                                    <p>
-                                                        Personal Nuevo
-                                                    </p>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                        @can('rrhh.personal.index')
-                                            <li class="nav-item has-treeview">
-                                                <a href="{{ route('rrhh.personal.index') }}" class="nav-link" id="idGesFicha">
-                                                    <i class="nav-icon far fa-circle"></i>
-                                                    <p>
-                                                        Ficha Personal
-                                                    </p>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                        @can('rrhh.personal.index')
-                                            <li class="nav-item has-treeview" id="idCabGesActas" style="display: none">
-                                                <a href="#" class="nav-link" id="idGesActas">
-                                                    <i class="nav-icon fas fa-circle"></i>
-                                                    <p>
-                                                        Actas de Bioseguridad
-                                                        <i class="right fas fa-angle-left"></i>
-                                                    </p>
-                                                </a>
-                                                <ul class="nav nav-treeview">
-                                                    @can('rrhh.actaspersonal.create')
-                                                        <li class="nav-item">
-                                                            <a href="{{ route('rrhh.actaspersonal.create') }}" class="nav-link"
-                                                                id="idGesActasRegistrar">
-                                                                <i class="far fa-circle nav-icon"></i>
-                                                                <p>Registrar</p>
-                                                            </a>
-                                                        </li>
-                                                    @endcan
-                                                    @can('rrhh.actaspersonal.index')
-                                                        <li class="nav-item">
-                                                            <a href="{{ route('rrhh.actaspersonal.index') }}" class="nav-link"
-                                                                id="idGesActasLista">
-                                                                <i class="far fa-circle nav-icon"></i>
-                                                                <p>Lista</p>
-                                                            </a>
-                                                        </li>
-                                                    @endcan
-                                                </ul>
-                                            </li>
-                                        @endcan
-                                        @can('rrhh.contratopersonal.index')
-                                            <li class="nav-item has-treeview" id="idCabGesPersonal">
-                                                <a href="#" class="nav-link" id="idGesPersonal">
-                                                    <i class="nav-icon fas fa-circle"></i>
-                                                    <p>
-                                                        Contrato
-                                                        <i class="right fas fa-angle-left"></i>
-                                                    </p>
-                                                </a>
-                                                <ul class="nav nav-treeview">
-                                                    @can('rrhh.contratopersonal.create')
-                                                        <li class="nav-item">
-                                                            <a href="{{ route('rrhh.contratopersonal.create') }}" class="nav-link"
-                                                                id="idGesPersonalRegistrar">
-                                                                <i class="far fa-circle nav-icon"></i>
-                                                                <p>Registrar</p>
-                                                            </a>
-                                                        </li>
-                                                    @endcan
-                                                    @can('rrhh.contratopersonal.index')
-                                                        <li class="nav-item">
-                                                            <a href="{{ route('rrhh.contratopersonal.index') }}" class="nav-link"
-                                                                id="idGesPersonalLista">
-                                                                <i class="far fa-circle nav-icon"></i>
-                                                                <p>Lista</p>
-                                                            </a>
-                                                        </li>
-                                                    @endcan
-                                                </ul>
-                                            </li>
-                                        @endcan
-                                        @can('rrhh.contratopersonal.index')
-                                            <li class="nav-item has-treeview" style="display: none">
-                                                <a href="{{ route('rrhh.personal.filtro') }}" class="nav-link" id="idGesFiltro">
-                                                    <i class="nav-icon far fa-circle"></i>
-                                                    <p>
-                                                        Filtros
-                                                    </p>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                    </ul>
-                                </li>
-                            @endcan
+                            <li class="nav-item has-treeview {{request()->is('gasto*')|| request()->is('compra*') ? 'menu-open' : '' }}" >
+                                <a href="#" class="nav-link {{request()->is('gasto*')|| request()->is('compra*')? 'active' : '' }}" >
+                                    <i class="nav-icon fas fa-briefcase"></i>                                 
+                                    <p>
+                                        Administración
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{route('tipogasto.index')}}" class="nav-link {{request()->is('tipogasto*')? 'active' : '' }}" >
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Gastos</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('proveedor.index') }}" class="nav-link {{ request()->is('proveedor*') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Caja Chica</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
 
                             @can('reporte.ventas')
                                 <li class="nav-item has-treeview" id="idCabReporte1">
@@ -290,62 +208,65 @@
                                     </ul>
                                 </li>
                             @endcan
-
-                            @can('rrhh.puesto.index')
-                                <li class="nav-item has-treeview" id="idCabAjuste">
-                                    <a href="#" class="nav-link " id="idAjuste">
-                                        <i class="nav-icon fas fa-sliders-h"></i>
+                            
+                            @can('clase.index')
+                                <li class="nav-item has-treeview {{ request()->is('clase*') || request()->is('categoria*') || request()->is('producto*') || request()->is('almacen*') || request()->is('metodoPago*') || request()->is('tipogasto*')? 'menu-open' : '' }}">
+                                    <a href="#" class="nav-link {{ request()->is('clase*') || request()->is('categoria*')|| request()->is('producto*')|| request()->is('almacen*') || request()->is('metodoPago*') || request()->is('tipogasto*')? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-layer-group"></i>
                                         <p>
-                                            AJUSTES
+                                            MODULO
                                             <i class="right fas fa-angle-left"></i>
                                         </p>
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        @can('rrhh.tipolinea.index')
+                                        @can('clase.index')
                                             <li class="nav-item">
-                                                <a href="{{ route('rrhh.tipolinea.index') }}" class="nav-link "
-                                                    id="idAjuTipoLinea">
+                                                <a href="{{ route('clase.index') }}" class="nav-link {{ request()->is('clase*') ? 'active' : '' }}">
                                                     <i class="far fa-circle nav-icon"></i>
-                                                    <p>Tipo Línea</p>
+                                                    <p>Clases</p>
                                                 </a>
                                             </li>
                                         @endcan
-                                        @can('rrhh.operador.index')
+
+                                        @can('categoria.index')
                                             <li class="nav-item">
-                                                <a href="{{ route('rrhh.operador.index') }}" class="nav-link "
-                                                    id="idAjuOperador">
+                                                <a href="{{ route('categoria.index') }}" class="nav-link {{ request()->is('categoria*') ? 'active' : '' }}">
                                                     <i class="far fa-circle nav-icon"></i>
-                                                    <p>Operador</p>
+                                                    <p>Categorias</p>
                                                 </a>
                                             </li>
                                         @endcan
-                                        @can('rrhh.estadolinea.index')
+
+
+                                        @can('producto.index')
                                             <li class="nav-item">
-                                                <a href="{{ route('rrhh.estadolinea.index') }}" class="nav-link "
-                                                    id="idAjuEstadoLinea">
+                                                <a href="{{ route('producto.index') }}" class="nav-link {{ request()->is('producto*') ? 'active' : '' }}">
                                                     <i class="far fa-circle nav-icon"></i>
-                                                    <p>Estado Línea</p>
+                                                    <p>Productos</p>
                                                 </a>
                                             </li>
                                         @endcan
-                                        @can('rrhh.producto.index')
-                                            <li class="nav-item">
-                                                <a href="{{ route('rrhh.producto.index') }}" class="nav-link "
-                                                    id="idAjuProducto">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>Producto</p>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                        @can('mantenimiento.cliente.index')
-                                            <li class="nav-item">
-                                                <a href="{{ route('mantenimiento.cliente.index') }}" class="nav-link"
-                                                    id="idAjuCliente">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>Cliente</p>
-                                                </a>
-                                            </li>
-                                        @endcan
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('almacen.index') }}" class="nav-link {{ request()->is('almacen*') ? 'active' : '' }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Almacen</p>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('metodoPago.index') }}" class="nav-link {{ request()->is('metodoPago*') ? 'active' : '' }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Método de Pago</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('tipogasto.index')}}" class="nav-link {{request()->is('tipogasto*')? 'active' : '' }}" >
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Tipo Gasto</p>
+                                            </a>
+                                        </li>
+
                                     </ul>
                                 </li>
                             @endcan
@@ -406,61 +327,6 @@
                             @endcan
 
 
-                            @can('clase.index')
-                                <li class="nav-item has-treeview {{ request()->is('clase*') || request()->is('categoria*') || request()->is('producto*') || request()->is('almacen*')|| request()->is('metodoPago*')? 'menu-open' : '' }}">
-                                    <a href="#" class="nav-link {{ request()->is('clase*') || request()->is('categoria*')|| request()->is('producto*')|| request()->is('almacen*') || request()->is('metodoPago*')? 'active' : '' }}">
-                                        <i class="nav-icon fas fa-layer-group"></i>
-                                        <p>
-                                            MODULO
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        @can('clase.index')
-                                            <li class="nav-item">
-                                                <a href="{{ route('clase.index') }}" class="nav-link {{ request()->is('clase*') ? 'active' : '' }}">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>Clases</p>
-                                                </a>
-                                            </li>
-                                        @endcan
-
-                                        @can('categoria.index')
-                                            <li class="nav-item">
-                                                <a href="{{ route('categoria.index') }}" class="nav-link {{ request()->is('categoria*') ? 'active' : '' }}">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>Categorias</p>
-                                                </a>
-                                            </li>
-                                        @endcan
-
-
-                                        @can('producto.index')
-                                            <li class="nav-item">
-                                                <a href="{{ route('producto.index') }}" class="nav-link {{ request()->is('producto*') ? 'active' : '' }}">
-                                                    <i class="far fa-circle nav-icon"></i>
-                                                    <p>Productos</p>
-                                                </a>
-                                            </li>
-                                        @endcan
-
-                                        <li class="nav-item">
-                                            <a href="{{ route('almacen.index') }}" class="nav-link {{ request()->is('almacen*') ? 'active' : '' }}">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Almacen</p>
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="{{ route('metodoPago.index') }}" class="nav-link {{ request()->is('metodoPago*') ? 'active' : '' }}">
-                                                <i class="far fa-circle nav-icon"></i>
-                                                <p>Método de Pago</p>
-                                            </a>
-                                        </li>
-
-                                    </ul>
-                                </li>
-                            @endcan
 
 
 
