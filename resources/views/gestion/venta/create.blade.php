@@ -727,19 +727,6 @@
 
                     {!! Form::close() !!}
 
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="margin-top: 10px">
-                        <div class="table-responsive">
-                            <table class="table table-sm table-striped table-bordered table-condensed table-hover">
-                                <thead>
-                                    <th style="text-align: center; width: 5px;">TICKET</th>
-                                    <th style="text-align: center; width: 5px;">OPCIONES</th>
-                                </thead>
-
-                            </table>
-                        </div>
-                    </div>
-
-
                 </div>
 
             </div>
@@ -886,7 +873,7 @@
                                             </span>
                                         </div>
                                         <input class="form-control input-sm" maxlength="8" id="idCLI_NumDocumento"
-                                            name="CLI_NumDocumento" placeholder="Ingresa Numero de Documento"
+                                            name="CLI_NumDocumento" required placeholder="Ingresa Numero de Documento"
                                             type="text">
                                         <span class="input-group-append btn btn-primary btn-sm" id="Buscar_Cliente"
                                             style="display: block; border-bottom-right-radius:10px; border-top-right-radius: 10px;"
@@ -907,7 +894,7 @@
                                             </span>
                                         </div>
                                         <input class="form-control input-sm" id="idCLI_Nombre" name="CLI_Nombre"
-                                            onkeyup="this.value=this.value.toUpperCase();" placeholder="ingresa nombre"
+                                            onkeyup="this.value=this.value.toUpperCase();" required placeholder="ingresa nombre"
                                             style=" border-bottom-right-radius:10px; border-top-right-radius: 10px;"
                                             type="text">
                                     </div>
@@ -1047,12 +1034,13 @@
                             dataType: 'json',
                             success: function(data) {
                                 console.log('Success:', data);
+                                document.getElementById("selectedCliente").textContent = data[0].CLI_Nombre;
+                                document.querySelector("#hiddenSelectedIdCliente").value = data[0].CLI_Id;
                                 Toast.fire({
                                     type: 'success',
                                     title: data.success
                                 })
                                 vaciarCampos();
-                                table.draw();
                             },
                             error: function(data) {
                                 console.log('Error:', data);

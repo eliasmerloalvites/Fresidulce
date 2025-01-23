@@ -27,6 +27,46 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `actas_personal`
 --
 
+
+CREATE TABLE `gasto` (
+  `GAS_Id` int(10) NOT NULL,
+  `PROV_Id` int(10) UNSIGNED NOT NULL,
+  `MEP_Id` int(10) UNSIGNED NOT NULL,
+  `TG_Id` int(10) UNSIGNED NOT NULL,
+  `ALM_Id` int(10) UNSIGNED NOT NULL,
+  `USU_Id` int(10) UNSIGNED NOT NULL,
+  `GAS_Descripcion` varchar(100) DEFAULT NULL,
+  `GAS_Monto` double NOT NULL,
+  `GAS_Fecha` datetime DEFAULT NULL,
+  `TG_Comprobante` varchar(10) NOT NULL,
+  `TG_ComprobanteNum` varchar(20) NOT NULL,
+  `ALM_Status` tinyint(1) NOT NULL DEFAULT 1,
+  `GAS_Observacion` varchar(100) DEFAULT NULL,
+  `GAS_Afecta` varchar(4) DEFAULT 'SI',
+  `GAS_Documento` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+ALTER TABLE `gasto`
+  ADD PRIMARY KEY (`GAS_Id`),
+  ADD KEY `GAS_KFR1` (`PROV_Id`),
+  ADD KEY `GAS_KFR2` (`MEP_Id`),
+  ADD KEY `GAS_KFR3` (`TG_Id`),
+  ADD KEY `GAS_KFR4` (`ALM_Id`),
+  ADD KEY `GAS_KFR5` (`USU_Id`);
+
+ALTER TABLE `gasto`
+  MODIFY `GAS_Id` int(10) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `gasto`
+  ADD CONSTRAINT `GAS_KFR1` FOREIGN KEY (`PROV_Id`) REFERENCES `proveedor` (`PROV_Id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `GAS_KFR2` FOREIGN KEY (`MEP_Id`) REFERENCES `metodo_pago` (`MEP_Id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `GAS_KFR3` FOREIGN KEY (`TG_Id`) REFERENCES `tipo_gasto` (`TG_Id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `GAS_KFR4` FOREIGN KEY (`ALM_Id`) REFERENCES `almacen` (`ALM_Id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `GAS_KFR5` FOREIGN KEY (`USU_Id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+
+
 CREATE TABLE `actas_personal` (
   `ACP_Item` int(10) UNSIGNED NOT NULL,
   `ACP_FechaInicio` date NOT NULL,
@@ -473,7 +513,12 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (42, 'tipogasto.show', 'web', '2025-01-10 02:29:25', '2025-01-10 02:29:25', 1, '-', 'Visualizacion de detalles de tipogasto'),
 (43, 'tipogasto.create', 'web', '2025-01-10 02:29:43', '2025-01-10 02:29:43', 1, '-', 'Creacion de tipogasto'),
 (44, 'tipogasto.edit', 'web', '2025-01-10 02:30:11', '2025-01-10 02:30:11', 1, '-', 'Edicion de tipogasto'),
-(45, 'tipogasto.destroy', 'web', '2025-01-10 02:30:42', '2025-01-10 02:30:42', 1, '-', 'Eliminacion de tipogasto')
+(45, 'tipogasto.destroy', 'web', '2025-01-10 02:30:42', '2025-01-10 02:30:42', 1, '-', 'Eliminacion de tipogasto'),
+(46, 'gasto.index', 'web', '2025-01-10 02:28:41', '2025-01-10 15:48:37', 1, '-', 'GASTO '),
+(47, 'gasto.show', 'web', '2025-01-10 02:29:25', '2025-01-10 02:29:25', 1, '-', 'Visualizacion de detalles de gasto'),
+(48, 'gasto.create', 'web', '2025-01-10 02:29:43', '2025-01-10 02:29:43', 1, '-', 'Creacion de gasto'),
+(49, 'gasto.edit', 'web', '2025-01-10 02:30:11', '2025-01-10 02:30:11', 1, '-', 'Edicion de gasto'),
+(50, 'gasto.destroy', 'web', '2025-01-10 02:30:42', '2025-01-10 02:30:42', 1, '-', 'Eliminacion de gasto');
 
 -- --------------------------------------------------------
 

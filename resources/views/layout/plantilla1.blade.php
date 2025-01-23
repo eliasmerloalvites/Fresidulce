@@ -166,14 +166,14 @@
                                 <a href="#" class="nav-link {{request()->is('gasto*')|| request()->is('compra*')? 'active' : '' }}" >
                                     <i class="nav-icon fas fa-briefcase"></i>                                 
                                     <p>
-                                        Administración
+                                        ADMINISTRACION
                                         <i class="fas fa-angle-left right"></i>
                                     </p>
                                 </a>
 
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="{{route('tipogasto.index')}}" class="nav-link {{request()->is('tipogasto*')? 'active' : '' }}" >
+                                        <a href="{{route('gasto.index')}}" class="nav-link {{request()->is('gasto*')? 'active' : '' }}" >
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Gastos</p>
                                         </a>

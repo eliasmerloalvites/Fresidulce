@@ -6,6 +6,7 @@ use App\Http\Controllers\ClaseController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\ConsultaDocumentoController;
+use App\Http\Controllers\GastoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MetodoPagoController;
 use App\Http\Controllers\PermisoControl;
@@ -57,6 +58,7 @@ Route::middleware(['auth'])->group(function(){
   Route::resource('permiso', PermisoController::class);
   Route::resource('clase',ClaseController::class);
   Route::resource('tipogasto',TipoGastoController::class);
+  Route::resource('gasto',GastoController::class);
   
   Route::resource('categoria', CategoriaController::class);
   

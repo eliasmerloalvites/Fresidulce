@@ -33,6 +33,7 @@ class TipoGastoController extends Controller
                 ->rawColumns(['action1','action2'])
                 ->make(true);
         }
+        
         return view('administracion.tipogasto.index');
     }
 
